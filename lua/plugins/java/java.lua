@@ -1,0 +1,6 @@
+-- local config = {
+--
+--   cmd = {
+--     "-javaagent: ",
+--   },
+-- }
