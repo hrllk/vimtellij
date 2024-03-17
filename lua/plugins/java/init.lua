@@ -26,6 +26,10 @@ return {
           end,
         },
       },
+      -- keys = {
+      --   -- { "<leader>O", ":lua require('jdtls').organize_imports()<CR>" },
+      --   -- { "<leader>O", ":lua organize_imports()<CR>" },
+      -- },
     },
   },
 }
