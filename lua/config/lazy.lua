@@ -14,7 +14,9 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "gruvbox",
+        -- colorscheme = "gruvbox",
+        -- colorscheme = "aura-theme",
+        -- colorscheme = "baliestri/aura-theme",
         -- colorscheme = "solarized-osaka",
       },
     },
