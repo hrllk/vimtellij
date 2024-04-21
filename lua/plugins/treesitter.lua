@@ -10,6 +10,7 @@ return {
         "javascript",
         "json",
         "lua",
+        "java",
         "markdown",
         "markdown_inline",
         "python",
