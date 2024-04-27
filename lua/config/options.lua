@@ -4,10 +4,12 @@
 -- override
 
 local opt = vim.opt
-
-opt.ttimeoutlen = 0
+-- opt.timeout = true
+-- opt.timeoutlen = 1000
+-- opt.ttimeoutlen = 100
+-- opt.tm = 10
+-- opt.ttimeoutlen = 0
 
 opt.tabstop = 4 -- A TAB character looks like 4 spaces
 opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
-opt.shiftwidth = 4 -- Number of spaces inserted when indenting
