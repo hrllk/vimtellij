@@ -20,6 +20,7 @@ keymap.set("n", "<C-m>", "<C-i>", opts)
 
 -- new tab
 keymap.set("n", "te", ":tabedit <Return>", opts)
+keymap.set("n", "to", ":tabonly <Return>", opts)
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
@@ -28,20 +29,17 @@ keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
 
 -- move window
-keymap.set("n", "sh", "<C-w>h", opts)
-keymap.set("n", "sk", "<C-w>k", opts)
-keymap.set("n", "sj", "<C-w>j", opts)
-keymap.set("n", "sl", "<C-w>l", opts)
-keymap.set("n", "<C-w><left>", "<C-w><", opts)
-keymap.set("n", "<C-w><right>", "<C-w>>", opts)
-keymap.set("n", "<C-w><up>", "<C-w>+", opts)
-keymap.set("n", "<C-w><down>", "<C-w>-", opts)
+-- keymap.set("n", "sh", "<C-w>h", opts)
+-- keymap.set("n", "sk", "<C-w>k", opts)
+-- keymap.set("n", "sj", "<C-w>j", opts)
+-- keymap.set("n", "sl", "<C-w>l", opts)
+-- keymap.set("n", "<C-w><left>", "<C-w><", opts)
+-- keymap.set("n", "<C-w><right>", "<C-w>>", opts)
+-- keymap.set("n", "<C-w><up>", "<C-w>+", opts)
+-- keymap.set("n", "<C-w><down>", "<C-w>-", opts)
 
--- plugin lsp
--- keymap.set("n", "&", "<cmd>lua vim.lsp.buf.references()<CR>", opts) -- CTRL-O == goback
-
--- plugin jdtls
--- keymap.set("n", "<leader>O", ":lua require('jdtls').organize_imports()<CR>", opts)
+-- lsp
+keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>", opts)
 keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
