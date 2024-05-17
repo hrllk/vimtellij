@@ -3,4 +3,4 @@
 -- Add any additional options here
 -- override
 
--- local opt = vim.opt
+local opt = vim.opt
