@@ -51,3 +51,5 @@ keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 keymap.set("n", "<C-j>", function()
   vim.diagnostic.goto_next()
 end, opts)
+
+keymap.set("n", "x", '"_x')

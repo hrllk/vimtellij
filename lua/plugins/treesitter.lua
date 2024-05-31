@@ -21,6 +21,8 @@ return {
         "vim",
         "yaml",
         "go",
+        "sql",
+        "xml",
       },
     },
   },
