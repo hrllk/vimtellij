@@ -1,4 +1,8 @@
 return {
+  -- -------------------------------------------------
+  -- noice
+  -- for hightlighting
+  -- -------------------------------------------------
   {
     "folke/noice.nvim",
     opts = function(_, opts)
@@ -14,8 +18,10 @@ return {
     end,
   },
 
+  -- -------------------------------------------------
   -- notify popup
   -- upsage :lua print('hey')
+  -- -------------------------------------------------
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -25,9 +31,12 @@ return {
     },
   },
 
+  -- -------------------------------------------------
   -- buffer line tab
   -- tab swicher
   -- usage: te 생성후
+  -- -------------------------------------------------
+
   {
     "akinsho/bufferline.nvim",
     keys = {
@@ -43,8 +52,10 @@ return {
     },
   },
 
+  -- -------------------------------------------------
   -- animation
   -- can see cusor jumped up
+  -- -------------------------------------------------
   -- {
   --   "echasnovski/mini.animate",
   --   event = "VeryLazy",
@@ -55,7 +66,9 @@ return {
   --   end,
   -- },
 
-  -- logo
+  -- -------------------------------------------------
+  -- dashboard logo
+  -- -------------------------------------------------
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",

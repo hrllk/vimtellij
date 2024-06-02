@@ -1,6 +1,8 @@
 return {
+  -- -------------------------------------------------
   -- treesitter
   -- for hightlighting
+  -- -------------------------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {

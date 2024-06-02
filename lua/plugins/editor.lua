@@ -1,6 +1,8 @@
 return {
+  -- -------------------------------------------------
   -- inc-rename
   -- for rename (refactor)
+  -- -------------------------------------------------
   {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",
@@ -19,7 +21,9 @@ return {
     config = true,
   },
 
+  -- -------------------------------------------------
   -- Highlight colors
+  -- -------------------------------------------------
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
