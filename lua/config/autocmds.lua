@@ -5,7 +5,7 @@ vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- auto format false
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "java, tsx" },
+  pattern = { "*" },
   callback = function()
     vim.b.autoformat = false
   end,
