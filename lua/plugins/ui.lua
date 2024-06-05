@@ -87,30 +87,62 @@ return {
     end,
   },
 
-  -- file name in multiple pane
-  -- {
-  --   "b0o/include.nvim",
-  --   dependencies = { "craftzdog/solarized-osaka.nvim" },
-  --   event = "BufReadPre",
-  --   priority = 1200,
-  --   config = function()
-  --     local colors = require("solarized-osak.colors").setup()
-  --     require("include").setup({
-  --
-  --       highlight = {
-  --         groups = {
-  --           inclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
-  --           inclineNomalNC = { guifg = colors.violet500, guibg = colors.base03 },
-  --         },
-  --       },
-  --       window = { margin = { vertical = 0, horizontal = 1 } },
-  --       hide = {
-  --         cursorline = true,
-  --       },
-  --       render = function(props)
-  --         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-  --       end,
-  --     })
-  --   end,
-  -- },
+
+
+  -- -------------------------------------------------
+	-- filename 
+  -- print filename top right print
+  -- -------------------------------------------------
+	{
+		"b0o/incline.nvim",
+		dependencies = {},
+		event = "BufReadPre",
+		priority = 1200,
+		config = function()
+			local helpers = require("incline.helpers")
+			require("incline").setup({
+				window = {
+					padding = 0,
+					margin = { horizontal = 0 },
+				},
+				render = function(props)
+					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+					local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+					local modified = vim.bo[props.buf].modified
+					local buffer = {
+						ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) }
+							or "",
+						" ",
+						{ filename, gui = modified and "bold,italic" or "bold" },
+						" ",
+						guibg = "#363944",
+					}
+					return buffer
+				end,
+			})
+		end,
+	},
+
+  -- -------------------------------------------------
+	-- LazyGit integration with Telescope
+  -- -------------------------------------------------
+	{
+		"kdheepak/lazygit.nvim",
+		keys = {
+			{
+				";c",
+				":LazyGit<Return>",
+				silent = true,
+				noremap = true,
+			},
+		},
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
+
+
+
 }
