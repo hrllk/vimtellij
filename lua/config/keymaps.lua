@@ -53,3 +53,10 @@ keymap.set("n", "<C-j>", function()
 end, opts)
 
 keymap.set("n", "x", '"_x')
+
+
+
+-- eidtor 
+keymap.set("v", ";csc", ":s/\\(\\l\\)\\(\\u\\)/\\1_\\l\\2/gc")
+keymap.set("v", ";ccs", ":s/_\\(\\l\\)/\\u\\1/gc")
+--
