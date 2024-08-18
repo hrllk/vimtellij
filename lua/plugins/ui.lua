@@ -171,7 +171,7 @@ return {
 		keys = {
 			{
 
-				"<leader>d",
+				";d",
 				"<cmd>tabnew<cr><bar><bar><cmd>DBUI<cr>",
 			},
 		},

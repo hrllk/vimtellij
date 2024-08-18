@@ -57,6 +57,6 @@ keymap.set("n", "x", '"_x')
 
 
 -- eidtor 
-keymap.set("v", ";csc", ":s/\\(\\l\\)\\(\\u\\)/\\1_\\l\\2/gc")
-keymap.set("v", ";ccs", ":s/_\\(\\l\\)/\\u\\1/gc")
+keymap.set("v", ";ccs", ":s/\\(\\l\\)\\(\\u\\)/\\1_\\l\\2/gc<CR>") -- snake to camel
+keymap.set("v", ";csc", ":s/_\\(\\l\\)/\\u\\1/gc<CR>") -- camel to snake
 --

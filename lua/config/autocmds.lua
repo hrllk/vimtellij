@@ -22,12 +22,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.md" },
   callback = function()
     vim.fn.matchadd("StrikeoutMatch", "\\~\\~.*\\~\\~")
-    -- vim.api.nvim_set_hl(0, "StrikeoutColor", { bg = 016, fg = "Black" })
-    vim.api.nvim_set_hl(0, "StrikeoutColor", { fg = "Grey" })
+    vim.api.nvim_set_hl(0, "StrikeoutColor", { bg = 016, fg = "Grey" })
     vim.api.nvim_set_hl(0, "StrikeoutMatch", { link = "StrikeoutColor" })
   end,
 })
 
+
 -- visual color
 vim.api.nvim_command("hi Visual guifg=#000000 guibg=#33FF00 gui=none")
-vim.fn.system("rm -rf ~/.cache/nvim/jdtls/") -- TODO: TEST 실행시 jdtls 초기화
+-- vim.fn.system("rm -rf ~/.cache/nvim/jdtls/") -- TODO: TEST 실행시 jdtls 초기화
