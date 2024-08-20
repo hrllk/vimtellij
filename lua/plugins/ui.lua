@@ -127,53 +127,20 @@ return {
 		end,
 	},
 
-  -- -------------------------------------------------
-	-- LazyGit integration with Telescope
-  -- -------------------------------------------------
-	{
-		"kdheepak/lazygit.nvim",
-		keys = {
-			{
-				";c",
-				":LazyGit<Return>",
-				silent = true,
-				noremap = true,
-			},
-		},
-		-- optional for floating window border decoration
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
 
-
-
-
-  -- -------------------------------------------------
-  -- DB TOOL
-  -- -------------------------------------------------
-	{
-		"kristijanhusak/vim-dadbod-ui",
-		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-		},
-		init = function()
-			-- Your DBUI configuration
-			vim.g.db_ui_use_nerd_fonts = 1
-		end,
-		keys = {
-			{
-
-				";d",
-				"<cmd>tabnew<cr><bar><bar><cmd>DBUI<cr>",
-			},
-		},
-	},
+  -- WhichKey helps you remember your Neovim keymaps, 
+  -- by showing available keybindings in a popup as you type.
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
 }
