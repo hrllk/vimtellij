@@ -30,4 +30,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- visual color
 vim.api.nvim_command("hi Visual guifg=#000000 guibg=#33FF00 gui=none")
--- vim.fn.system("rm -rf ~/.cache/nvim/jdtls/") -- TODO: TEST 실행시 jdtls 초기화
+-- jdtls 초기화
+vim.fn.system("rm -rf ~/.cache/nvim/jdtls/")
