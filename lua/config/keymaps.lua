@@ -64,5 +64,8 @@ keymap.set("v", ";csc", ":s/_\\(\\l\\)/\\u\\1/gc<CR>") -- camel to snake
 
 -- note: mac os user should keysetting on iterm2 to ESC2 for use Option key(Alt)
 -- keymap.set("n", "<C-A-r>", ":lua print('hi')<CR>", opts)
-keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
+-- keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
+-- keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
+-- keymap.set("n", "<A-r>", ":JavaRunnerRunMain", opts)
+keymap.set("n", "<C-r>", ":JavaRunnerRunMain<CR>", opts)
 
