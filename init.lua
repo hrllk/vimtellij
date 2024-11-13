@@ -11,7 +11,7 @@
 require("config.lazy")
 
 -- For init.lua
-vim.g.neovide_transparency = 0.95
+vim.g.neovide_transparency = 0.93
 vim.g.neovide_cursor_vfx_mode = 'railgun'
 
 vim.g.neovide_cursor_vfx_mode = ''
@@ -20,4 +20,5 @@ vim.g.neovide_cursor_trail_length = 0.0
 vim.g.neovide_no_idle = true
 
 
-vim.g.neovim_font='Noto Sans KR:h12'
+-- vim.o.guifont = "Monaco:h11"
+vim.o.guifont = "D2Coding:h11"
