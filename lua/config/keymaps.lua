@@ -79,4 +79,3 @@ keymap.set("n", "_", ":resize -5<CR>", opts)
 -- keymap.set("n", "<C-A-+>", ":resize +", opts)
 -- keymap.set("n", "<C-A-->", ":resize -5", opts)
 
-

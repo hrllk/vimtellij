@@ -1,4 +1,19 @@
 return {
+
+  -- -------------------------------------------------
+  -- Theme
+  -- -------------------------------------------------
+  {
+    "sainnhe/sonokai",
+    proiroty = 1000,
+    config = function()
+      vim.g.sonokai_transparent_background = "1"
+      vim.g.sonokai_enable_italic = "1"
+      vim.g.sonokai_style = "andromeda"
+      vim.cmd.colorscheme("sonokai")
+    end,
+  },
+
   -- -------------------------------------------------
   -- noice
   -- for hightlighting
@@ -36,7 +51,6 @@ return {
   -- tab swicher
   -- usage: te 생성후
   -- -------------------------------------------------
-
   {
     "akinsho/bufferline.nvim",
     keys = {
@@ -53,7 +67,7 @@ return {
   },
 
   -- -------------------------------------------------
-  -- animation
+  -- animate
   -- can see cusor jumped up
   -- -------------------------------------------------
   -- {
@@ -66,25 +80,31 @@ return {
   --   end,
   -- },
 
-  -- -------------------------------------------------
-  -- dashboard logo
-  -- -------------------------------------------------
-  -- {
-  --   "nvimdev/dashboard-nvim",
-  --   event = "VimEnter",
-  --   opts = function(_, opts)
+  {
+  --   'nvimdev/dashboard-nvim',
+  --   event = 'VimEnter',
+  --   config = function()
   --     local logo = [[
   --       ██╗   ██╗██╗███╗   ███╗████████╗███████╗██╗     ██╗     ██╗     ██╗
   --       ██║   ██║██║████╗ ████║╚══██╔══╝██╔════╝██║     ██║     ██║     ██║
   --       ██║   ██║██║██╔████╔██║   ██║   █████╗  ██║     ██║     ██║     ██║
   --       ╚██╗ ██╔╝██║██║╚██╔╝██║   ██║   ██╔══╝  ██║     ██║     ██║██   ██║
   --       ╚████╔╝ ██║██║ ╚═╝ ██║   ██║   ███████╗███████╗███████╗██║╚█████╔╝
-  --       ╚═══╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝ ╚════╝ 
+  --         ╚═══╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝ ╚════╝ z
   --     ]]
-  --     logo = string.rep("\n", 8) .. logo .. "\n\n"
-  --     opts.config.header = vim.split(logo, "\n")
+  --     require('dashboard').setup {
+  --       -- config
+  --       config = {
+  --         theme = 'hyper',
+  --         header = vim.split(logo, "\n");
+  --       }
+  --     }
   --   end,
+  --   dependencies = { {'nvim-tree/nvim-web-devicons'}}
   -- },
+    --
+
+
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -95,65 +115,17 @@ return {
         ██║   ██║██║██╔████╔██║   ██║   █████╗  ██║     ██║     ██║     ██║
         ╚██╗ ██╔╝██║██║╚██╔╝██║   ██║   ██╔══╝  ██║     ██║     ██║██   ██║
         ╚████╔╝ ██║██║ ╚═╝ ██║   ██║   ███████╗███████╗███████╗██║╚█████╔╝
-          ╚═══╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝ ╚════╝ z
+          ╚═══╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝ ╚════╝
       ]]
       require('dashboard').setup {
         -- config
-        config = {
-          theme = 'hyper',
-          header = vim.split(logo, "\n");
-        }
+        theme = 'hyper',
+        header = vim.split(logo, "\n");
       }
     end,
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
   },
-  -- {
-  --   'nvimdev/dashboard-nvim',
-  --   event = 'VimEnter',
-  --   config = function()
-  --   local logo = [[
-  --     ██╗   ██╗██╗███╗   ███╗████████╗███████╗██╗     ██╗     ██╗     ██╗
-  --     ██║   ██║██║████╗ ████║╚══██╔══╝██╔════╝██║     ██║     ██║     ██║
-  --     ██║   ██║██║██╔████╔██║   ██║   █████╗  ██║     ██║     ██║     ██║
-  --     ╚██╗ ██╔╝██║██║╚██╔╝██║   ██║   ██╔══╝  ██║     ██║     ██║██   ██║
-  --     ╚████╔╝ ██║██║ ╚═╝ ██║   ██║   ███████╗███████╗███████╗██║╚█████╔╝
-  --     ╚═══╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝ ╚════╝ a
-  --   ]]
-  --   logo = string.rep("\n", 8) .. logo .. "\n\n"
-  --     require('dashboard').setup {
-  --       -- config
-  --       theme = 'doom', --  theme is doom and hyper default is hyper
-  --       config = {
-  --         header = vim.split(logo, "\n");
-  --         center = {
-  --           {
-  --             icon = '',
-  --             icon_hl = 'group',
-  --             desc = 'description',
-  --             desc_hl = 'group',
-  --             key = 'shortcut key in dashboard buffer not keymap !!',
-  --             key_hl = 'group',
-  --             key_format = ' [%s]', -- `%s` will be substituted with value of `key`
-  --             action = '',
-  --           },
-  --         },
-  --         -- footer = {},
-  --       },    --  config used for theme
-  --       hide = {
-  --         statusline = false,    -- hide statusline default is true
-  --         tabline = false,       -- hide the tabline
-  --         winbar = false,        -- hide winbar
-  --       },
-  --       -- preview = {
-  --         -- command       -- preview command
-  --         -- file_path     -- preview file path
-  --         -- file_height   -- preview file height
-  --         -- file_width    -- preview file width
-  --       -- },
-  --     }
-  --   end,
-  --   dependencies = { {'nvim-tree/nvim-web-devicons'}}
-  -- },
+
 
 
   {
@@ -163,7 +135,7 @@ return {
 
 
   -- -------------------------------------------------
-	-- filename 
+	-- filename
   -- print filename top right print
   -- -------------------------------------------------
 	{
@@ -231,5 +203,6 @@ return {
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
+  }
   }
 }
