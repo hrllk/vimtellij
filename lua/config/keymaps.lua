@@ -62,10 +62,21 @@ keymap.set("v", ";csc", ":s/_\\(\\l\\)/\\u\\1/gc<CR>") -- camel to snake
 --
 
 
+-- jdtls
 -- note: mac os user should keysetting on iterm2 to ESC2 for use Option key(Alt)
--- keymap.set("n", "<C-A-r>", ":lua print('hi')<CR>", opts)
--- keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
--- keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
--- keymap.set("n", "<A-r>", ":JavaRunnerRunMain", opts)
-keymap.set("n", "<C-r>", ":JavaRunnerRunMain<CR>", opts)
+keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
+keymap.set("n", "<C-A-s>", ":JavaRunnerStopMain<CR>", opts)
+
+keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
+keymap.set("n", "+", ":resize +5<CR>", opts)
+keymap.set("n", "_", ":resize -5<CR>", opts)
+
+-- does not work case
+-- keymap.set("n", "+", ":lua print('hey +')<CR>", opts)
+-- keymap.set("n", "<C>L", ":JavaRunnerToggleLogs<CR>", opts)
+-- keymap.set("n", "<S-+>", ":lua print('hey S-+')<CR>", opts)
+-- keymap.set("n", "<C-A-+>", ":lua print('hey C-A-+')<CR>", opts)
+-- keymap.set("n", "<C-A-+>", ":resize +", opts)
+-- keymap.set("n", "<C-A-->", ":resize -5", opts)
+
 
