@@ -9,36 +9,28 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 
--- Delete a word backworkd
--- keymap.set("n", "dw", "vb_d")
-
--- select all
-keymap.set("n", "<C-a>", "gg<S-v>G")
 
 -- jumplist
 keymap.set("n", "<C-m>", "<C-i>", opts)
 
--- new tab
+
+
+-- -------------------------------------------------
+-- tapping(tap, split)
+-- -------------------------------------------------
+keymap.set("n", "ss", ":split<Return>", opts)
+keymap.set("n", "sv", ":vsplit<Return>", opts)
+
+
 keymap.set("n", "te", ":tabedit <Return>", opts)
 keymap.set("n", "to", ":tabonly <Return>", opts)
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
--- split window
-keymap.set("n", "ss", ":split<Return>", opts)
-keymap.set("n", "sv", ":vsplit<Return>", opts)
 
--- move window
--- keymap.set("n", "sh", "<C-w>h", opts)
--- keymap.set("n", "sk", "<C-w>k", opts)
--- keymap.set("n", "sj", "<C-w>j", opts)
--- keymap.set("n", "sl", "<C-w>l", opts)
--- keymap.set("n", "<C-w><left>", "<C-w><", opts)
--- keymap.set("n", "<C-w><right>", "<C-w>>", opts)
--- keymap.set("n", "<C-w><up>", "<C-w>+", opts)
--- keymap.set("n", "<C-w><down>", "<C-w>-", opts)
-
+-- -------------------------------------------------
 -- lsp
+-- -------------------------------------------------
 keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>", opts)
 keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -56,14 +48,19 @@ keymap.set("n", "x", '"_x')
 
 
 
--- eidtor 
+-- -------------------------------------------------
+-- editing
+-- -------------------------------------------------
 keymap.set("v", ";ccs", ":s/\\(\\l\\)\\(\\u\\)/\\1_\\l\\2/gc<CR>") -- snake to camel
 keymap.set("v", ";csc", ":s/_\\(\\l\\)/\\u\\1/gc<CR>") -- camel to snake
---
+
+keymap.set("n", "<C-a>", "gg<S-v>G")
 
 
+-- -------------------------------------------------
 -- jdtls
 -- note: mac os user should keysetting on iterm2 to ESC2 for use Option key(Alt)
+-- -------------------------------------------------
 keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
 keymap.set("n", "<C-A-s>", ":JavaRunnerStopMain<CR>", opts)
 
@@ -71,11 +68,4 @@ keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
 keymap.set("n", "+", ":resize +5<CR>", opts)
 keymap.set("n", "_", ":resize -5<CR>", opts)
 
--- does not work case
--- keymap.set("n", "+", ":lua print('hey +')<CR>", opts)
--- keymap.set("n", "<C>L", ":JavaRunnerToggleLogs<CR>", opts)
--- keymap.set("n", "<S-+>", ":lua print('hey S-+')<CR>", opts)
--- keymap.set("n", "<C-A-+>", ":lua print('hey C-A-+')<CR>", opts)
--- keymap.set("n", "<C-A-+>", ":resize +", opts)
--- keymap.set("n", "<C-A-->", ":resize -5", opts)
 
