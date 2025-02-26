@@ -116,12 +116,12 @@ return {
         preset = {
           -- Custom ASCII Header
           header = [[
-        ██╗ ██╗██╗███╗ ███╗█████╗████╗ ██╗  ██╗  ██╗   ██╗
-        ██║ ██║██║████████║╚██╔═╝██╔═╝ ██║  ██║  ██║   ██║
-        ██║ ██║██║██╔██╔██║ ██║  ███╗  ██║  ██║  ██║   ██║
-        █████╔╝██║██║╚╔╝██║ ██║  ██╔╝  ██║  ██║  ██║██ ██║
-         ███╔╝ ██║██║   ██║ ██║  █████╗████╗████╗██║╚███╔╝
-         ╚══╝  ╚═╝╚═╝   ╚═╝ ╚═╝  ╚════╝╚═══╝╚═══╝╚═╝ ╚══╝
+        ██╗ ██╗██╗███╗ ███╗████╗████╗██╗  ██╗  ██╗   ██╗
+        ██║ ██║██║████████║╚██╔╝██╔═╝██║  ██║  ██║   ██║
+        ██║ ██║██║██╔██╔██║ ██║ ███╗ ██║  ██║  ██║   ██║
+        █████╔╝██║██║╚╔╝██║ ██║ ██╔╝ ██║  ██║  ██║██ ██║
+         ███╔╝ ██║██║   ██║ ██║ ████╗████╗████╗██║╚███╔╝
+         ╚══╝  ╚═╝╚═╝   ╚═╝ ╚═╝ ╚═══╝╚═══╝╚═══╝╚═╝ ╚══╝
           ]],
 
           -- Key mappings on the dashboard
@@ -137,19 +137,35 @@ return {
           }
         },
 
+-- ~/.config/nvim/lua/plugins on main *1 !2 ❯ cmatrix -u 7 -C red                                                                                                                                      took 6s  3.2.2 at 18:19:46
         -- Sections Layout
         sections = {
           { section = "header" },
+          { section = "keys", gap = 1, padding = 1 },
           {
-            pane = 2,
             section = "terminal",
             -- cmd = "colorscript -e square",
             -- cmd = "sl",
-            cmd = "cmatrix",
+            -- cmd = "cmatrix -u 7 -C blue",
+            cmd = "cmatrix -u 6",
             height = 7,
+            pane = 2,
+            gap = 1,
             padding = 1,
+            priority = 100,
+            -- width = '50%'
           },
-          { section = "keys", gap = 1, padding = 1 },
+          -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
+          -- {
+          --   title = "Open Issues",
+          --   cmd = "gh issue list -L 3",
+          --   key = "i",
+          --   action = function()
+          --     vim.fn.jobstart("gh issue list --web", { detach = true })
+          --   end,
+          --   icon = " ",
+          --   height = 7,
+          -- },
           { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
           {
@@ -263,5 +279,22 @@ return {
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   }
+  ,
+  -- {
+  --   "3rd/diagram.nvim",
+  --   dependencies = {
+  --     "3rd/image.nvim",
+  --   },
+  --   opts = { -- you can just pass {}, defaults below
+  --
+  --   },
+  -- },
+
 }
