@@ -119,27 +119,31 @@ return {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      -- provider = "deepseek",
-      -- vendors = {
-      --   deepseek = {
-      --     __inherited_from = "openai",
-      --     api_key_name = "DEEPSEEK_API_KEY",
-      --     endpoint = "https://api.deepseek.com",
-      --     model = "deepseek-coder",
-      --   },
-      -- },
+      provider = "deepseek",
+      vendors = {
+        deepseek = {
+          __inherited_from = "openai",
+          api_key_name = "DEEPSEEK_API_KEY",
+          endpoint = "https://api.deepseek.com",
+          model = "deepseek-coder",
+        },
+      },
 
   
       -- @alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      provider = "claude", -- Recommend using Claude
-      auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-      claude = {
-        api_key_name = "CLAUDE_API_KEY",
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-sonnet-20240620",
-        temperature = 0,
-        max_tokens = 4096,
-      },
+      -- provider = "claude", -- Recommend using Claude
+      -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+      -- claude = {
+      --   api_key_name = "CLAUDE_API_KEY",
+      --   endpoint = "https://api.anthropic.com",
+      --   model = "claude-3-5-sonnet-20240620",
+      --   -- model = "claude-3-7-sonnet-20250219",
+      --   temperature = 0,
+      --   max_tokens = 4096,
+      -- },
+
+
+
       behaviour = {
         auto_suggestions = false, -- Experimental stage
         auto_set_highlight_group = true,
