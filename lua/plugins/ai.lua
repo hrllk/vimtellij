@@ -119,15 +119,15 @@ return {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      provider = "deepseek",
-      vendors = {
-        deepseek = {
-          __inherited_from = "openai",
-          api_key_name = "DEEPSEEK_API_KEY",
-          endpoint = "https://api.deepseek.com",
-          model = "deepseek-coder",
-        },
-      },
+      -- provider = "deepseek",
+      -- vendors = {
+      --   deepseek = {
+      --     __inherited_from = "openai",
+      --     api_key_name = "DEEPSEEK_API_KEY",
+      --     endpoint = "https://api.deepseek.com",
+      --     model = "deepseek-coder",
+      --   },
+      -- },
 
   
       -- @alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
@@ -143,6 +143,18 @@ return {
       -- },
 
 
+      -- local llm
+      provider = "ollama",
+      vendors = {
+        ollama = {
+          __inherited_from = "openai",
+          api_key_name = "",
+          endpoint = "http://alzar.duckdns.org:11434/v1",
+          model = "deepseek-r1:14b",
+          -- model = "deepseek-coder-v2",
+          tools = {},
+        },
+      },
 
       behaviour = {
         auto_suggestions = false, -- Experimental stage
