@@ -142,19 +142,21 @@ return {
         sections = {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
-          {
-            section = "terminal",
-            -- cmd = "colorscript -e square",
-            -- cmd = "sl",
-            -- cmd = "cmatrix -u 7 -C blue",
-            cmd = "cmatrix -u 6",
-            height = 7,
-            pane = 2,
-            gap = 1,
-            padding = 1,
-            priority = 100,
-            -- width = '50%'
-          },
+
+          -- {
+          --   section = "terminal",
+          --   -- cmd = "colorscript -e square",
+          --   -- cmd = "sl",
+          --   -- cmd = "cmatrix -u 7 -C blue",
+          --   cmd = "cmatrix -u 6",
+          --   height = 7,
+          --   pane = 2,
+          --   gap = 1,
+          --   padding = 1,
+          --   priority = 100,
+          --   -- width = '50%'
+          -- },
+          
           -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
           -- {
           --   title = "Open Issues",
