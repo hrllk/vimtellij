@@ -93,10 +93,13 @@ return {
       --     tools = {},
       --   },
       -- },
+
+      -- local llm
       provider = "ollama",
       ollama = {
         endpoint = "http://alzar.duckdns.org:8083",
-        model = "deepseek-r1:14b",
+        -- model = "deepseek-r1:14b",
+        model = "gemma3:12b",
         -- model = "qwq:32b",
       },
 
