@@ -137,7 +137,6 @@ return {
           }
         },
 
--- ~/.config/nvim/lua/plugins on main *1 !2 ❯ cmatrix -u 7 -C red                                                                                                                                      took 6s  3.2.2 at 18:19:46
         -- Sections Layout
         sections = {
           { section = "header" },
