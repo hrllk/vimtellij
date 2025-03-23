@@ -82,16 +82,22 @@ return {
 
 
       -- local llm
+      -- provider = "ollama",
+      -- vendors = {
+      --   ollama = {
+      --     __inherited_from = "openai",
+      --     api_key_name = "",
+      --     endpoint = "http://alzar.duckdns.org:8083",
+      --     model = "deepseek-r1:14b",
+      --     -- model = "deepseek-coder-v2",
+      --     tools = {},
+      --   },
+      -- },
       provider = "ollama",
-      vendors = {
-        ollama = {
-          __inherited_from = "openai",
-          api_key_name = "",
-          endpoint = "http://alzar.duckdns.org:8083/v1",
-          model = "deepseek-r1:14b",
-          -- model = "deepseek-coder-v2",
-          tools = {},
-        },
+      ollama = {
+        endpoint = "http://alzar.duckdns.org:8083",
+        model = "deepseek-r1:14b",
+        -- model = "qwq:32b",
       },
 
       behaviour = {
