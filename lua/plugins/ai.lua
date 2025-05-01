@@ -99,7 +99,8 @@ return {
       ollama = {
         endpoint = "http://alzar.duckdns.org:8083",
         -- model = "deepseek-r1:14b",
-        model = "gemma3:12b",
+        -- model = "codellama:latest",
+        model = "gemma3:4b",
         -- model = "qwq:32b",
       },
 
