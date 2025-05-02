@@ -142,6 +142,8 @@ return {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
 
+           -- brew install TheZoraiz/ascii-image-converter/ascii-image-converter
+
           {
             section = "terminal",
             -- cmd = "colorscript -e square",
