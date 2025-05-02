@@ -142,20 +142,27 @@ return {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
 
-          -- {
-          --   section = "terminal",
-          --   -- cmd = "colorscript -e square",
-          --   -- cmd = "sl",
-          --   -- cmd = "cmatrix -u 7 -C blue",
-          --   cmd = "cmatrix -u 6",
-          --   height = 7,
-          --   pane = 2,
-          --   gap = 1,
-          --   padding = 1,
-          --   priority = 100,
-          --   -- width = '50%'
-          -- },
-          
+          {
+            section = "terminal",
+            -- cmd = "colorscript -e square",
+            -- cmd = "sl",
+            -- cmd = "cmatrix -u 7 -C blue",
+            -- cmd = "cmatrix -u 6",
+            -- cmd = "ascii-image-converter ~/.config/nvim/materials/shifu.png -C",
+            cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg.png -C",
+            -- cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg2.png -C",
+            -- height = 50,
+            -- pane = 1,
+            -- gap = 1,
+            -- padding = 1,
+            -- priority = 100,
+            -- width = '50%'
+            random = 10,
+            pane = 2,
+            indent = 4,
+            height = 30,
+          },
+
           -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
           -- {
           --   title = "Open Issues",
@@ -167,23 +174,24 @@ return {
           --   icon = " ",
           --   height = 7,
           -- },
-          { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-          { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-          {
-            pane = 2,
-            icon = " ",
-            title = "Git Status",
-            section = "terminal",
-            enabled = function()
-              return Snacks.git.get_root() ~= nil
-            end,
-            cmd = "git status --short --branch --renames",
-            height = 5,
-            padding = 1,
-            ttl = 5 * 60,
-            indent = 3,
-          },
-          { section = "startup" },
+
+          -- { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+          -- { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          -- {
+          --   pane = 2,
+          --   icon = " ",
+          --   title = "Git Status",
+          --   section = "terminal",
+          --   enabled = function()
+          --     return Snacks.git.get_root() ~= nil
+          --   end,
+          --   cmd = "git status --short --branch --renames",
+          --   height = 5,
+          --   padding = 1,
+          --   ttl = 5 * 60,
+          --   indent = 3,
+          -- },
+          -- { section = "startup" },
         },
 
         -- Formatting Customization
