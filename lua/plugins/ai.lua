@@ -3,49 +3,49 @@ return {
   -- -------------------------------------------------
   -- chatgpt
   -- -------------------------------------------------
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup(
-
-
-        {
-          openai_params = {
-          -- NOTE: model can be a function returning the model name
-          -- this is useful if you want to change the model on the fly
-          -- using commands
-          -- Example:
-          -- model = function()
-          --     if some_condition() then
-          --         return "gpt-4-1106-preview"
-          --     else
-          --         return "gpt-3.5-turbo"
-          --     end
-          -- end,
-          model = "gpt-3.5-turbo",
-          -- model = "gpt-4-1106-preview",
-          frequency_penalty = 0,
-          presence_penalty = 0,
-          max_tokens = 1024,
-          temperature = 0.2,
-          top_p = 0.1,
-          n = 1,
-        },
-
-        popup_input = {
-          submit = "<C-s>",
-        }
-      }
-      )
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup(
+  --
+  --
+  --       {
+  --         openai_params = {
+  --         -- NOTE: model can be a function returning the model name
+  --         -- this is useful if you want to change the model on the fly
+  --         -- using commands
+  --         -- Example:
+  --         -- model = function()
+  --         --     if some_condition() then
+  --         --         return "gpt-4-1106-preview"
+  --         --     else
+  --         --         return "gpt-3.5-turbo"
+  --         --     end
+  --         -- end,
+  --         model = "gpt-3.5-turbo",
+  --         -- model = "gpt-4-1106-preview",
+  --         frequency_penalty = 0,
+  --         presence_penalty = 0,
+  --         max_tokens = 1024,
+  --         temperature = 0.2,
+  --         top_p = 0.1,
+  --         n = 1,
+  --       },
+  --
+  --       popup_input = {
+  --         submit = "<C-s>",
+  --       }
+  --     }
+  --     )
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "folke/trouble.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
 
  
   -- -------------------------------------------------
@@ -79,7 +79,18 @@ return {
       --   temperature = 0,
       --   max_tokens = 4096,
       -- },
-
+      --
+      --
+      provider = "gemini",
+      gemini = {
+        api_key_name = "GEMINI_API_KEY",
+        -- endpoint = "https://generativelanguage.googleapis.com/v1beta/",
+        -- model = "models/gemini-2.0-flash",
+        endpoint = "https://generativelanguage.googleapis.com/v1beta/",
+        model = "models/gemini-2.5-flash-preview-04-17",
+        temperature = 0,
+        max_tokens = 4096,
+      },
 
       -- local llm
       -- provider = "ollama",
@@ -95,14 +106,14 @@ return {
       -- },
 
       -- local llm
-      provider = "ollama",
-      ollama = {
-        endpoint = "http://alzar.duckdns.org:8083",
-        -- model = "deepseek-r1:14b",
-        -- model = "codellama:latest",
-        model = "gemma3:4b",
-        -- model = "qwq:32b",
-      },
+      -- provider = "ollama",
+      -- ollama = {
+      --   endpoint = "http://alzar.duckdns.org:8083",
+      --   -- model = "deepseek-r1:14b",
+      --   -- model = "codellama:latest",
+      --   model = "gemma3:4b",
+      --   -- model = "qwq:32b",
+      -- },
 
       behaviour = {
         auto_suggestions = false, -- Experimental stage
