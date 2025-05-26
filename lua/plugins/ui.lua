@@ -96,7 +96,6 @@ return {
   -- },
 
 
-
   -- -------------------------------------------------
   -- Dashboard
   -- -------------------------------------------------
@@ -104,8 +103,10 @@ return {
     "folke/snacks.nvim",
     ---@type snacks.Config
     opts = {
-      dashboard = {
+      picker = {
 
+      },
+      dashboard = {
         enabled = true, -- Enable the dashboard
         width = 80, -- Set the width of the dashboard
         row = nil, -- Center the dashboard vertically
@@ -144,26 +145,26 @@ return {
 
            -- brew install TheZoraiz/ascii-image-converter/ascii-image-converter
 
-          {
-            section = "terminal",
-            -- cmd = "colorscript -e square",
-            -- cmd = "sl",
-            -- cmd = "cmatrix -u 7 -C blue",
-            -- cmd = "cmatrix -u 6",
-            -- cmd = "ascii-image-converter ~/.config/nvim/materials/shifu.png -C",
-            cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg.png -C",
-            -- cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg2.png -C",
-            -- height = 50,
-            -- pane = 1,
-            -- gap = 1,
-            -- padding = 1,
-            -- priority = 100,
-            -- width = '50%'
-            random = 10,
-            pane = 2,
-            indent = 4,
-            height = 30,
-          },
+          -- {
+          --   section = "terminal",
+          --   -- cmd = "colorscript -e square",
+          --   -- cmd = "sl",
+          --   -- cmd = "cmatrix -u 7 -C blue",
+          --   -- cmd = "cmatrix -u 6",
+          --   -- cmd = "ascii-image-converter ~/.config/nvim/materials/shifu.png -C",
+          --   cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg.png -C",
+          --   -- cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg2.png -C",
+          --   -- height = 50,
+          --   -- pane = 1,
+          --   -- gap = 1,
+          --   -- padding = 1,
+          --   -- priority = 100,
+          --   -- width = '50%'
+          --   random = 10,
+          --   pane = 2,
+          --   indent = 4,
+          --   height = 30,
+          -- },
 
           -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
           -- {
