@@ -29,6 +29,7 @@ return {
     priority = 1000, -- Ensure it loads first
     -- defined a colorscheme in other file (lazy.lua)
   },
+  
   -- -------------------------------------------------
   -- noice
   -- for hightlighting
@@ -85,15 +86,15 @@ return {
   -- animate
   -- can see cusor jumped up
   -- -------------------------------------------------
-  {
-    "echasnovski/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      opts.scroll = {
-        enable = false,
-      }
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.animate",
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     opts.scroll = {
+  --       enable = false,
+  --     }
+  --   end,
+  -- },
 
 
   -- -------------------------------------------------
