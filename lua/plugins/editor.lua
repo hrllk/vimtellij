@@ -120,7 +120,7 @@ return {
           NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
           TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
         },
-      }
+      },
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
@@ -130,52 +130,52 @@ return {
   -- -------------------------------------------------
   -- neo tree
   -- -------------------------------------------------
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v3.x",
-  --   lazy = false,
-  --   -----Instead of using `config`, you can use `opts` instead, if you'd like:
-  --   -----@module "neo-tree"
-  --   -----@type neotree.Config
-  --   --opts = {},
-  --   config = function()
-  --     require("neo-tree").setup({
-  --       filesystem = {
-  --         follow_current_file = {
-  --           enabled = true,
-  --         },
-  --         -- follow_current_file = true, -- Add this line to follow the current file
-  --         filtered_items = {
-  --           visible = false, -- when true, they will just be displayed differently than normal items
-  --           hide_dotfiles = false,
-  --           hide_gitignored = false,
-  --           hide_hidden = false, -- only works on Windows for hidden files/directories
-  --           -- hide_by_name = {
-  --           --   --"node_modules"
-  --           -- },
-  --           -- hide_by_pattern = { -- uses glob style patterns
-  --           --   --"*.meta",
-  --           --   --"*/src/*/tsconfig.json",
-  --           -- },
-  --           -- always_show = { -- remains visible even if other settings would normally hide it
-  --           --   --".gitignored",
-  --           -- },
-  --           -- always_show_by_pattern = { -- uses glob style patterns
-  --           --   --".env*",
-  --           -- },
-  --           -- never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-  --           --   --".DS_Store",
-  --           --   --"thumbs.db"
-  --           -- },
-  --           -- never_show_by_pattern = { -- uses glob style patterns
-  --           --   --".null-ls_*",
-  --           -- },
-  --         },
-  --       },
-  --     })
-  --     vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-  --   end,
-  -- },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    lazy = false,
+    -----Instead of using `config`, you can use `opts` instead, if you'd like:
+    -----@module "neo-tree"
+    -----@type neotree.Config
+    --opts = {},
+    config = function()
+      require("neo-tree").setup({
+        filesystem = {
+          follow_current_file = {
+            enabled = true,
+          },
+          -- follow_current_file = true, -- Add this line to follow the current file
+          filtered_items = {
+            visible = false, -- when true, they will just be displayed differently than normal items
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_hidden = false, -- only works on Windows for hidden files/directories
+            -- hide_by_name = {
+            --   --"node_modules"
+            -- },
+            -- hide_by_pattern = { -- uses glob style patterns
+            --   --"*.meta",
+            --   --"*/src/*/tsconfig.json",
+            -- },
+            -- always_show = { -- remains visible even if other settings would normally hide it
+            --   --".gitignored",
+            -- },
+            -- always_show_by_pattern = { -- uses glob style patterns
+            --   --".env*",
+            -- },
+            -- never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+            --   --".DS_Store",
+            --   --"thumbs.db"
+            -- },
+            -- never_show_by_pattern = { -- uses glob style patterns
+            --   --".null-ls_*",
+            -- },
+          },
+        },
+      })
+      vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
+    end,
+  },
   -- -------------------------------------------------
   -- undo tree
   -- undo list, move it
@@ -207,17 +207,26 @@ return {
         },
       })
 
-
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+      vim.keymap.set("n", "<leader>a", function()
+        harpoon:list():add()
+      end)
       vim.keymap.set("n", "<C-e>", function()
         print("Attempting to toggle harpoon quick menu")
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end)
 
-      vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-      vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-      vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-      vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+      vim.keymap.set("n", "<C-h>", function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set("n", "<C-t>", function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set("n", "<C-n>", function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set("n", "<C-s>", function()
+        harpoon:list():select(4)
+      end)
 
       -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add file" })
       -- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
@@ -301,9 +310,61 @@ return {
         map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
         map("n", "<leader>ghd", gs.diffthis, "Diff This")
         map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+        map("n", "<leader>gd", gs.diffthis,  "Diff this")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
     },
   },
 
+  -- -------------------------------------------------
+  -- Mini File
+  -- -------------------------------------------------
+  { "echasnovski/mini.nvim", version = false },
+  {
+    "echasnovski/mini.files",
+    config = function()
+      local MiniFiles = require("mini.files")
+      MiniFiles.setup({
+        mappings = {
+          go_in = "<CR>",
+          go_in_plus = "L",
+          go_out = "-",
+          go_out_plus = "H",
+        },
+      })
+      vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file" })
+      vim.keymap.set("n", "<leader>ef", function()
+        MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+        MiniFiles.reveal_cwd()
+      end, { desc = "Toggle into currently opened file" })
+    end,
+  },
+
+  -- -------------------------------------------------
+  -- Tmux navigator
+  -- -------------------------------------------------
+  {
+    "christoomey/vim-tmux-navigator",
+  },
+
+  -- -------------------------------------------------
+  -- show keys
+  -- -------------------------------------------------
+  {
+    "nvzone/showkeys",
+    cmd = "ShowkeysToggle",
+    opts = {
+      maxkeys = 3,
+      show_count = true,
+      winopts = {
+        focusable = false,
+        relative = "editor",
+        style = "minimal",
+        border = "single",
+        height = 1,
+        row = 1,
+        col = 0,
+      },
+    },
+  },
 }
