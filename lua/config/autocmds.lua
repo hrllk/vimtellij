@@ -30,6 +30,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- visual color
 -- vim.api.nvim_command("hi Visual guifg=#000000 guibg=#33FF00 gui=none")
-vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
+
+
+
+
+
+-- calling automation
 -- jdtls 초기화
 -- vim.fn.system("rm -rf ~/.cache/nvim/jdtls/")
+vim.api.nvim_command("ShowkeysToggle");
+vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
