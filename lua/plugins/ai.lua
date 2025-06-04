@@ -1,53 +1,6 @@
 return {
 
-  -- -------------------------------------------------
-  -- chatgpt
-  -- -------------------------------------------------
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup(
-  --
-  --
-  --       {
-  --         openai_params = {
-  --         -- NOTE: model can be a function returning the model name
-  --         -- this is useful if you want to change the model on the fly
-  --         -- using commands
-  --         -- Example:
-  --         -- model = function()
-  --         --     if some_condition() then
-  --         --         return "gpt-4-1106-preview"
-  --         --     else
-  --         --         return "gpt-3.5-turbo"
-  --         --     end
-  --         -- end,
-  --         model = "gpt-3.5-turbo",
-  --         -- model = "gpt-4-1106-preview",
-  --         frequency_penalty = 0,
-  --         presence_penalty = 0,
-  --         max_tokens = 1024,
-  --         temperature = 0.2,
-  --         top_p = 0.1,
-  --         n = 1,
-  --       },
-  --
-  --       popup_input = {
-  --         submit = "<C-s>",
-  --       }
-  --     }
-  --     )
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "folke/trouble.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  -- },
 
- 
   -- -------------------------------------------------
   -- avante
   -- -------------------------------------------------
@@ -57,30 +10,7 @@ return {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      -- provider = "deepseek",
-      -- vendors = {
-      --   deepseek = {
-      --     __inherited_from = "openai",
-      --     api_key_name = "DEEPSEEK_API_KEY",
-      --     endpoint = "https://api.deepseek.com",
-      --     model = "deepseek-coder",
-      --   },
-      -- },
 
-  
-      -- @alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      -- provider = "claude", -- Recommend using Claude
-      -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-      -- claude = {
-      --   api_key_name = "CLAUDE_API_KEY",
-      --   endpoint = "https://api.anthropic.com",
-      --   model = "claude-3-5-sonnet-20240620",
-      --   -- model = "claude-3-7-sonnet-20250219",
-      --   temperature = 0,
-      --   max_tokens = 4096,
-      -- },
-      --
-      --
       provider = "gemini",
       gemini = {
         api_key_name = "GEMINI_API_KEY",
@@ -92,28 +22,6 @@ return {
         max_tokens = 4096,
       },
 
-      -- local llm
-      -- provider = "ollama",
-      -- vendors = {
-      --   ollama = {
-      --     __inherited_from = "openai",
-      --     api_key_name = "",
-      --     endpoint = "http://alzar.duckdns.org:8083",
-      --     model = "deepseek-r1:14b",
-      --     -- model = "deepseek-coder-v2",
-      --     tools = {},
-      --   },
-      -- },
-
-      -- local llm
-      -- provider = "ollama",
-      -- ollama = {
-      --   endpoint = "http://alzar.duckdns.org:8083",
-      --   -- model = "deepseek-r1:14b",
-      --   -- model = "codellama:latest",
-      --   model = "gemma3:4b",
-      --   -- model = "qwq:32b",
-      -- },
 
       behaviour = {
         auto_suggestions = false, -- Experimental stage

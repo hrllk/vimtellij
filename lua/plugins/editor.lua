@@ -30,12 +30,6 @@ return {
     opts = {},
   },
 
-  -- -------------------------------------------------
-  -- telescope
-  -- for find files or fine string in a project
-  -- -------------------------------------------------
-
-  { "telescope.nvim", enabled = false },
 
   -- -------------------------------------------------
   -- treesitter
