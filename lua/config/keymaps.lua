@@ -1,6 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+--
+vim.g.mapleader = ' '
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
@@ -40,11 +42,18 @@ keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 -- keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
-keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
-end, opts)
-
 keymap.set("n", "x", '"_x')
+
+
+
+
+
+
+
+
+-- Buffer navigation
+keymap.set("n", "<C-j>", ":bprevious<CR>", opts)
+keymap.set("n", "<C-l>", ":bnext<CR>", opts)
 
 
 

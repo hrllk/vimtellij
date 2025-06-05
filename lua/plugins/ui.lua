@@ -27,7 +27,9 @@ return {
   {
     "olimorris/onedarkpro.nvim",
     priority = 1000, -- Ensure it loads first
-    -- defined a colorscheme in other file (lazy.lua)
+    config = function()
+      vim.cmd.colorscheme("onedark_dark")
+    end,
   },
   
   -- -------------------------------------------------
@@ -36,7 +38,11 @@ return {
   -- -------------------------------------------------
   {
     "folke/noice.nvim",
+    lazy = false,
     opts = function(_, opts)
+      -- Ensure opts.routes is a table before inserting
+      opts.routes = opts.routes or {}
+
       table.insert(opts.routes, {
         filter = {
           event = "notify",
@@ -45,6 +51,8 @@ return {
         opts = { skip = true },
       })
 
+      -- Ensure opts.presets exists before accessing lsp_doc_border (defensive)
+      opts.presets = opts.presets or {}
       opts.presets.lsp_doc_border = true
     end,
   },
@@ -102,6 +110,7 @@ return {
   -- -------------------------------------------------
   {
     "folke/snacks.nvim",
+    lazy = false, -- Ensure it loads on startup for the dashboard
     ---@type snacks.Config
     opts = {
       picker = {
@@ -277,6 +286,7 @@ return {
   -- by showing available keybindings in a popup as you type.
   {
     "folke/which-key.nvim",
+    lazy = false,
     event = "VeryLazy",
     opts = {
       -- your configuration comes here

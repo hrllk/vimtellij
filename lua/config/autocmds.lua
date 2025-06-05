@@ -1,7 +1,7 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
-vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+-- vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- auto format false
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -38,5 +38,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- calling automation
 -- jdtls 초기화
 -- vim.fn.system("rm -rf ~/.cache/nvim/jdtls/")
-vim.api.nvim_command("ShowkeysToggle");
+-- vim.api.nvim_command("ShowkeysToggle");
 vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")

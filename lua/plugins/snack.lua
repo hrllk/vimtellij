@@ -1,8 +1,16 @@
 return {
+
+  -- -------------------------------------------------
+  -- Highlight colors
+  -- -------------------------------------------------
   {
     "folke/snacks.nvim",
+    lazy = false, -- Ensure it loads on startup for the dashboard
     ---@type snacks.Config
-    opts = {},
+    -- opts = {
+    --     lazygit = {
+    --     }
+    -- },
     keys = {
       {
         "<leader>rn",
