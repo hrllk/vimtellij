@@ -52,45 +52,71 @@ return {
   -- treesitter
   -- for hightlighting
   -- -------------------------------------------------
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = {
+  --     ensure_installed = {
+  --       "bash",
+  --       "html",
+  --       "javascript",
+  --       "json",
+  --       "lua",
+  --       "java",
+  --       "markdown",
+  --       "markdown_inline",
+  --       "python",
+  --       "query",
+  --       "regex",
+  --       "tsx",
+  --       "typescript",
+  --       "vim",
+  --       "yaml",
+  --       "go",
+  --       "sql",
+  --       "xml",
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "bash",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "java",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml",
-        "go",
-        "sql",
-        "xml",
-      },
+    dependencies = {
+        -- ts-autotag utilizes treesitter to understand the code structure to automatically close tsx tags
+        "windwp/nvim-ts-autotag"
     },
+    -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
+    build = ':TSUpdate',
+    config = function()
+        -- gain access to the treesitter config functions
+        local ts_config = require("nvim-treesitter.configs")
+
+        -- call the treesitter setup function with properties to configure our experience
+        ts_config.setup({
+            -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
+            ensure_installed = {"vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore"},
+            -- make sure highlighting it anabled
+            highlight = {enable = true},
+            -- enable tsx auto closing tag creation
+            autotag = {
+                enable = true
+            }
+        })
+    end
   },
+
 
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
   -- would overwrite `ensure_installed` with the new value.
   -- if you'd rather extend the default config, use the code below instead:
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, opts)
+  --     -- add tsx and treesitter
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "tsx",
+  --       "typescript",
+  --     })
+  --   end,
+  -- },
 
   -- -------------------------------------------------
   -- comment
@@ -331,26 +357,26 @@ return {
   -- -------------------------------------------------
   -- Mini File
   -- -------------------------------------------------
-  { "echasnovski/mini.nvim", version = false },
-  {
-    "echasnovski/mini.files",
-    config = function()
-      local MiniFiles = require("mini.files")
-      MiniFiles.setup({
-        mappings = {
-          go_in = "<CR>",
-          go_in_plus = "L",
-          go_out = "-",
-          go_out_plus = "H",
-        },
-      })
-      vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file" })
-      vim.keymap.set("n", "<leader>ef", function()
-        MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-        MiniFiles.reveal_cwd()
-      end, { desc = "Toggle into currently opened file" })
-    end,
-  },
+  -- { "echasnovski/mini.nvim", version = false },
+  -- {
+  --   "echasnovski/mini.files",
+  --   config = function()
+  --     local MiniFiles = require("mini.files")
+  --     MiniFiles.setup({
+  --       mappings = {
+  --         go_in = "<CR>",
+  --         go_in_plus = "L",
+  --         go_out = "-",
+  --         go_out_plus = "H",
+  --       },
+  --     })
+  --     vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file" })
+  --     vim.keymap.set("n", "<leader>ef", function()
+  --       MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+  --       MiniFiles.reveal_cwd()
+  --     end, { desc = "Toggle into currently opened file" })
+  --   end,
+  -- },
 
   -- -------------------------------------------------
   -- Tmux navigator

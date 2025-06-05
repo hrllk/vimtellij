@@ -51,7 +51,7 @@ keymap.set("n", "x", '"_x')
 
 
 
--- Buffer navigation
+-- buffer navigation
 keymap.set("n", "<C-j>", ":bprevious<CR>", opts)
 keymap.set("n", "<C-l>", ":bnext<CR>", opts)
 
