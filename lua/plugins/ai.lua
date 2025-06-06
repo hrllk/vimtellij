@@ -11,38 +11,43 @@ return {
     version = false, -- set this if you want to always pull the latest change
     opts = {
 
-      -- provider = 'gemini',
-      -- gemini = {
-      --   api_key_name = 'GEMINI_API_KEY',
-      --   -- endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
-      --   -- model = 'models/gemini-2.0-flash',
-      --   endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
-      --   -- model = 'models/gemini-2.5-flash-preview-04-17',
-      --   model = 'gemini-2.5-flash-preview-04-17',
-      --   temperature = 0,
-      --   max_tokens = 4096,
-      -- },
-
-      provider = 'gemini',
+      -- auto_suggestions_provider = "gemini",
+      provider = "gemini",
       providers = {
+        gemini = {
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/",
+          model = "models/gemini-2.5-flash-preview-04-17",
+          -- model = "gemini-2.5-flash-preview-04-17",
+          api_key_name = 'GEMINI_API_KEY',
+          extra_request_body = {
 
-          gemini = {
-            endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
-            model = 'models/gemini-2.5-flash-preview-04-17',
-            -- model = 'gemini-2.5-flash-preview-04-17',
-            timeout = 30000,
-            api_key_name = 'GEMINI_API_KEY',
-            -- endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
-            -- model = 'models/gemini-2.0-flash',
+            temperature = 0.75,
+            max_tokens = 8192,
 
-            extra_request_body = {
-                
-                temperature = 0,
-                max_tokens = 12288,
-
-            }
           },
+        },
       },
+
+      -- provider = 'gemini',
+      -- providers = {
+      --
+      --     gemini = {
+      --       endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
+      --       model = 'models/gemini-2.5-flash-preview-04-17',
+      --       -- model = 'gemini-2.5-flash-preview-04-17',
+      --       timeout = 30000,
+      --       api_key_name = 'GEMINI_API_KEY',
+      --       -- endpoint = 'https://generativelanguage.googleapis.com/v1beta/',
+      --       -- model = 'models/gemini-2.0-flash',
+      --
+      --       extra_request_body = {
+      --
+      --           temperature = 0,
+      --           max_tokens = 12288,
+      --
+      --       }
+      --     },
+      -- },
 
       behaviour = {
         auto_suggestions = false, -- Experimental stage
