@@ -7,10 +7,12 @@ return {
     "folke/snacks.nvim",
     lazy = false, -- Ensure it loads on startup for the dashboard
     ---@type snacks.Config
-    -- opts = {
-    --     lazygit = {
-    --     }
-    -- },
+    opts = {
+        -- lazygit = {
+        -- }
+        picker = {
+        }
+    },
     keys = {
       {
         "<leader>rn",

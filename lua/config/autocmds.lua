@@ -42,10 +42,23 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
 
 
-vim.cmd [[
-    augroup jdtls_lsp
-        autocmd!
-        autocmd FileType java lua require'config.jdtls'.setup_jdtls()
-    augroup end
-]]
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "java",
+--   callback = function()
+--     -- Optional: Add a notification to see when it triggers
+--     vim.notify("Java file opened, attempting to set up JDTLS", vim.log.levels.INFO)
+--     -- Call the setup_jdtls function
+--     local ts_configs = require("nvim-treesitter.configs")
+--     if ts_configs.has_language("java") then
+--       ts_configs.attach(0) -- 0은 현재 버퍼를 의미합니다.
+--     end
+--   end,
+-- })
+
+-- vim.cmd [[
+--     augroup jdtls_lsp
+--         autocmd!
+--         autocmd FileType java lua require'config.jdtls'.setup_jdtls()
+--     augroup end
+-- ]]
 
