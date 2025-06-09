@@ -33,13 +33,13 @@ keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 -- -------------------------------------------------
 -- lsp
 -- -------------------------------------------------
-keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>", opts)
-keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+-- keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>", opts)
+-- keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+-- keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+-- keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+-- keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-- keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 -- keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
 keymap.set("n", "x", '"_x')
