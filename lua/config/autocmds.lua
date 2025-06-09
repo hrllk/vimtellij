@@ -35,10 +35,17 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 
 
--- calling automation
--- jdtls 초기화
+------------------------------
+-- calling automatically neovim starts
+------------------------------
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_command("ShowkeysToggle") -- show key toggle
+  end,
+})
+
 -- vim.fn.system("rm -rf ~/.cache/nvim/jdtls/")
--- vim.api.nvim_command("ShowkeysToggle");
 vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
 
 
