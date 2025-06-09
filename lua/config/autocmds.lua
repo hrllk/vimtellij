@@ -46,7 +46,7 @@ vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
 --   pattern = "java",
 --   callback = function()
 --     -- Optional: Add a notification to see when it triggers
---     vim.notify("Java file opened, attempting to set up JDTLS", vim.log.levels.INFO)
+--     -- vim.notify("Java file opened, attempting to set up JDTLS", vim.log.levels.INFO)
 --     -- Call the setup_jdtls function
 --     local ts_configs = require("nvim-treesitter.configs")
 --     if ts_configs.has_language("java") then

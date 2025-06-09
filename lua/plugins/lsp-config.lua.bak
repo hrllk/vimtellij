@@ -12,7 +12,7 @@
 --         config = function()
 --             -- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
 --             require("mason-lspconfig").setup({
---                 ensure_installed = { "lua_ls", "ts_ls", "jdtls" },
+--                 ensure_installed = { "lua_ls", "ts_ls", "jdtls"},
 --             })
 --         end
 --     },
@@ -31,7 +31,7 @@
 --         "mfussenegger/nvim-jdtls",
 --         dependencies = {
 --             "mfussenegger/nvim-dap",
---         }
+--         },
 --     },
 --     {
 --         "neovim/nvim-lspconfig",
@@ -50,6 +50,24 @@
 --             lspconfig.ts_ls.setup({
 --                 capabilities = capabilities,
 --             })
+--
+--             -- setup the jdtls language server
+--             -- added ------
+--             lspconfig.jdtls.setup({
+--                 on_init = function(client)
+--                     client.notify("workspace/didChangeConfiguration", {
+--                         settings = {
+--                             java = {},
+--                         },
+--                     })
+--                     return true
+--                 end,
+--                 on_attach = function(client, bufnr)
+--                     require("config.jdtls").setup_jdtls()
+--                 end,
+--                 capabilities = capabilities,
+--             })
+--             -- /added ------
 --
 --             -- Set vim motion for <Space> + c + h to show code documentation about the code the cursor is currently over if available
 --             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })

@@ -37,7 +37,6 @@ return {
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
     end,
   },
-
   -- -------------------------------------------------
   -- Highlight colors
   -- -------------------------------------------------
@@ -167,6 +166,19 @@ return {
   -- -------------------------------------------------
   -- neo tree
   -- -------------------------------------------------
+  -- {
+  --   "nvim-tree/nvim-tree.lua",
+  --   config = function()
+  --       vim.keymap.set('n', '<leader>e', "<cmd>NvimTreeToggle<CR>", {desc = "Toggle [E]xplorer"})
+  --       require("nvim-tree").setup({
+  --           hijack_netrw = true,
+  --           auto_reload_on_write = true,
+  --       })
+  --   end
+  -- },
+  -- -------------------------------------------------
+  -- neo tree
+  -- -------------------------------------------------
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -227,132 +239,83 @@ return {
   -- harpoon
   -- navigating
   -- -------------------------------------------------
+  -- {
+  --   "thePrimeagen/harpoon",
+  --   enabled = true,
+  --   branch = "harpoon2",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   config = function()
+  --     local harpoon = require("harpoon")
+  --
+  --     harpoon:setup({
+  --       global_settings = {
+  --         save_on_toggle = true,
+  --         save_on_change = true,
+  --       },
+  --     })
+  --
+  --     vim.keymap.set("n", "<leader>a", function()
+  --       harpoon:list():add()
+  --     end)
+  --     vim.keymap.set("n", "<C-e>", function()
+  --       print("Attempting to toggle harpoon quick menu")
+  --       harpoon.ui:toggle_quick_menu(harpoon:list())
+  --     end)
+  --
+  --     -- vim.keymap.set("n", "<C-h>", function()
+  --     --   harpoon:list():select(1)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-t>", function()
+  --     --   harpoon:list():select(2)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-n>", function()
+  --     --   harpoon:list():select(3)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-s>", function()
+  --     --   harpoon:list():select(4)
+  --     -- end)
+  --
+  --     -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add file" })
+  --     -- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+  --     -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+  --     --
+  --     -- vim.keymap.set("n", "<C-y>", function()
+  --     --   harpoon:list():select(1)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-i>", function()
+  --     --   harpoon:list():select(2)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-n>", function()
+  --     --   harpoon:list():select(3)
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-s>", function()
+  --     --   harpoon:list():select(4)
+  --     -- end)
+  --     --
+  --     -- vim.keymap.set("n", "<C-S-P>", function()
+  --     --   harpoon:list():prev()
+  --     -- end)
+  --     -- vim.keymap.set("n", "<C-S-N>", function()
+  --     --   harpoon:list():next()
+  --     -- end)
+  --   end,
+  -- },
   {
-    "thePrimeagen/harpoon",
-    enabled = true,
-    branch = "harpoon2",
+    "ThePrimeagen/harpoon",
+    event = "VeryLazy",
     dependencies = {
-      "nvim-lua/plenary.nvim",
+        "nvim-lua/plenary.nvim"
     },
     config = function()
-      local harpoon = require("harpoon")
-
-      harpoon:setup({
-        global_settings = {
-          save_on_toggle = true,
-          save_on_change = true,
-        },
-      })
-
-      vim.keymap.set("n", "<leader>a", function()
-        harpoon:list():add()
-      end)
-      vim.keymap.set("n", "<C-e>", function()
-        print("Attempting to toggle harpoon quick menu")
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
-
-      -- vim.keymap.set("n", "<C-h>", function()
-      --   harpoon:list():select(1)
-      -- end)
-      -- vim.keymap.set("n", "<C-t>", function()
-      --   harpoon:list():select(2)
-      -- end)
-      -- vim.keymap.set("n", "<C-n>", function()
-      --   harpoon:list():select(3)
-      -- end)
-      -- vim.keymap.set("n", "<C-s>", function()
-      --   harpoon:list():select(4)
-      -- end)
-
-      -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add file" })
-      -- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-      -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-      --
-      -- vim.keymap.set("n", "<C-y>", function()
-      --   harpoon:list():select(1)
-      -- end)
-      -- vim.keymap.set("n", "<C-i>", function()
-      --   harpoon:list():select(2)
-      -- end)
-      -- vim.keymap.set("n", "<C-n>", function()
-      --   harpoon:list():select(3)
-      -- end)
-      -- vim.keymap.set("n", "<C-s>", function()
-      --   harpoon:list():select(4)
-      -- end)
-      --
-      -- vim.keymap.set("n", "<C-S-P>", function()
-      --   harpoon:list():prev()
-      -- end)
-      -- vim.keymap.set("n", "<C-S-N>", function()
-      --   harpoon:list():next()
-      -- end)
-    end,
+        -- Set a vim motion to <Shift>m to mark a file with harpoon
+        vim.keymap.set("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", {desc = "Harpoon Mark File"})
+        -- Set a vim motion to the tab key to open the harpoon menu to easily navigate frequented files
+        vim.keymap.set("n", "<C-e>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", {desc = "Harpoon Toggle Menu"})
+    end
   },
 
-  -- -------------------------------------------------
-  -- Git Sign
-  -- -------------------------------------------------
-  {
-    "lewis6991/gitsigns.nvim",
-    -- event = "LazyFile",
-    event = "BufReadPre",
-    opts = {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-      signs_staged = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-      },
-      on_attach = function(buffer)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-        end
-
-        -- stylua: ignore start
-        map("n", "]h", function()
-          if vim.wo.diff then
-            vim.cmd.normal({ "]c", bang = true })
-          else
-            gs.nav_hunk("next")
-          end
-        end, "Next Hunk")
-        map("n", "[h", function()
-          if vim.wo.diff then
-            vim.cmd.normal({ "[c", bang = true })
-          else
-            gs.nav_hunk("prev")
-          end
-        end, "Prev Hunk")
-        map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
-        map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
-        map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-        map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-        map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-        map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-        map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
-        map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-        map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
-        map("n", "<leader>ghd", gs.diffthis, "Diff This")
-        map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
-        map("n", "<leader>gd", gs.diffthis,  "Diff this")
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-      end,
-    },
-  },
 
   -- -------------------------------------------------
   -- Mini File
@@ -405,4 +368,110 @@ return {
       },
     },
   },
+
+	--  {
+	--    "nvim-lualine/lualine.nvim",
+	--    -- lazy = false,
+	-- dependencies = {
+	--        "nvim-tree/nvim-web-devicons",
+	--        lazy = false,
+	-- },
+	-- config = function()
+	-- 	-- Make sure web devicons is loaded
+	-- 	-- require("nvim-web-devicons").setup({})
+	-- 	-- call the setup function with properties to define how our lualine will look
+	-- 	require("lualine").setup({
+	-- 		options = {
+	-- 			-- Use web devicons if you have a nerdfont installed
+	-- 			icons_enabled = true,
+	-- 			-- Set the theme to dracula, lualine documentation has other themes available as well
+	-- 			theme = "dracula",
+	-- 			-- Separate components of lua line with chevrons
+	-- 			component_separators = { left = "", right = "" },
+	-- 			-- Separate sections with solid triangles
+	-- 			section_separators = { left = "", right = "" },
+	-- 			-- disable the status line and winbar
+	-- 			disabled_filetypes = {
+	-- 				statusline = {},
+	-- 				winbar = {},
+	-- 			},
+	-- 			-- Don't focus lualine on NvimTree
+	-- 			ignore_focus = { "NvimTree" },
+	-- 			-- Always divide lualine in the middle
+	-- 			always_divide_middle = true,
+	-- 			-- Disable global status
+	-- 			globalstatus = false,
+	-- 			-- Refresh every 1000 miliseconds
+	-- 			refresh = {
+	-- 				statusline = 1000,
+	-- 				tabline = 1000,
+	-- 				winbar = 1000,
+	-- 			},
+	-- 		},
+	-- 		-- Setup what each lualine section will contain
+	-- 		-- sections start at a on the left and go to z on the right
+	-- 		sections = {
+	-- 			-- display the current mode in section a
+	-- 			lualine_a = { "mode" },
+	-- 			-- display the current git branch, git differences, and any code diagnostics in section b
+	-- 			lualine_b = { "branch", "diff", "diagnostics" },
+	-- 			-- display the filename in section c
+	-- 			lualine_c = { "filename" },
+	-- 			-- display the file encoding type, os, and filetype in section x
+	-- 			lualine_x = { "encoding", "fileformat", "filetype" },
+	-- 			-- display where you are at in the file in section y
+	-- 			lualine_y = { "progress" },
+	-- 			-- display exact location of the cursor in section z
+	-- 			lualine_z = { "location" },
+	-- 		},
+	-- 		-- Setup what each section will contain in inactive buffers
+	-- 		inactive_sections = {
+	-- 			-- display nothing in sections a and b
+	-- 			lualine_a = {},
+	-- 			lualine_b = {},
+	-- 			-- display the file name in section c
+	-- 			lualine_c = { "filename" },
+	-- 			-- display the exact location of the cursor in section x
+	-- 			lualine_x = { "location" },
+	-- 			-- display nothing in sections y and z
+	-- 			lualine_y = {},
+	-- 			lualine_z = {},
+	-- 		},
+	-- 		-- Use default values for tabline, winbar, inactive winbar and extensions
+	-- 		tabline = {},
+	-- 		winbar = {},
+	-- 		inactive_winbar = {},
+	-- 		extensions = {},
+	-- 	})
+	-- end,
+	--  }
+
+  -- -------------------------------------------------
+  -- formatter <leader>cf
+  -- -------------------------------------------------
+    {
+        "nvimtools/none-ls.nvim",
+        dependencies = {
+            "nvimtools/none-ls-extras.nvim",
+        },
+        config = function()
+            -- get access to the none-ls functions
+            local null_ls = require("null-ls")
+            -- run the setup function for none-ls to setup our different formatters
+            null_ls.setup({
+                sources = {
+                    -- setup lua formatter
+                    null_ls.builtins.formatting.stylua,
+                    -- setup eslint linter for javascript
+                    require("none-ls.diagnostics.eslint_d"),
+                    -- setup prettier to format languages that are not lua
+                    null_ls.builtins.formatting.prettier
+                }
+            })
+
+            -- set up a vim motion for <Space> + c + f to automatically format our code based on which langauge server is active
+            vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })
+        end
+
+    }
 }

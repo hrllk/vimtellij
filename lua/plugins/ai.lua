@@ -12,20 +12,31 @@ return {
     opts = {
 
       -- auto_suggestions_provider = "gemini",
+      -- provider = "gemini",
+      -- providers = {
+      --   gemini = {
+      --     -- endpoint = "https://generativelanguage.googleapis.com/v1beta/",
+      --     -- endpoint = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      --     model = "models/gemini-2.5-flash-preview-04-17",
+      --     -- model = "gemini-2.5-flash-preview-04-17",
+      --     api_key_name = 'GEMINI_API_KEY',
+      --     extra_request_body = {
+      --
+      --       temperature = 0.75,
+      --       max_tokens = 8192,
+      --
+      --     },
+      --   },
+      -- },
+      --
       provider = "gemini",
-      providers = {
-        gemini = {
-          endpoint = "https://generativelanguage.googleapis.com/v1beta/",
-          model = "models/gemini-2.5-flash-preview-04-17",
-          -- model = "gemini-2.5-flash-preview-04-17",
-          api_key_name = 'GEMINI_API_KEY',
-          extra_request_body = {
-
-            temperature = 0.75,
-            max_tokens = 8192,
-
-          },
-        },
+      gemini = {
+          model = "gemini-2.5-flash-preview-05-20", -- your desired model (or use gpt-4o, etc.)
+          timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+          temperature = 0,
+          max_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+          api_key_name = "GEMINI_API_KEY",
+          --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
       },
 
       -- provider = 'gemini',
