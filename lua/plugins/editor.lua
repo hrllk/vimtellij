@@ -23,20 +23,52 @@ return {
 
 
   -- init.lua:
+  -- -------------------------------------------------
+  -- finder (telescope)
+  -- -------------------------------------------------
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
-    lazy = false,
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    -- Add configuration here
-    --
-    config = function()
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-    end,
+    "folke/snacks.nvim",
+    opts = {
+      explorer = {},
+    },
+    keys = {
+        { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    }
   },
+  -- -------------------------------------------------
+  -- finder (telescope)
+  -- -------------------------------------------------
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {}
+    },
+    keys = {
+      -- vim.keymap.set('n', '<leader>ff', '<cmd>lua Snacks.dashboard.pick("files")<CR>', { desc = '[F]ind [F]iles' })
+        { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+        { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+        { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
+        -- { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+        { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+        { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
+    }
+  },
+
+  -- {
+  --   'nvim-telescope/telescope.nvim', tag = '0.1.8',
+  --   lazy = false,
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   -- Add configuration here
+  --   --
+  --   config = function()
+  --     local builtin = require('telescope.builtin')
+  --     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+  --     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
+  --     vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
+  --     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+  --   end,
+  -- },
   -- -------------------------------------------------
   -- Highlight colors
   -- -------------------------------------------------
@@ -179,52 +211,52 @@ return {
   -- -------------------------------------------------
   -- neo tree
   -- -------------------------------------------------
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    lazy = false,
-    -----Instead of using `config`, you can use `opts` instead, if you'd like:
-    -----@module "neo-tree"
-    -----@type neotree.Config
-    --opts = {},
-    config = function()
-      require("neo-tree").setup({
-        filesystem = {
-          follow_current_file = {
-            enabled = true,
-          },
-          -- follow_current_file = true, -- Add this line to follow the current file
-          filtered_items = {
-            visible = false, -- when true, they will just be displayed differently than normal items
-            hide_dotfiles = false,
-            hide_gitignored = false,
-            hide_hidden = false, -- only works on Windows for hidden files/directories
-            -- hide_by_name = {
-            --   --"node_modules"
-            -- },
-            -- hide_by_pattern = { -- uses glob style patterns
-            --   --"*.meta",
-            --   --"*/src/*/tsconfig.json",
-            -- },
-            -- always_show = { -- remains visible even if other settings would normally hide it
-            --   --".gitignored",
-            -- },
-            -- always_show_by_pattern = { -- uses glob style patterns
-            --   --".env*",
-            -- },
-            -- never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-            --   --".DS_Store",
-            --   --"thumbs.db"
-            -- },
-            -- never_show_by_pattern = { -- uses glob style patterns
-            --   --".null-ls_*",
-            -- },
-          },
-        },
-      })
-      vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-    end,
-  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   branch = "v3.x",
+  --   lazy = false,
+  --   -----Instead of using `config`, you can use `opts` instead, if you'd like:
+  --   -----@module "neo-tree"
+  --   -----@type neotree.Config
+  --   --opts = {},
+  --   config = function()
+  --     require("neo-tree").setup({
+  --       filesystem = {
+  --         follow_current_file = {
+  --           enabled = true,
+  --         },
+  --         -- follow_current_file = true, -- Add this line to follow the current file
+  --         filtered_items = {
+  --           visible = false, -- when true, they will just be displayed differently than normal items
+  --           hide_dotfiles = false,
+  --           hide_gitignored = false,
+  --           hide_hidden = false, -- only works on Windows for hidden files/directories
+  --           -- hide_by_name = {
+  --           --   --"node_modules"
+  --           -- },
+  --           -- hide_by_pattern = { -- uses glob style patterns
+  --           --   --"*.meta",
+  --           --   --"*/src/*/tsconfig.json",
+  --           -- },
+  --           -- always_show = { -- remains visible even if other settings would normally hide it
+  --           --   --".gitignored",
+  --           -- },
+  --           -- always_show_by_pattern = { -- uses glob style patterns
+  --           --   --".env*",
+  --           -- },
+  --           -- never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+  --           --   --".DS_Store",
+  --           --   --"thumbs.db"
+  --           -- },
+  --           -- never_show_by_pattern = { -- uses glob style patterns
+  --           --   --".null-ls_*",
+  --           -- },
+  --         },
+  --       },
+  --     })
+  --     vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
+  --   end,
+  -- },
   -- -------------------------------------------------
   -- undo tree
   -- undo list, move it
@@ -239,69 +271,6 @@ return {
   -- harpoon
   -- navigating
   -- -------------------------------------------------
-  -- {
-  --   "thePrimeagen/harpoon",
-  --   enabled = true,
-  --   branch = "harpoon2",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  --   config = function()
-  --     local harpoon = require("harpoon")
-  --
-  --     harpoon:setup({
-  --       global_settings = {
-  --         save_on_toggle = true,
-  --         save_on_change = true,
-  --       },
-  --     })
-  --
-  --     vim.keymap.set("n", "<leader>a", function()
-  --       harpoon:list():add()
-  --     end)
-  --     vim.keymap.set("n", "<C-e>", function()
-  --       print("Attempting to toggle harpoon quick menu")
-  --       harpoon.ui:toggle_quick_menu(harpoon:list())
-  --     end)
-  --
-  --     -- vim.keymap.set("n", "<C-h>", function()
-  --     --   harpoon:list():select(1)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-t>", function()
-  --     --   harpoon:list():select(2)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-n>", function()
-  --     --   harpoon:list():select(3)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-s>", function()
-  --     --   harpoon:list():select(4)
-  --     -- end)
-  --
-  --     -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add file" })
-  --     -- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-  --     -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-  --     --
-  --     -- vim.keymap.set("n", "<C-y>", function()
-  --     --   harpoon:list():select(1)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-i>", function()
-  --     --   harpoon:list():select(2)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-n>", function()
-  --     --   harpoon:list():select(3)
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-s>", function()
-  --     --   harpoon:list():select(4)
-  --     -- end)
-  --     --
-  --     -- vim.keymap.set("n", "<C-S-P>", function()
-  --     --   harpoon:list():prev()
-  --     -- end)
-  --     -- vim.keymap.set("n", "<C-S-N>", function()
-  --     --   harpoon:list():next()
-  --     -- end)
-  --   end,
-  -- },
   {
     "ThePrimeagen/harpoon",
     event = "VeryLazy",
@@ -470,8 +439,39 @@ return {
             })
 
             -- set up a vim motion for <Space> + c + f to automatically format our code based on which langauge server is active
-            vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })
+            vim.keymap.set({"n","v"}, "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })
         end
 
+    },
+
+  -- -------------------------------------------------
+  -- autopairs 
+  -- auto closeable {} [] ()
+  -- -------------------------------------------------
+    {
+        "windwp/nvim-autopairs",
+        event = { "InsertEnter" },
+        dependencies = {
+            "hrsh7th/nvim-cmp",
+        },
+        config = function()
+            -- Call the autopairs setup function to configure how we want autopairs to work
+            require'nvim-autopairs'.setup({
+                check_ts = true,
+                ts_config = {
+                    lua = { "string" },
+                    javascript = { "template_string" },
+                    java = false,
+                }
+            })
+
+            -- Get access to auto pairs completion and cmp plugins
+            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+            local cmp = require("cmp")
+
+            -- Whenever we accept a choice from an autocompletion, make sure that any pairs are automatically closed
+            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end
     }
+
 }
