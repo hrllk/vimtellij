@@ -1,11 +1,11 @@
 return {
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            -- setup mason with default properties
-            require("mason").setup()
-        end
-    },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      -- setup mason with default properties
+      require("mason").setup()
+    end
+  },
 
   -- 'williamboman/mason.nvim',
   -- opts = {

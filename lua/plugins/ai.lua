@@ -31,12 +31,12 @@ return {
       --
       provider = "gemini",
       gemini = {
-          model = "gemini-2.5-flash-preview-05-20", -- your desired model (or use gpt-4o, etc.)
-          timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-          temperature = 0,
-          max_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-          api_key_name = "GEMINI_API_KEY",
-          --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+        model = "gemini-2.5-flash-preview-05-20",   -- your desired model (or use gpt-4o, etc.)
+        timeout = 30000,                            -- Timeout in milliseconds, increase this for reasoning models
+        temperature = 0,
+        max_tokens = 8192,                          -- Increase this to include reasoning tokens (for reasoning models)
+        api_key_name = "GEMINI_API_KEY",
+        --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
       },
 
       -- provider = 'gemini',
@@ -101,8 +101,8 @@ return {
       windows = {
         ---@type 'right' | 'left' | 'top' | 'bottom'
         position = 'right', -- the position of the sidebar
-        wrap = true, -- similar to vim.o.wrap
-        width = 30, -- default % based on available width
+        wrap = true,        -- similar to vim.o.wrap
+        width = 30,         -- default % based on available width
         sidebar_header = {
           align = 'center', -- left, center, right for title
           rounded = true,
@@ -133,7 +133,7 @@ return {
       'MunifTanjim/nui.nvim',
       --- The below dependencies are optional,
       'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      'zbirenbaum/copilot.lua',      -- for providers='copilot'
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',

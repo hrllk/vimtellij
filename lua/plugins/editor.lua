@@ -32,7 +32,7 @@ return {
       explorer = {},
     },
     keys = {
-        { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+      { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     }
   },
   -- -------------------------------------------------
@@ -45,13 +45,13 @@ return {
     },
     keys = {
       -- vim.keymap.set('n', '<leader>ff', '<cmd>lua Snacks.dashboard.pick("files")<CR>', { desc = '[F]ind [F]iles' })
-        { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-        { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-        { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
-        { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
-        -- { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
-        { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
-        { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader>fb", function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+      { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+      { "<leader>ff", function() Snacks.picker.files() end,                                   desc = "Find Files" },
+      { "<leader>fg", function() Snacks.picker.grep() end,                                    desc = "Grep" },
+      -- { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+      { "<leader>fp", function() Snacks.picker.projects() end,                                desc = "Projects" },
+      { "<leader>fr", function() Snacks.picker.recent() end,                                  desc = "Recent" },
     }
   },
 
@@ -111,26 +111,26 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-        -- ts-autotag utilizes treesitter to understand the code structure to automatically close tsx tags
-        "windwp/nvim-ts-autotag"
+      -- ts-autotag utilizes treesitter to understand the code structure to automatically close tsx tags
+      "windwp/nvim-ts-autotag"
     },
     -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
     build = ':TSUpdate',
     config = function()
-        -- gain access to the treesitter config functions
-        local ts_config = require("nvim-treesitter.configs")
+      -- gain access to the treesitter config functions
+      local ts_config = require("nvim-treesitter.configs")
 
-        -- call the treesitter setup function with properties to configure our experience
-        ts_config.setup({
-            -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
-            ensure_installed = {"vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore"},
-            -- make sure highlighting it anabled
-            highlight = {enable = true},
-            -- enable tsx auto closing tag creation
-            autotag = {
-                enable = true
-            }
-        })
+      -- call the treesitter setup function with properties to configure our experience
+      ts_config.setup({
+        -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
+        ensure_installed = { "vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore" },
+        -- make sure highlighting it anabled
+        highlight = { enable = true },
+        -- enable tsx auto closing tag creation
+        autotag = {
+          enable = true
+        }
+      })
     end
   },
 
@@ -171,7 +171,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       {
-        signs = true, -- show icons in the signs column
+        signs = true,      -- show icons in the signs column
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
@@ -275,13 +275,14 @@ return {
     "ThePrimeagen/harpoon",
     event = "VeryLazy",
     dependencies = {
-        "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim"
     },
     config = function()
-        -- Set a vim motion to <Shift>m to mark a file with harpoon
-        vim.keymap.set("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", {desc = "Harpoon Mark File"})
-        -- Set a vim motion to the tab key to open the harpoon menu to easily navigate frequented files
-        vim.keymap.set("n", "<C-e>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", {desc = "Harpoon Toggle Menu"})
+      -- Set a vim motion to <Shift>m to mark a file with harpoon
+      vim.keymap.set("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Harpoon Mark File" })
+      -- Set a vim motion to the tab key to open the harpoon menu to easily navigate frequented files
+      vim.keymap.set("n", "<C-e>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
+        { desc = "Harpoon Toggle Menu" })
     end
   },
 
@@ -338,140 +339,140 @@ return {
     },
   },
 
-	--  {
-	--    "nvim-lualine/lualine.nvim",
-	--    -- lazy = false,
-	-- dependencies = {
-	--        "nvim-tree/nvim-web-devicons",
-	--        lazy = false,
-	-- },
-	-- config = function()
-	-- 	-- Make sure web devicons is loaded
-	-- 	-- require("nvim-web-devicons").setup({})
-	-- 	-- call the setup function with properties to define how our lualine will look
-	-- 	require("lualine").setup({
-	-- 		options = {
-	-- 			-- Use web devicons if you have a nerdfont installed
-	-- 			icons_enabled = true,
-	-- 			-- Set the theme to dracula, lualine documentation has other themes available as well
-	-- 			theme = "dracula",
-	-- 			-- Separate components of lua line with chevrons
-	-- 			component_separators = { left = "", right = "" },
-	-- 			-- Separate sections with solid triangles
-	-- 			section_separators = { left = "", right = "" },
-	-- 			-- disable the status line and winbar
-	-- 			disabled_filetypes = {
-	-- 				statusline = {},
-	-- 				winbar = {},
-	-- 			},
-	-- 			-- Don't focus lualine on NvimTree
-	-- 			ignore_focus = { "NvimTree" },
-	-- 			-- Always divide lualine in the middle
-	-- 			always_divide_middle = true,
-	-- 			-- Disable global status
-	-- 			globalstatus = false,
-	-- 			-- Refresh every 1000 miliseconds
-	-- 			refresh = {
-	-- 				statusline = 1000,
-	-- 				tabline = 1000,
-	-- 				winbar = 1000,
-	-- 			},
-	-- 		},
-	-- 		-- Setup what each lualine section will contain
-	-- 		-- sections start at a on the left and go to z on the right
-	-- 		sections = {
-	-- 			-- display the current mode in section a
-	-- 			lualine_a = { "mode" },
-	-- 			-- display the current git branch, git differences, and any code diagnostics in section b
-	-- 			lualine_b = { "branch", "diff", "diagnostics" },
-	-- 			-- display the filename in section c
-	-- 			lualine_c = { "filename" },
-	-- 			-- display the file encoding type, os, and filetype in section x
-	-- 			lualine_x = { "encoding", "fileformat", "filetype" },
-	-- 			-- display where you are at in the file in section y
-	-- 			lualine_y = { "progress" },
-	-- 			-- display exact location of the cursor in section z
-	-- 			lualine_z = { "location" },
-	-- 		},
-	-- 		-- Setup what each section will contain in inactive buffers
-	-- 		inactive_sections = {
-	-- 			-- display nothing in sections a and b
-	-- 			lualine_a = {},
-	-- 			lualine_b = {},
-	-- 			-- display the file name in section c
-	-- 			lualine_c = { "filename" },
-	-- 			-- display the exact location of the cursor in section x
-	-- 			lualine_x = { "location" },
-	-- 			-- display nothing in sections y and z
-	-- 			lualine_y = {},
-	-- 			lualine_z = {},
-	-- 		},
-	-- 		-- Use default values for tabline, winbar, inactive winbar and extensions
-	-- 		tabline = {},
-	-- 		winbar = {},
-	-- 		inactive_winbar = {},
-	-- 		extensions = {},
-	-- 	})
-	-- end,
-	--  }
+  --  {
+  --    "nvim-lualine/lualine.nvim",
+  --    -- lazy = false,
+  -- dependencies = {
+  --        "nvim-tree/nvim-web-devicons",
+  --        lazy = false,
+  -- },
+  -- config = function()
+  -- 	-- Make sure web devicons is loaded
+  -- 	-- require("nvim-web-devicons").setup({})
+  -- 	-- call the setup function with properties to define how our lualine will look
+  -- 	require("lualine").setup({
+  -- 		options = {
+  -- 			-- Use web devicons if you have a nerdfont installed
+  -- 			icons_enabled = true,
+  -- 			-- Set the theme to dracula, lualine documentation has other themes available as well
+  -- 			theme = "dracula",
+  -- 			-- Separate components of lua line with chevrons
+  -- 			component_separators = { left = "", right = "" },
+  -- 			-- Separate sections with solid triangles
+  -- 			section_separators = { left = "", right = "" },
+  -- 			-- disable the status line and winbar
+  -- 			disabled_filetypes = {
+  -- 				statusline = {},
+  -- 				winbar = {},
+  -- 			},
+  -- 			-- Don't focus lualine on NvimTree
+  -- 			ignore_focus = { "NvimTree" },
+  -- 			-- Always divide lualine in the middle
+  -- 			always_divide_middle = true,
+  -- 			-- Disable global status
+  -- 			globalstatus = false,
+  -- 			-- Refresh every 1000 miliseconds
+  -- 			refresh = {
+  -- 				statusline = 1000,
+  -- 				tabline = 1000,
+  -- 				winbar = 1000,
+  -- 			},
+  -- 		},
+  -- 		-- Setup what each lualine section will contain
+  -- 		-- sections start at a on the left and go to z on the right
+  -- 		sections = {
+  -- 			-- display the current mode in section a
+  -- 			lualine_a = { "mode" },
+  -- 			-- display the current git branch, git differences, and any code diagnostics in section b
+  -- 			lualine_b = { "branch", "diff", "diagnostics" },
+  -- 			-- display the filename in section c
+  -- 			lualine_c = { "filename" },
+  -- 			-- display the file encoding type, os, and filetype in section x
+  -- 			lualine_x = { "encoding", "fileformat", "filetype" },
+  -- 			-- display where you are at in the file in section y
+  -- 			lualine_y = { "progress" },
+  -- 			-- display exact location of the cursor in section z
+  -- 			lualine_z = { "location" },
+  -- 		},
+  -- 		-- Setup what each section will contain in inactive buffers
+  -- 		inactive_sections = {
+  -- 			-- display nothing in sections a and b
+  -- 			lualine_a = {},
+  -- 			lualine_b = {},
+  -- 			-- display the file name in section c
+  -- 			lualine_c = { "filename" },
+  -- 			-- display the exact location of the cursor in section x
+  -- 			lualine_x = { "location" },
+  -- 			-- display nothing in sections y and z
+  -- 			lualine_y = {},
+  -- 			lualine_z = {},
+  -- 		},
+  -- 		-- Use default values for tabline, winbar, inactive winbar and extensions
+  -- 		tabline = {},
+  -- 		winbar = {},
+  -- 		inactive_winbar = {},
+  -- 		extensions = {},
+  -- 	})
+  -- end,
+  --  }
 
   -- -------------------------------------------------
   -- formatter <leader>cf
   -- -------------------------------------------------
-    {
-        "nvimtools/none-ls.nvim",
-        dependencies = {
-            "nvimtools/none-ls-extras.nvim",
-        },
-        config = function()
-            -- get access to the none-ls functions
-            local null_ls = require("null-ls")
-            -- run the setup function for none-ls to setup our different formatters
-            null_ls.setup({
-                sources = {
-                    -- setup lua formatter
-                    null_ls.builtins.formatting.stylua,
-                    -- setup eslint linter for javascript
-                    require("none-ls.diagnostics.eslint_d"),
-                    -- setup prettier to format languages that are not lua
-                    null_ls.builtins.formatting.prettier
-                }
-            })
-
-            -- set up a vim motion for <Space> + c + f to automatically format our code based on which langauge server is active
-            vim.keymap.set({"n","v"}, "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })
-        end
-
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvimtools/none-ls-extras.nvim",
     },
+    config = function()
+      -- get access to the none-ls functions
+      local null_ls = require("null-ls")
+      -- run the setup function for none-ls to setup our different formatters
+      null_ls.setup({
+        sources = {
+          -- setup lua formatter
+          null_ls.builtins.formatting.stylua,
+          -- setup eslint linter for javascript
+          require("none-ls.diagnostics.eslint_d"),
+          -- setup prettier to format languages that are not lua
+          null_ls.builtins.formatting.prettier
+        }
+      })
+
+      -- set up a vim motion for <Space> + c + f to automatically format our code based on which langauge server is active
+      vim.keymap.set({ "n", "v" }, "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })
+    end
+
+  },
 
   -- -------------------------------------------------
-  -- autopairs 
+  -- autopairs
   -- auto closeable {} [] ()
   -- -------------------------------------------------
-    {
-        "windwp/nvim-autopairs",
-        event = { "InsertEnter" },
-        dependencies = {
-            "hrsh7th/nvim-cmp",
-        },
-        config = function()
-            -- Call the autopairs setup function to configure how we want autopairs to work
-            require'nvim-autopairs'.setup({
-                check_ts = true,
-                ts_config = {
-                    lua = { "string" },
-                    javascript = { "template_string" },
-                    java = false,
-                }
-            })
+  {
+    "windwp/nvim-autopairs",
+    event = { "InsertEnter" },
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      -- Call the autopairs setup function to configure how we want autopairs to work
+      require 'nvim-autopairs'.setup({
+        check_ts = true,
+        ts_config = {
+          lua = { "string" },
+          javascript = { "template_string" },
+          java = false,
+        }
+      })
 
-            -- Get access to auto pairs completion and cmp plugins
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            local cmp = require("cmp")
+      -- Get access to auto pairs completion and cmp plugins
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local cmp = require("cmp")
 
-            -- Whenever we accept a choice from an autocompletion, make sure that any pairs are automatically closed
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end
-    }
+      -- Whenever we accept a choice from an autocompletion, make sure that any pairs are automatically closed
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end
+  }
 
 }

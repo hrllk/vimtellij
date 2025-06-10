@@ -23,7 +23,7 @@ return {
   --     vim.cmd([[colorscheme aura-dark]])
   --   end
   -- },
-  
+
   {
     "olimorris/onedarkpro.nvim",
     priority = 1000, -- Ensure it loads first
@@ -31,7 +31,7 @@ return {
       vim.cmd.colorscheme("onedark_dark")
     end,
   },
-  
+
   -- -------------------------------------------------
   -- noice
   -- for hightlighting
@@ -76,19 +76,133 @@ return {
   -- usage: te 생성후
   -- -------------------------------------------------
   {
-    "akinsho/bufferline.nvim",
-    keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next Tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev Tab" },
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
+    init = function() vim.g.barbar_auto_setup = false end,
     opts = {
-      options = {
-        mode = "tabs",
-        show_buffer_close_icons = false,
-        show_close_icon = false,
-      },
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      -- animation = true,
+      -- insert_at_start = true,
+      -- …etc.
     },
+    keys = {
+
+    },
+    -- Move to previous/next
+    -- map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+    -- map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+    --
+    -- -- Re-order to previous/next
+    -- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+    -- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+    --
+    -- -- Goto buffer in position...
+    -- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+    -- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+    -- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+    -- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+    -- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+    -- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+    -- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+    -- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+    -- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+    -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+    --
+    -- -- Pin/unpin buffer
+    -- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+    --
+    -- -- Goto pinned/unpinned buffer
+    -- --                 :BufferGotoPinned
+    -- --                 :BufferGotoUnpinned
+    --
+    -- -- Close buffer
+    -- map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+    --
+    -- -- Wipeout buffer
+    -- --                 :BufferWipeout
+    --
+    -- -- Close commands
+    -- --                 :BufferCloseAllButCurrent
+    -- --                 :BufferCloseAllButPinned
+    -- --                 :BufferCloseAllButCurrentOrPinned
+    -- --                 :BufferCloseBuffersLeft
+    -- --                 :BufferCloseBuffersRight
+    --
+    -- -- Magic buffer-picking mode
+    -- map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
+    -- map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
+    --
+    -- -- Sort automatically by...
+    -- map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+    -- map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
+    -- map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+    -- map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+    -- map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
+  -- {
+  --     "akinsho/bufferline.nvim",
+  --     lazy = false,
+  --     event = "VeryLazy",
+  --     -- keys = {
+  --     --   { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+  --     --   { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+  --     --   { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+  --     --   { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+  --     --   { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+  --     --   { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+  --     --   { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+  --     --   { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+  --     --   { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+  --     --   { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+  --     -- },
+  --     opts = {
+  --       -- options = {
+  --       --   -- stylua: ignore
+  --       --   close_command = function(n) Snacks.bufdelete(n) end,
+  --       --   -- stylua: ignore
+  --       --   right_mouse_command = function(n) Snacks.bufdelete(n) end,
+  --       --   diagnostics = "nvim_lsp",
+  --       --   always_show_bufferline = false,
+  --       --   diagnostics_indicator = function(_, _, diag)
+  --       --     local icons = LazyVim.config.icons.diagnostics
+  --       --     local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+  --       --       .. (diag.warning and icons.Warn .. diag.warning or "")
+  --       --     return vim.trim(ret)
+  --       --   end,
+  --       --   offsets = {
+  --       --     {
+  --       --       filetype = "neo-tree",
+  --       --       text = "Neo-tree",
+  --       --       highlight = "Directory",
+  --       --       text_align = "left",
+  --       --     },
+  --       --     {
+  --       --       filetype = "snacks_layout_box",
+  --       --     },
+  --       --   },
+  --       --   ---@param opts bufferline.IconFetcherOpts
+  --       --   get_element_icon = function(opts)
+  --       --     return LazyVim.config.icons.ft[opts.filetype]
+  --       --   end,
+  --       -- },
+  --     },
+  --     -- config = function(_, opts)
+  --     --   require("bufferline").setup(opts)
+  --     --   -- Fix bufferline when restoring a session
+  --     --   vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+  --     --     callback = function()
+  --     --       vim.schedule(function()
+  --     --         pcall(nvim_bufferline)
+  --     --       end)
+  --     --     end,
+  --     --   })
+  --     -- end,
+  -- },
 
   -- -------------------------------------------------
   -- animate
@@ -118,10 +232,10 @@ return {
       },
       dashboard = {
         enabled = true, -- Enable the dashboard
-        width = 80, -- Set the width of the dashboard
-        row = nil, -- Center the dashboard vertically
-        col = nil, -- Center the dashboard horizontally
-        pane_gap = 4, -- Space between sections
+        width = 80,     -- Set the width of the dashboard
+        row = nil,      -- Center the dashboard vertically
+        col = nil,      -- Center the dashboard horizontally
+        pane_gap = 4,   -- Space between sections
         autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
         preset = {
@@ -151,9 +265,9 @@ return {
         -- Sections Layout
         sections = {
           { section = "header" },
-          { section = "keys", gap = 1, padding = 1 },
+          { section = "keys",  gap = 1, padding = 1 },
 
-           -- brew install TheZoraiz/ascii-image-converter/ascii-image-converter
+          -- brew install TheZoraiz/ascii-image-converter/ascii-image-converter
 
           -- {
           --   section = "terminal",
@@ -236,38 +350,38 @@ return {
   -- filename
   -- print filename top right print
   -- -------------------------------------------------
-	{
-		"b0o/incline.nvim",
-		dependencies = {},
-		event = "BufReadPre",
-		priority = 1200,
-		config = function()
-			local helpers = require("incline.helpers")
-			require("incline").setup({
-				window = {
-					padding = 0,
-					margin = { horizontal = 0 },
-				},
-				render = function(props)
-					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-					local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
-					local modified = vim.bo[props.buf].modified
-					local buffer = {
-						ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) }
-							or "",
-						" ",
-						{ filename, gui = modified and "bold,italic" or "bold" },
-						" ",
-						guibg = "#363944",
-					}
-					return buffer
-				end,
-			})
-		end,
-	},
+  {
+    "b0o/incline.nvim",
+    dependencies = {},
+    event = "BufReadPre",
+    priority = 1200,
+    config = function()
+      local helpers = require("incline.helpers")
+      require("incline").setup({
+        window = {
+          padding = 0,
+          margin = { horizontal = 0 },
+        },
+        render = function(props)
+          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+          local modified = vim.bo[props.buf].modified
+          local buffer = {
+            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) }
+            or "",
+            " ",
+            { filename, gui = modified and "bold,italic" or "bold" },
+            " ",
+            guibg = "#363944",
+          }
+          return buffer
+        end,
+      })
+    end,
+  },
 
 
-  -- WhichKey helps you remember your Neovim keymaps, 
+  -- WhichKey helps you remember your Neovim keymaps,
   -- by showing available keybindings in a popup as you type.
   -- {
   --   "folke/which-key.nvim",
@@ -282,7 +396,7 @@ return {
   --     -- refer to the configuration section below
   --   },
   -- },
-  -- WhichKey helps you remember your Neovim keymaps, 
+  -- WhichKey helps you remember your Neovim keymaps,
   -- by showing available keybindings in a popup as you type.
   {
     "folke/which-key.nvim",
