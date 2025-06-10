@@ -2,16 +2,25 @@ return {
   -- -------------------------------------------------
   -- LazyGit
   -- -------------------------------------------------
+  -- {
+  --   "kdheepak/lazygit.nvim",
+  --   lazy = false,
+  --
+  --   -- enabled = false,
+  --   config = function()
+  --       vim.keymap.set('n', ';c', function() require("lazygit").lazygit() end, { desc = 'LazyGit' })
+  --   end
+  -- },
+
   {
-    "kdheepak/lazygit.nvim",
-    lazy = false,
-
-    -- enabled = false,
-    config = function()
-        vim.keymap.set('n', ';c', function() require("lazygit").lazygit() end, { desc = 'LazyGit' })
-    end
+    "folke/snacks.nvim",
+    opts = {
+      lazygit = {}
+    },
+    keys = {
+      { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    }
   },
-
   -- -------------------------------------------------
   -- Git Sign
   -- -------------------------------------------------
