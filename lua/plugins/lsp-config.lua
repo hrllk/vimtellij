@@ -63,12 +63,23 @@ return {
         --     "mfussenegger/nvim-dap",
         -- },
         config = function()
-            require('jdtls').start_or_attach({
-                  cmd = {
 
-                    -- 💀
-                    'java', -- or '/path/to/java21_or_newer/bin/java'
-                            -- depends on if `java` is in your $PATH env variable and if it points to the right version.
+            -- add condition to active when only java project or spring project 
+
+            local function is_java_or_spring_project()
+                local has_pom = vim.fn.filereadable('pom.xml') == 1
+                local has_gradle = vim.fn.filereadable('build.gradle') == 1
+                local has_java_src = vim.fn.isdirectory('src/main/java') == 1
+                return has_pom or has_gradle or has_java_src
+            end
+
+            if is_java_or_spring_project() then
+                require('jdtls').start_or_attach({
+                      cmd = {
+
+                        -- 💀
+                        'java', -- or '/path/to/java21_or_newer/bin/java'
+                                -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
                     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
                     '-Dosgi.bundles.defaultStartLevel=4',
@@ -118,6 +129,6 @@ return {
                   },
             })
         end
-    },
-
+    end
+    }
 }
