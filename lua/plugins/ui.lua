@@ -70,15 +70,11 @@ return {
     },
   },
 
-  -- -------------------------------------------------
-  -- buffer line tab
-  -- tab swicher
-  -- usage: te 생성후
-  -- -------------------------------------------------
+
   {
     'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function() vim.g.barbar_auto_setup = false end,
@@ -88,121 +84,8 @@ return {
       -- insert_at_start = true,
       -- …etc.
     },
-    keys = {
-
-    },
-    -- Move to previous/next
-    -- map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-    -- map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-    --
-    -- -- Re-order to previous/next
-    -- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-    -- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
-    --
-    -- -- Goto buffer in position...
-    -- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-    -- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-    -- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-    -- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-    -- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-    -- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-    -- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-    -- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-    -- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-    -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
-    --
-    -- -- Pin/unpin buffer
-    -- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
-    --
-    -- -- Goto pinned/unpinned buffer
-    -- --                 :BufferGotoPinned
-    -- --                 :BufferGotoUnpinned
-    --
-    -- -- Close buffer
-    -- map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-    --
-    -- -- Wipeout buffer
-    -- --                 :BufferWipeout
-    --
-    -- -- Close commands
-    -- --                 :BufferCloseAllButCurrent
-    -- --                 :BufferCloseAllButPinned
-    -- --                 :BufferCloseAllButCurrentOrPinned
-    -- --                 :BufferCloseBuffersLeft
-    -- --                 :BufferCloseBuffersRight
-    --
-    -- -- Magic buffer-picking mode
-    -- map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
-    -- map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
-    --
-    -- -- Sort automatically by...
-    -- map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-    -- map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
-    -- map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
-    -- map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
-    -- map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
-
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
-  -- {
-  --     "akinsho/bufferline.nvim",
-  --     lazy = false,
-  --     event = "VeryLazy",
-  --     -- keys = {
-  --     --   { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
-  --     --   { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
-  --     --   { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
-  --     --   { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-  --     --   { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-  --     --   { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-  --     --   { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-  --     --   { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-  --     --   { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
-  --     --   { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
-  --     -- },
-  --     opts = {
-  --       -- options = {
-  --       --   -- stylua: ignore
-  --       --   close_command = function(n) Snacks.bufdelete(n) end,
-  --       --   -- stylua: ignore
-  --       --   right_mouse_command = function(n) Snacks.bufdelete(n) end,
-  --       --   diagnostics = "nvim_lsp",
-  --       --   always_show_bufferline = false,
-  --       --   diagnostics_indicator = function(_, _, diag)
-  --       --     local icons = LazyVim.config.icons.diagnostics
-  --       --     local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-  --       --       .. (diag.warning and icons.Warn .. diag.warning or "")
-  --       --     return vim.trim(ret)
-  --       --   end,
-  --       --   offsets = {
-  --       --     {
-  --       --       filetype = "neo-tree",
-  --       --       text = "Neo-tree",
-  --       --       highlight = "Directory",
-  --       --       text_align = "left",
-  --       --     },
-  --       --     {
-  --       --       filetype = "snacks_layout_box",
-  --       --     },
-  --       --   },
-  --       --   ---@param opts bufferline.IconFetcherOpts
-  --       --   get_element_icon = function(opts)
-  --       --     return LazyVim.config.icons.ft[opts.filetype]
-  --       --   end,
-  --       -- },
-  --     },
-  --     -- config = function(_, opts)
-  --     --   require("bufferline").setup(opts)
-  --     --   -- Fix bufferline when restoring a session
-  --     --   vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
-  --     --     callback = function()
-  --     --       vim.schedule(function()
-  --     --         pcall(nvim_bufferline)
-  --     --       end)
-  --     --     end,
-  --     --   })
-  --     -- end,
-  -- },
 
   -- -------------------------------------------------
   -- animate
@@ -340,10 +223,10 @@ return {
 
 
 
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = false,
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   enabled = false,
+  -- },
 
 
   -- -------------------------------------------------
