@@ -24,6 +24,15 @@ return {
 
   -- init.lua:
   -- -------------------------------------------------
+  -- image viewer
+  -- -------------------------------------------------
+  {
+    "folke/snacks.nvim",
+    opts = {
+      image = {}, -- required magick (install with homebrew)
+    },
+  },
+  -- -------------------------------------------------
   -- finder (telescope)
   -- -------------------------------------------------
   {
@@ -36,7 +45,7 @@ return {
     }
   },
   -- -------------------------------------------------
-  -- finder (telescope)
+  -- explorer (tree)
   -- -------------------------------------------------
   {
     "folke/snacks.nvim",
@@ -135,7 +144,7 @@ return {
   },
 
 
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
+  -- since `vim.tbl_deep_extend`, can only merge editortables and not lists, the code above
   -- would overwrite `ensure_installed` with the new value.
   -- if you'd rather extend the default config, use the code below instead:
   -- {
@@ -339,82 +348,68 @@ return {
     },
   },
 
-  --  {
-  --    "nvim-lualine/lualine.nvim",
-  --    -- lazy = false,
-  -- dependencies = {
-  --        "nvim-tree/nvim-web-devicons",
-  --        lazy = false,
-  -- },
-  -- config = function()
-  -- 	-- Make sure web devicons is loaded
-  -- 	-- require("nvim-web-devicons").setup({})
-  -- 	-- call the setup function with properties to define how our lualine will look
-  -- 	require("lualine").setup({
-  -- 		options = {
-  -- 			-- Use web devicons if you have a nerdfont installed
-  -- 			icons_enabled = true,
-  -- 			-- Set the theme to dracula, lualine documentation has other themes available as well
-  -- 			theme = "dracula",
-  -- 			-- Separate components of lua line with chevrons
-  -- 			component_separators = { left = "", right = "" },
-  -- 			-- Separate sections with solid triangles
-  -- 			section_separators = { left = "", right = "" },
-  -- 			-- disable the status line and winbar
-  -- 			disabled_filetypes = {
-  -- 				statusline = {},
-  -- 				winbar = {},
-  -- 			},
-  -- 			-- Don't focus lualine on NvimTree
-  -- 			ignore_focus = { "NvimTree" },
-  -- 			-- Always divide lualine in the middle
-  -- 			always_divide_middle = true,
-  -- 			-- Disable global status
-  -- 			globalstatus = false,
-  -- 			-- Refresh every 1000 miliseconds
-  -- 			refresh = {
-  -- 				statusline = 1000,
-  -- 				tabline = 1000,
-  -- 				winbar = 1000,
-  -- 			},
-  -- 		},
-  -- 		-- Setup what each lualine section will contain
-  -- 		-- sections start at a on the left and go to z on the right
-  -- 		sections = {
-  -- 			-- display the current mode in section a
-  -- 			lualine_a = { "mode" },
-  -- 			-- display the current git branch, git differences, and any code diagnostics in section b
-  -- 			lualine_b = { "branch", "diff", "diagnostics" },
-  -- 			-- display the filename in section c
-  -- 			lualine_c = { "filename" },
-  -- 			-- display the file encoding type, os, and filetype in section x
-  -- 			lualine_x = { "encoding", "fileformat", "filetype" },
-  -- 			-- display where you are at in the file in section y
-  -- 			lualine_y = { "progress" },
-  -- 			-- display exact location of the cursor in section z
-  -- 			lualine_z = { "location" },
-  -- 		},
-  -- 		-- Setup what each section will contain in inactive buffers
-  -- 		inactive_sections = {
-  -- 			-- display nothing in sections a and b
-  -- 			lualine_a = {},
-  -- 			lualine_b = {},
-  -- 			-- display the file name in section c
-  -- 			lualine_c = { "filename" },
-  -- 			-- display the exact location of the cursor in section x
-  -- 			lualine_x = { "location" },
-  -- 			-- display nothing in sections y and z
-  -- 			lualine_y = {},
-  -- 			lualine_z = {},
-  -- 		},
-  -- 		-- Use default values for tabline, winbar, inactive winbar and extensions
-  -- 		tabline = {},
-  -- 		winbar = {},
-  -- 		inactive_winbar = {},
-  -- 		extensions = {},
-  -- 	})
-  -- end,
-  --  }
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup({
+        theme = 'auto', -- lualine theme
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        disabled_filetypes = { -- Filetypes to disable lualine for.
+          statusline = {}, -- only ignores the ft for statusline.
+          winbar = {},   -- only ignores the ft for winbar.
+        },
+
+        ignore_focus = {}, -- If current filetype is in this list it'll
+        -- always be drawn as inactive statusline
+        -- and the last window will be drawn as active statusline.
+        -- for example if you don't want statusline of
+        -- your file tree / sidebar window to have active
+        -- statusline you can add their filetypes here.
+        --
+        -- Can also be set to a function that takes the
+        -- currently focused window as its only argument
+        -- and returns a boolean representing whether the
+        -- window's statusline should be drawn as inactive.
+
+        always_divide_middle = true, -- When set to true, left sections i.e. 'a','b' and 'c'
+        -- can't take over the entire statusline even
+        -- if neither of 'x', 'y' or 'z' are present.
+
+        always_show_tabline = true, -- When set to true, if you have configured lualine for displaying tabline
+        -- then tabline will always show. If set to false, then tabline will be displayed
+        -- only when there are more than 1 tab. (see :h showtabline)
+
+        globalstatus = false, -- enable global statusline (have a single statusline
+        -- at bottom of neovim instead of one for  every window).
+        -- This feature is only available in neovim 0.7 and higher.
+
+        refresh = {    -- sets how often lualine should refresh it's contents (in ms)
+          statusline = 100, -- The refresh option sets minimum time that lualine tries
+          tabline = 100, -- to maintain between refresh. It's not guarantied if situation
+          winbar = 100, -- arises that lualine needs to refresh itself before this time
+          -- it'll do it.
+          refresh_time = 16, -- ~60fps the time after which refresh queue is processed. Mininum refreshtime for lualine
+          events = {   -- The auto command events at which lualine refreshes
+            'WinEnter',
+            'BufEnter',
+            'BufWritePost',
+            'SessionLoadPost',
+            'FileChangedShellPost',
+            'VimResized',
+            'Filetype',
+            'CursorMoved',
+            'CursorMovedI',
+            'ModeChanged',
+          },
+          -- Also you can force lualine's refresh by calling refresh function
+          -- like require('lualine').refresh()
+        }
+      })
+    end,
+  },
 
   -- -------------------------------------------------
   -- formatter <leader>cf
