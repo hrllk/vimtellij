@@ -59,9 +59,9 @@ return {
 
   {
     "mfussenegger/nvim-jdtls",
-    -- dependencies = {
-    --     "mfussenegger/nvim-dap",
-    -- },
+    dependencies = {
+        "mfussenegger/nvim-dap",
+    },
     config = function()
       -- add condition to active when only java project or spring project
 
