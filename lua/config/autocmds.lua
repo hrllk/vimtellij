@@ -69,3 +69,8 @@ vim.api.nvim_command("hi Visual guifg=#000000 guibg=#666699 gui=none")
 --     augroup end
 -- ]]
 
+
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "ToggleMyPrompt",
+--   callback = function() require("avante.config").override({system_prompt = "Before answering my question, please rephrase it to sound like a native English speaker"}) end,
+-- })

@@ -52,8 +52,14 @@ keymap.set("n", "x", '"_x')
 
 
 -- buffer navigation
-keymap.set("n", "<C-j>", ":bprevious<CR>", opts)
-keymap.set("n", "<C-l>", ":bnext<CR>", opts)
+-- keymap.set("n", "<C-j>", ":bprevious<CR>", opts)
+-- keymap.set("n", "<C-l>", ":bnext<CR>", opts)
+-- keymaps of barbar
+-- keymap.set("n", "q", ":BufferClose<CR>", opts)
+-- keymap.set("n", "<tab>", ":BufferNext<CR>", opts)
+-- keymap.set("n", "<s-tab>", ":BufferPrevious<CR>", opts)
+-- keymap.set("n", "te", ":tabnew<CR>", opts)
+-- keymap.set("n", "to", ":BufferCloseAllButCurrent<CR>", opts)
 
 
 
@@ -78,3 +84,9 @@ keymap.set("n", "+", ":resize +5<CR>", opts)
 keymap.set("n", "_", ":resize -5<CR>", opts)
 
 
+
+
+-- -------------------------------------------------
+-- avante 
+-- -------------------------------------------------
+-- vim.keymap.set("n", "<leader>am", function() vim.api.nvim_exec_autocmds("User", { pattern = "ToggleMyPrompt" }) end, { desc = "avante: toggle my prompt" })
