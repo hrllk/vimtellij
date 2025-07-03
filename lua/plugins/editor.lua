@@ -33,7 +33,8 @@ return {
 
   -- init.lua:
   -- -------------------------------------------------
-  -- image viewer
+  -- snack nvim related with editor
+  -- picker, explorer, image
   -- -------------------------------------------------
   {
     "folke/snacks.nvim",
