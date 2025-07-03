@@ -31,7 +31,8 @@ return {
       --
       provider = "gemini",
       gemini = {
-        model = "gemini-2.5-flash-preview-05-20",   -- your desired model (or use gpt-4o, etc.)
+        -- model = "gemini-2.5-flash-preview-05-20",   -- your desired model (or use gpt-4o, etc.)
+        model = "gemini-2.5-flash",   -- your desired model (or use gpt-4o, etc.)
         timeout = 30000,                            -- Timeout in milliseconds, increase this for reasoning models
         temperature = 0,
         max_tokens = 8192,                          -- Increase this to include reasoning tokens (for reasoning models)
