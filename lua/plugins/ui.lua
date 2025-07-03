@@ -110,9 +110,9 @@ return {
     lazy = false, -- Ensure it loads on startup for the dashboard
     ---@type snacks.Config
     opts = {
-      picker = {
-
-      },
+      -- picker = {
+      --
+      -- },
       dashboard = {
         enabled = true, -- Enable the dashboard
         width = 80,     -- Set the width of the dashboard
@@ -218,6 +218,15 @@ return {
             return { { fname, hl = "file" } }
           end,
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>th",
+        function()
+          require("snacks").picker.colorschemes({ layout = "ivy" })
+        end,
+        desc = "Pick Color Schemes",
       }
     }
   },
