@@ -71,6 +71,9 @@ keymap.set("v", ";csc", ":s/_\\(\\l\\)/\\u\\1/gc<CR>") -- camel to snake
 
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
+-- Keep visual mode after indenting
+keymap.set("v", ">", ">gv", opts)
+keymap.set("v", "<", "<gv", opts)
 
 -- -------------------------------------------------
 -- jdtls
