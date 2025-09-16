@@ -11,11 +11,14 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 
+keymap.set("n", "<M-j>", "<C-e>")
+keymap.set("n", "<M-k>", "<C-y>")
 
 -- jumplist
 keymap.set("n", "<C-m>", "<C-i>", opts)
 
 
+keymap.set("n", "<esc>", ":noh<CR>", opts)
 
 -- -------------------------------------------------
 -- tapping(tap, split)
@@ -44,6 +47,9 @@ keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
 keymap.set("n", "x", '"_x')
 
+keymap.set("n", "<C-A-o>", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts)
+keymap.set("n", "<leader>jdti", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts)
+keymap.set("n", "<leader>jdtc", "<Cmd>JdtCompile<CR>", opts)
 
 
 
