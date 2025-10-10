@@ -79,8 +79,7 @@ keymap.set("v", "<", "<gv", opts)
 -- jdtls
 -- note: mac os user should keysetting on iterm2 to ESC2 for use Option key(Alt)
 -- -------------------------------------------------
-keymap.set("n", "<C-A-r>", ":JavaRunnerRunMain<CR>", opts)
-keymap.set("n", "<C-A-s>", ":JavaRunnerStopMain<CR>", opts)
+keymap.set("n", "<C-A-r>", function() require("springboot-nvim").boot_run() end, opts)
 
 keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
 keymap.set("n", "+", ":resize +5<CR>", opts)
