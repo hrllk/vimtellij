@@ -91,6 +91,13 @@ keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
 keymap.set("n", "+", ":resize +5<CR>", opts)
 keymap.set("n", "_", ":resize -5<CR>", opts)
 
+-- -------------------------------------------------
+-- rest run
+-- note: mac oj user should keysetting on iterm2 to ESC2 for use Option key(Alt)
+-- -------------------------------------------------
+keymap.set("n", "rr", "<Cmd>Rest run<CR>", opts)
+
+
 
 
 
