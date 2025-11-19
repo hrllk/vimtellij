@@ -37,6 +37,8 @@ require("config.keymaps")
 -- Load the auto commands from the config/autocmds.lua file
 require("config.autocmds")
 
+-- require("config.utils")
+
 
 -- require("ftplugin")
 -- Setup lazy, this should always be last
