@@ -123,7 +123,7 @@ return {
       -- call the treesitter setup function with properties to configure our experience
       ts_config.setup({
         -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
-        ensure_installed = { "vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "sql", "http" },
+        ensure_installed = { "vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "sql", "http", "nginx" },
         -- make sure highlighting it anabled
         highlight = { enable = true },
         -- enable tsx auto closing tag creation
@@ -472,6 +472,15 @@ return {
       -- Whenever we accept a choice from an autocompletion, make sure that any pairs are automatically closed
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end
+  },
+  -- -------------------------------------------------
+  -- supermaven
+  -- -------------------------------------------------
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({})
+    end,
   }
 
 }
