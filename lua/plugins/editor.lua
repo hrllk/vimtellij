@@ -55,20 +55,6 @@ return {
     }
   },
 
-  -- {
-  --   'nvim-telescope/telescope.nvim', tag = '0.1.8',
-  --   lazy = false,
-  --   dependencies = { 'nvim-lua/plenary.nvim' },
-  --   -- Add configuration here
-  --   --
-  --   config = function()
-  --     local builtin = require('telescope.builtin')
-  --     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-  --     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
-  --     vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
-  --     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-  --   end,
-  -- },
   -- -------------------------------------------------
   -- Highlight colors
   -- -------------------------------------------------
@@ -79,35 +65,6 @@ return {
   },
 
 
-  -- -------------------------------------------------
-  -- treesitter
-  -- for hightlighting
-  -- -------------------------------------------------
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = {
-  --     ensure_installed = {
-  --       "bash",
-  --       "html",
-  --       "javascript",
-  --       "json",
-  --       "lua",
-  --       "java",
-  --       "markdown",
-  --       "markdown_inline",
-  --       "python",
-  --       "query",
-  --       "regex",
-  --       "tsx",
-  --       "typescript",
-  --       "vim",
-  --       "yaml",
-  --       "go",
-  --       "sql",
-  --       "xml",
-  --     },
-  --   },
-  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -148,19 +105,6 @@ return {
   },
 
 
-  -- since `vim.tbl_deep_extend`, can only merge editortables and not lists, the code above
-  -- would overwrite `ensure_installed` with the new value.
-  -- if you'd rather extend the default config, use the code below instead:
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = function(_, opts)
-  --     -- add tsx and treesitter
-  --     vim.list_extend(opts.ensure_installed, {
-  --       "tsx",
-  --       "typescript",
-  --     })
-  --   end,
-  -- },
 
   -- -------------------------------------------------
   -- comment
@@ -208,68 +152,6 @@ return {
     },
   },
 
-  -- -------------------------------------------------
-  -- neo tree
-  -- -------------------------------------------------
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   config = function()
-  --       vim.keymap.set('n', '<leader>e', "<cmd>NvimTreeToggle<CR>", {desc = "Toggle [E]xplorer"})
-  --       require("nvim-tree").setup({
-  --           hijack_netrw = true,
-  --           auto_reload_on_write = true,
-  --       })
-  --   end
-  -- },
-  -- -------------------------------------------------
-  -- neo tree
-  -- -------------------------------------------------
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v3.x",
-  --   lazy = false,
-  --   -----Instead of using `config`, you can use `opts` instead, if you'd like:
-  --   -----@module "neo-tree"
-  --   -----@type neotree.Config
-  --   --opts = {},
-  --   config = function()
-  --     require("neo-tree").setup({
-  --       filesystem = {
-  --         follow_current_file = {
-  --           enabled = true,
-  --         },
-  --         -- follow_current_file = true, -- Add this line to follow the current file
-  --         filtered_items = {
-  --           visible = false, -- when true, they will just be displayed differently than normal items
-  --           hide_dotfiles = false,
-  --           hide_gitignored = false,
-  --           hide_hidden = false, -- only works on Windows for hidden files/directories
-  --           -- hide_by_name = {
-  --           --   --"node_modules"
-  --           -- },
-  --           -- hide_by_pattern = { -- uses glob style patterns
-  --           --   --"*.meta",
-  --           --   --"*/src/*/tsconfig.json",
-  --           -- },
-  --           -- always_show = { -- remains visible even if other settings would normally hide it
-  --           --   --".gitignored",
-  --           -- },
-  --           -- always_show_by_pattern = { -- uses glob style patterns
-  --           --   --".env*",
-  --           -- },
-  --           -- never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-  --           --   --".DS_Store",
-  --           --   --"thumbs.db"
-  --           -- },
-  --           -- never_show_by_pattern = { -- uses glob style patterns
-  --           --   --".null-ls_*",
-  --           -- },
-  --         },
-  --       },
-  --     })
-  --     vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-  --   end,
-  -- },
   -- -------------------------------------------------
   -- undo tree
   -- undo list, move it

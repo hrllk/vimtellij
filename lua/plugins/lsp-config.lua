@@ -16,7 +16,6 @@ return {
     "neovim/nvim-lspconfig",
     -- dependencies = { "mfussenegger/nvim-jdtls" },
     config = function()
-      -- get access to the lspconfig plugins functions
 
       local lspconfig = require("lspconfig")
 
@@ -31,11 +30,6 @@ return {
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
       })
-
-      -- -- setup the java language server
-      -- lspconfig.jdtls.setup({
-      --   capabilities = capabilities,
-      -- })
 
       vim.keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
