@@ -42,6 +42,37 @@ return {
       image = {}, -- required magick (install with homebrew)
       explorer = {},
       picker = {
+        -- show hidden + gitignored files by default
+        hidden = true,
+        ignored = true,
+        sources = {
+          -- exclude build artifacts from picker results
+          files = {
+            hidden = true,
+            ignored = true,
+            exclude = {
+              "*.class",
+              "*.jar",
+              "*.war",
+              "*.log",
+              "*.min.js",
+              "*.map",
+            },
+          },
+          explorer = { hidden = true, ignored = true },
+          grep = {
+            hidden = true,
+            ignored = true,
+            exclude = {
+              "*.class",
+              "*.jar",
+              "*.war",
+              "*.log",
+              "*.min.js",
+              "*.map",
+            },
+          },
+        },
       },
     },
     keys = {
