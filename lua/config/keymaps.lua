@@ -15,7 +15,17 @@ keymap.set("n", "<M-j>", "<C-e>")
 keymap.set("n", "<M-k>", "<C-y>")
 
 -- jumplist
-keymap.set("n", "<C-m>", "<C-i>", opts)
+-- keymap.set("n", "<C-m>", "<C-i>", opts)
+
+vim.keymap.set("n", "g[", function()
+  local key = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
+  vim.api.nvim_feedkeys(key, "n", false)
+end, { noremap = true, silent = true })
+
+vim.keymap.set("n", "g]", function()
+  local key = vim.api.nvim_replace_termcodes("<C-i>", true, false, true)
+  vim.api.nvim_feedkeys(key, "n", false)
+end, { noremap = true, silent = true })
 
 
 keymap.set("n", "<esc>", ":noh<CR>", opts)
