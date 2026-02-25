@@ -1,5 +1,6 @@
--- json 자동 포맷
--- 전역 함수로 등록 (formatexpr에서 호출)
+------------------------------
+-- json format automatically
+------------------------------
 function _G.fmt_json()
   local indent = vim.bo.expandtab and (' '):rep(vim.o.shiftwidth) or '\t'
   local start = vim.v.lnum - 1
