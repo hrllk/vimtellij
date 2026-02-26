@@ -2,23 +2,33 @@ return {
   -- -------------------------------------------------
   -- LazyGit
   -- -------------------------------------------------
-  -- {
-  --   "kdheepak/lazygit.nvim",
-  --   lazy = false,
-  --
-  --   -- enabled = false,
-  --   config = function()
-  --       vim.keymap.set('n', ';c', function() require("lazygit").lazygit() end, { desc = 'LazyGit' })
-  --   end
-  -- },
-
   {
     "folke/snacks.nvim",
     opts = {
-      lazygit = {}
+      lazygit = {
+        -- keep nvim-remote integration so lazygit `e` opens files normally in nvim
+        configure = true,
+        win = {
+          style = "lazygit",
+          wo = {
+            number = false,
+            relativenumber = false,
+            signcolumn = "no",
+            cursorline = false,
+            foldcolumn = "0",
+          },
+        },
+      },
     },
     keys = {
-      { "<leader>gg", function() Snacks.lazygit() end,             desc = "Lazygit" },
+      {
+        "<leader>gg",
+        function()
+          local root = Snacks.git.get_root() or vim.uv.cwd()
+          Snacks.lazygit({ cwd = root })
+        end,
+        desc = "Lazygit",
+      },
       { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
       { "<leader>gl", function() Snacks.picker.git_log() end,      desc = "Git Log" },
       { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },

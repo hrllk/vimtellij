@@ -1,8 +1,8 @@
 return {
 
-  -- -------------------------------------------------
-  -- Theme
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- Themes
+-- -------------------------------------------------
   -- {
   --   "sainnhe/sonokai",
   --   proiroty = 1000,
@@ -32,10 +32,9 @@ return {
     end,
   },
 
-  -- -------------------------------------------------
-  -- noice
-  -- for hightlighting
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- noice (for hightlighting)
+-- -------------------------------------------------
   {
     "folke/noice.nvim",
     lazy = false,
@@ -57,10 +56,9 @@ return {
     end,
   },
 
-  -- -------------------------------------------------
-  -- notify popup
-  -- upsage :lua print('hey')
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- notify popup (upsage :lua print('hey'))
+-- -------------------------------------------------
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -70,27 +68,9 @@ return {
     },
   },
 
-
-  -- {
-  --   'romgrk/barbar.nvim',
-  --   dependencies = {
-  --     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-  --     'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-  --   },
-  --   init = function() vim.g.barbar_auto_setup = false end,
-  --   opts = {
-  --     -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-  --     -- animation = true,
-  --     -- insert_at_start = true,
-  --     -- …etc.
-  --   },
-  --   version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  -- },
-
-  -- -------------------------------------------------
-  -- animate
-  -- can see cusor jumped up
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- animate
+-- -------------------------------------------------
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
@@ -101,10 +81,9 @@ return {
     end,
   },
 
-
-  -- -------------------------------------------------
-  -- Dashboard
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- Dashboard
+-- -------------------------------------------------
   {
     "folke/snacks.nvim",
     lazy = false, -- Ensure it loads on startup for the dashboard
@@ -231,18 +210,9 @@ return {
     }
   },
 
-
-
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   enabled = false,
-  -- },
-
-
-  -- -------------------------------------------------
-  -- filename
-  -- print filename top right print
-  -- -------------------------------------------------
+-- -------------------------------------------------
+-- filename
+-- -------------------------------------------------
   {
     "b0o/incline.nvim",
     dependencies = {},
@@ -273,24 +243,9 @@ return {
     end,
   },
 
-
-  -- WhichKey helps you remember your Neovim keymaps,
-  -- by showing available keybindings in a popup as you type.
-  -- {
-  --   "folke/which-key.nvim",
-  --   event = "VeryLazy",
-  --   init = function()
-  --     vim.o.timeout = true
-  --     vim.o.timeoutlen = 300
-  --   end,
-  --   opts = {
-  --     -- your configuration comes here
-  --     -- or leave it empty to use the default settings
-  --     -- refer to the configuration section below
-  --   },
-  -- },
-  -- WhichKey helps you remember your Neovim keymaps,
-  -- by showing available keybindings in a popup as you type.
+-- -------------------------------------------------
+-- which key
+-- -------------------------------------------------
   {
     "folke/which-key.nvim",
     lazy = false,
@@ -310,12 +265,10 @@ return {
       },
     },
   },
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   ft = { "markdown" },
-  --   build = function() vim.fn["mkdp#util#install"]() end,
-  -- },
+
+-- -------------------------------------------------
+-- markdown preview
+-- -------------------------------------------------
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -326,50 +279,9 @@ return {
     ft = { "markdown" },
   },
 
-  -- {
-  --   "3rd/diagram.nvim",
-  --   dependencies = {
-  --     { "3rd/image.nvim", opts = {} }, -- you'd probably want to configure image.nvim manually instead of doing this
-  --   },
-  --   opts = { -- you can just pass {}, defaults below
-  --     events = {
-  --       render_buffer = { "InsertLeave", "BufWinEnter", "TextChanged" },
-  --       clear_buffer = {"BufLeave"},
-  --     },
-  --     renderer_options = {
-  --       mermaid = {
-  --         background = nil, -- nil | "transparent" | "white" | "#hex"
-  --         theme = nil, -- nil | "default" | "dark" | "forest" | "neutral"
-  --         scale = 1, -- nil | 1 (default) | 2  | 3 | ...
-  --         width = nil, -- nil | 800 | 400 | ...
-  --         height = nil, -- nil | 600 | 300 | ...
-  --         cli_args = nil, -- nil | { "--no-sandbox" } | { "-p", "/path/to/puppeteer" } | ...
-  --       },
-  --       plantuml = {
-  --         charset = nil,
-  --         cli_args = nil, -- nil | { "-Djava.awt.headless=true" } | ...
-  --       },
-  --       d2 = {
-  --         theme_id = nil,
-  --         dark_theme_id = nil,
-  --         scale = nil,
-  --         layout = nil,
-  --         sketch = nil,
-  --         cli_args = nil, -- nil | { "--pad", "0" } | ...
-  --       },
-  --       gnuplot = {
-  --         size = nil, -- nil | "800,600" | ...
-  --         font = nil, -- nil | "Arial,12" | ...
-  --         theme = nil, -- nil | "light" | "dark" | custom theme string
-  --         cli_args = nil, -- nil | { "-p" } | { "-c", "config.plt" } | ...
-  --       },
-  --     }
-  --   },
-  -- },
-  
-
-
-
+-- -------------------------------------------------
+-- diagram
+-- -------------------------------------------------
   -- { -- mermaid render dependency
   --   "3rd/diagram.nvim",
   --   dependencies = {
