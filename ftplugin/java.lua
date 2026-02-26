@@ -117,7 +117,12 @@ local cmd = {
   "-Declipse.product=org.eclipse.jdt.ls.core.product",
   "-Dlog.protocol=true",
   "-Dlog.level=ERROR",
-  "-Xmx3g",
+  -- JVM heap/GC tuning for large Java workspaces
+  "-Xms512m",
+  "-Xmx4g",
+  "-XX:+UseG1GC",
+  "-XX:MaxGCPauseMillis=200",
+  "-XX:+UseStringDeduplication",
   "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/lombok-nightly/lombok.jar",
   "--add-modules=ALL-SYSTEM",
   "--add-opens", "java.base/java.util=ALL-UNNAMED",
