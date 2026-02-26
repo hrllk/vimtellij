@@ -65,6 +65,22 @@
 local home = vim.fn.expand("$HOME")
 local mason = home .. "/.local/share/nvim/mason/packages/jdtls"
 
+local root_markers = {
+  ".git",
+  "mvnw",
+  "gradlew",
+  "pom.xml",
+  "build.gradle",
+  "build.gradle.kts",
+  "settings.gradle",
+  "settings.gradle.kts",
+}
+
+local root_dir = vim.fs.root(0, root_markers)
+if not root_dir then
+  return
+end
+
 -- 1) equinox launcher JAR 실제 경로 해석 (와일드카드 금지 → glob로 찾기)
 local function find_launcher()
   -- list=1 로 테이블 반환
@@ -89,8 +105,9 @@ local function find_config_dir()
 end
 
 -- 3) workspace 디렉토리(프로젝트별) 구성
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls_workspace/" .. project_name
+-- root path 해시를 사용해 동명 디렉토리 충돌과 불필요 재인덱싱을 줄인다.
+local workspace_id = vim.fn.sha256(root_dir):sub(1, 16)
+local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls_workspace/" .. workspace_id
 
 local cmd = {
   -- Java 경로 (필요하면 절대경로로 교체)
@@ -99,7 +116,7 @@ local cmd = {
   "-Dosgi.bundles.defaultStartLevel=4",
   "-Declipse.product=org.eclipse.jdt.ls.core.product",
   "-Dlog.protocol=true",
-  "-Dlog.level=ALL",
+  "-Dlog.level=ERROR",
   "-Xmx3g",
   "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/lombok-nightly/lombok.jar",
   "--add-modules=ALL-SYSTEM",
@@ -112,10 +129,9 @@ local cmd = {
 
 local config = {
   cmd = cmd,
-  root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }) or vim.fn.getcwd(),
+  root_dir = root_dir,
   settings = { java = {} },
   init_options = { bundles = {} },
 }
 
 require("jdtls").start_or_attach(config)
-
