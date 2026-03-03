@@ -292,4 +292,12 @@ return {
   --   },
   -- },
 
+-- -------------------------------------------------
+-- nvim pane hightlight
+-- -------------------------------------------------
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinLeave" },
+  }
 }
