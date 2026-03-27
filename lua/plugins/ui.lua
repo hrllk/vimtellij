@@ -26,11 +26,24 @@ return {
 
   {
     "olimorris/onedarkpro.nvim",
-    priority = 1000, -- Ensure it loads first
+    priority = 1000,
     config = function()
+      require("onedarkpro").setup({
+        options = {
+          transparency = true,
+        }
+      })
+
       vim.cmd.colorscheme("onedark_dark")
     end,
   },
+  -- {
+  --   "olimorris/onedarkpro.nvim",
+  --   priority = 1000, -- Ensure it loads first
+  --   config = function()
+  --     vim.cmd.colorscheme("onedark_dark")
+  --   end,
+  -- },
 
 -- -------------------------------------------------
 -- noice (for hightlighting)
@@ -98,7 +111,7 @@ return {
         row = nil,      -- Center the dashboard vertically
         col = nil,      -- Center the dashboard horizontally
         pane_gap = 4,   -- Space between sections
-        autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+       autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
         preset = {
           -- Custom ASCII Header
