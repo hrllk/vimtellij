@@ -119,15 +119,15 @@ return {
         },
 
         -- Folding 설정 추가
-        fold = {
-          enable = true,
-          method = "expr",  -- expr 방식으로 folding을 설정
-          expr = "nvim_treesitter#foldexpr()"  -- treesitter 기반 folding expr 사용
-        },
+        -- fold = {
+        --   enable = true,
+        --   method = "expr",  -- expr 방식으로 folding을 설정
+        --   expr = "nvim_treesitter#foldexpr()"  -- treesitter 기반 folding expr 사용
+        -- },
       })
       -- 추가적으로 foldmethod와 foldexpr 설정을 명시적으로 지정합니다.
-      vim.o.foldmethod = 'expr'
-      vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+      -- vim.o.foldmethod = 'expr'
+      -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
     end
   },
 
