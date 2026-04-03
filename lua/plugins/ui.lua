@@ -138,6 +138,7 @@ return {
           }
         },
 
+        
         -- Sections Layout
         sections = {
           { section = "header" },
@@ -165,6 +166,15 @@ return {
           --   indent = 4,
           --   height = 30,
           -- },
+          
+          {
+            section = "terminal",
+            cmd = "asciiquarium -u 6",
+            random = 10,
+            pane = 2,
+            indent = 4,
+            height = 30,
+          },
 
           -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
           -- {
