@@ -58,7 +58,13 @@ return {
               "*.map",
             },
           },
-          explorer = { hidden = true, ignored = true },
+          explorer = { 
+            hidden = true, 
+            ignored = true,           
+            exclude = {
+              ".DS_Store",
+            }, 
+          },
           grep = {
             hidden = true,
             ignored = true,

@@ -2,3 +2,4 @@ lazy-lock.json
 lazyvim.json
 nvim.log
 .nvimlog
+.DS_Store
