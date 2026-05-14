@@ -24,19 +24,214 @@ return {
   --   end
   -- },
 
+  -- {
+  --   "olimorris/onedarkpro.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     require("onedarkpro").setup({
+  --       options = {
+  --         transparency = true,
+  --       }
+  --     })
+  --
+  --     vim.cmd.colorscheme("onedark_dark")
+  --   end,
+  -- },
+
+  -- {
+  --   "miikanissi/modus-themes.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {
+  --     transparent = true,
+  --     variant = "default",
+  --     styles = {
+  --       comments = { italic = false },
+  --       keywords = { italic = false },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("modus-themes").setup(opts)
+  --     vim.cmd.colorscheme("modus_vivendi")
+  --   end,
+  -- },
+  --
+ 
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   priority = 1000,
+  --   lazy = false,
+  --   opts = {
+  --     flavour = "mocha",
+  --
+  --     transparent_background = true,
+  --
+  --     float = {
+  --       transparent = true,
+  --       solid = false,
+  --     },
+  --
+  --     integrations = {
+  --       snacks = {
+  --         enabled = true,
+  --       },
+  --     },
+  --
+  --     custom_highlights = function(colors)
+  --       return {
+  --         Normal = { bg = colors.none },
+  --         NormalNC = { bg = colors.none },
+  --         NormalFloat = { bg = colors.none },
+  --         FloatBorder = { bg = colors.none },
+  --         FloatTitle = { bg = colors.none },
+  --         SignColumn = { bg = colors.none },
+  --         EndOfBuffer = { bg = colors.none },
+  --
+  --         SnacksNormal = { bg = colors.none },
+  --         SnacksNormalNC = { bg = colors.none },
+  --
+  --         SnacksPicker = { bg = colors.none },
+  --         SnacksPickerInput = { bg = colors.none },
+  --         SnacksPickerList = { bg = colors.none },
+  --         SnacksPickerPreview = { bg = colors.none },
+  --
+  --         SnacksPickerBorder = { bg = colors.none },
+  --         SnacksPickerInputBorder = { bg = colors.none },
+  --         SnacksPickerListBorder = { bg = colors.none },
+  --         SnacksPickerPreviewBorder = { bg = colors.none },
+  --
+  --         SnacksPickerTitle = { bg = colors.none },
+  --       }
+  --     end,
+  --   },
+  --   config = function(_, opts)
+  --     require("catppuccin").setup(opts)
+  --     vim.cmd.colorscheme("catppuccin-mocha")
+  --   end,
+  -- },
+  
   {
-    "olimorris/onedarkpro.nvim",
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
-    config = function()
-      require("onedarkpro").setup({
-        options = {
-          transparency = true,
-        }
+    opts = {
+      style = "night",
+      transparent = true,
+      terminal_colors = true,
+
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+        comments = { italic = false },
+        keywords = { italic = false },
+      },
+
+      on_highlights = function(hl, c)
+        local none = "NONE"
+
+        hl.Normal = { bg = none }
+        hl.NormalNC = { bg = none }
+        hl.NormalFloat = { bg = none }
+        hl.FloatBorder = { bg = none }
+        hl.FloatTitle = { bg = none }
+        hl.SignColumn = { bg = none }
+        hl.EndOfBuffer = { bg = none }
+
+        -- dashboard 본체
+        hl.SnacksDashboardNormal = { bg = none }
+
+        -- terminal section 자체는 검정 고정
+        hl.SnacksDashboardTerminal = { bg = "#000000" }
+
+        -- snacks picker/explorer
+        hl.SnacksNormal = { bg = none }
+        hl.SnacksNormalNC = { bg = none }
+        hl.SnacksPicker = { bg = none }
+        hl.SnacksPickerInput = { bg = none }
+        hl.SnacksPickerList = { bg = none }
+        hl.SnacksPickerPreview = { bg = none }
+        hl.SnacksPickerBorder = { bg = none }
+        hl.SnacksPickerInputBorder = { bg = none }
+        hl.SnacksPickerListBorder = { bg = none }
+        hl.SnacksPickerPreviewBorder = { bg = none }
+        hl.SnacksPickerTitle = { bg = none }
+      end,
+    },
+
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme("tokyonight-night")
+
+      local function force_black_terminal()
+        -- 핵심: Neovim 내장 터미널의 ANSI black / bright black을 순수 검정으로 고정
+        vim.g.terminal_color_0 = "#000000"
+        vim.g.terminal_color_8 = "#000000"
+
+        vim.api.nvim_set_hl(0, "SnacksDashboardTerminal", {
+          bg = "#000000",
+        })
+
+        -- Snacks dashboard terminal section은 별도 floating window로 뜨므로,
+        -- 생성된 뒤 한 번 더 window highlight를 강제
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local ok_cfg, cfg = pcall(vim.api.nvim_win_get_config, win)
+          local ok_buf, buf = pcall(vim.api.nvim_win_get_buf, win)
+
+          if ok_cfg and ok_buf and cfg.relative ~= "" then
+            local ft = vim.bo[buf].filetype
+
+            if ft == "snacks_dashboard" then
+              vim.api.nvim_set_option_value(
+                "winhighlight",
+                table.concat({
+                  "Normal:SnacksDashboardTerminal",
+                  "NormalFloat:SnacksDashboardTerminal",
+                  "TermCursorNC:SnacksDashboardTerminal",
+                }, ","),
+                { win = win }
+              )
+
+              vim.api.nvim_set_option_value("winblend", 0, { win = win })
+            end
+          end
+        end
+      end
+
+      force_black_terminal()
+
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        callback = function()
+          vim.schedule(force_black_terminal)
+        end,
       })
 
-      vim.cmd.colorscheme("onedark_dark")
+      vim.api.nvim_create_autocmd("User", {
+        pattern = {
+          "SnacksDashboardOpened",
+          "SnacksDashboardUpdatePost",
+        },
+        callback = function()
+          vim.defer_fn(force_black_terminal, 20)
+        end,
+      })
     end,
   },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {
+  --     style = "moon",
+  --     transparent = true,
+  --     terminal_colors = true,
+  --   },
+  --   config = function(_, opts)
+  --     require("tokyonight").setup(opts)
+  --     vim.cmd.colorscheme("tokyonight-moon")
+  --   end,
+  -- },
+  
   -- {
   --   "olimorris/onedarkpro.nvim",
   --   priority = 1000, -- Ensure it loads first
@@ -169,6 +364,7 @@ return {
           
           {
             section = "terminal",
+            -- cmd = "printf '\\033[48;2;0;0;0m\\033[2J\\033[H'; asciiquarium -u 6",
             cmd = "asciiquarium -u 6",
             random = 10,
             pane = 2,
