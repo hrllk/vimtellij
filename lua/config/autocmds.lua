@@ -25,7 +25,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
-    vim.api.nvim_command("hi Visual guifg=#000000 guibg=#483D8B ctermfg=Black ctermbg=102 gui=none")
+    vim.api.nvim_set_hl(0, "Visual", { bg = "#264F78" })
+    vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#264F78" })
   end,
 })
 
