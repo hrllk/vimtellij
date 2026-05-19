@@ -133,10 +133,11 @@ return {
         hl.Normal = { bg = none }
         hl.NormalNC = { bg = none }
         hl.NormalFloat = { bg = none }
-        hl.FloatBorder = { bg = none }
+        hl.FloatBorder = { fg = "#0F766E", bg = none }
         hl.FloatTitle = { bg = none }
         hl.SignColumn = { bg = none }
         hl.EndOfBuffer = { bg = none }
+        hl.WinSeparator = { fg = "#2DD4BF", bg = none }
 
         -- dashboard 본체
         hl.SnacksDashboardNormal = { bg = none }
@@ -147,14 +148,15 @@ return {
         -- snacks picker/explorer
         hl.SnacksNormal = { bg = none }
         hl.SnacksNormalNC = { bg = none }
+        hl.SnacksWinSeparator = { fg = "#0F766E", bg = none }
         hl.SnacksPicker = { bg = none }
         hl.SnacksPickerInput = { bg = none }
         hl.SnacksPickerList = { bg = none }
         hl.SnacksPickerPreview = { bg = none }
-        hl.SnacksPickerBorder = { bg = none }
-        hl.SnacksPickerInputBorder = { bg = none }
-        hl.SnacksPickerListBorder = { bg = none }
-        hl.SnacksPickerPreviewBorder = { bg = none }
+        hl.SnacksPickerBorder = { fg = "#0F766E", bg = none }
+        hl.SnacksPickerInputBorder = { fg = "#0F766E", bg = none }
+        hl.SnacksPickerListBorder = { fg = "#0F766E", bg = none }
+        hl.SnacksPickerPreviewBorder = { fg = "#0F766E", bg = none }
         hl.SnacksPickerTitle = { bg = none }
       end,
     },
