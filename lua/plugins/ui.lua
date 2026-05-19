@@ -158,12 +158,41 @@ return {
         hl.SnacksPickerListBorder = { fg = "#0F766E", bg = none }
         hl.SnacksPickerPreviewBorder = { fg = "#0F766E", bg = none }
         hl.SnacksPickerTitle = { bg = none }
+
+        -- render-markdown markdown view
+        hl.RenderMarkdownH1Bg = { bg = none }
+        hl.RenderMarkdownH2Bg = { bg = none }
+        hl.RenderMarkdownH3Bg = { bg = none }
+        hl.RenderMarkdownH4Bg = { bg = none }
+        hl.RenderMarkdownH5Bg = { bg = none }
+        hl.RenderMarkdownH6Bg = { bg = none }
+        hl.RenderMarkdownCode = { bg = none }
+        hl.RenderMarkdownCodeBorder = { fg = "#0F766E", bg = none }
+        hl.RenderMarkdownCodeInfo = { bg = none }
+        hl.RenderMarkdownCodeInline = { bg = none }
       end,
     },
 
     config = function(_, opts)
       require("tokyonight").setup(opts)
       vim.cmd.colorscheme("tokyonight-night")
+
+      local function clear_markdown_backgrounds()
+        vim.api.nvim_set_hl(0, "@markup.raw", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = "#0F766E", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { bg = "NONE" })
+      end
 
       local function force_black_terminal()
         -- 핵심: Neovim 내장 터미널의 ANSI black / bright black을 순수 검정으로 고정
@@ -200,10 +229,12 @@ return {
         end
       end
 
+      clear_markdown_backgrounds()
       force_black_terminal()
 
       vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
         callback = function()
+          clear_markdown_backgrounds()
           vim.schedule(force_black_terminal)
         end,
       })
