@@ -64,7 +64,41 @@ return {
             exclude = {
               ".DS_Store",
             }, 
+
+            actions = {
+              diff_files = {
+                action = function(picker)
+                  local sel = picker:selected()
+
+                  if #sel ~= 2 then
+                    Snacks.notify.warn("Diff할 파일 2개를 <Tab>으로 선택하세요")
+                    return
+                  end
+
+                  local file1 = sel[1].file
+                  local file2 = sel[2].file
+
+                  if not file1 or not file2 then
+                    Snacks.notify.warn("파일 항목만 diff할 수 있습니다")
+                    return
+                  end
+
+                  picker:close()
+
+                  vim.cmd("tabnew " .. vim.fn.fnameescape(file1))
+                  vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file2))
+                end,
+              },
+            },
+            win = {
+              list = {
+                keys = {
+                  ["D"] = "diff_files",
+                },
+              },
+            },
           },
+
           grep = {
             hidden = true,
             ignored = true,
@@ -116,7 +150,7 @@ return {
       -- call the treesitter setup function with properties to configure our experience
       ts_config.setup({
         -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
-        ensure_installed = { "vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "sql", "http", "nginx" },
+        ensure_installed = { "vim", "vimdoc", "lua", "java", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "sql", "http", "nginx", "xml" },
         -- make sure highlighting it anabled
         highlight = { enable = true },
         -- enable tsx auto closing tag creation
