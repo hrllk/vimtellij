@@ -186,7 +186,7 @@ return {
         hl.RenderMarkdownCode = { bg = none }
         hl.RenderMarkdownCodeBorder = { fg = "#0F766E", bg = none }
         hl.RenderMarkdownCodeInfo = { bg = none }
-        hl.RenderMarkdownCodeInline = { bg = none }
+        hl.RenderMarkdownCodeInline = { fg = "#2DD4BF", bg = "#0B1220", bold = true }
       end,
     },
 
@@ -198,8 +198,8 @@ return {
         vim.api.nvim_set_hl(0, "@markup.raw", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = "#2DD4BF", bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = "#2DD4BF", bg = "#0B1220", bold = true })
         vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = "#0F766E", bg = "NONE" })
         vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = "NONE" })
