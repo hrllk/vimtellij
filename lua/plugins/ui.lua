@@ -383,74 +383,22 @@ return {
           }
         },
 
-        
+
         -- Sections Layout
         sections = {
           { section = "header" },
           { section = "keys",  gap = 1, padding = 1 },
 
-          -- brew install TheZoraiz/ascii-image-converter/ascii-image-converter
-
           -- {
           --   section = "terminal",
-          --   -- cmd = "colorscript -e square",
-          --   -- cmd = "sl",
-          --   -- cmd = "cmatrix -u 7 -C blue",
-          --   -- cmd = "cmatrix -u 6",
-          --   -- cmd = "ascii-image-converter ~/.config/nvim/materials/shifu.png -C",
-          --   cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg.png -C",
-          --   -- cmd = "ascii-image-converter ~/.config/nvim/materials/pngegg2.png -C",
-          --   -- height = 50,
-          --   -- pane = 1,
-          --   -- gap = 1,
-          --   -- padding = 1,
-          --   -- priority = 100,
-          --   -- width = '50%'
+          --   -- cmd = "printf '\\033[48;2;0;0;0m\\033[2J\\033[H'; asciiquarium -u 6",
+          --   cmd = "asciiquarium -u 6",
           --   random = 10,
           --   pane = 2,
           --   indent = 4,
           --   height = 30,
           -- },
-          
-          {
-            section = "terminal",
-            -- cmd = "printf '\\033[48;2;0;0;0m\\033[2J\\033[H'; asciiquarium -u 6",
-            cmd = "asciiquarium -u 6",
-            random = 10,
-            pane = 2,
-            indent = 4,
-            height = 30,
-          },
 
-          -- { pane = 2, icon = " ", title = "Recent Files", section = "terminal", indent = 2, padding = 1, cmd = "cmatrix"},
-          -- {
-          --   title = "Open Issues",
-          --   cmd = "gh issue list -L 3",
-          --   key = "i",
-          --   action = function()
-          --     vim.fn.jobstart("gh issue list --web", { detach = true })
-          --   end,
-          --   icon = " ",
-          --   height = 7,
-          -- },
-
-          -- { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-          -- { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-          -- {
-          --   pane = 2,
-          --   icon = " ",
-          --   title = "Git Status",
-          --   section = "terminal",
-          --   enabled = function()
-          --     return Snacks.git.get_root() ~= nil
-          --   end,
-          --   cmd = "git status --short --branch --renames",
-          --   height = 5,
-          --   padding = 1,
-          --   ttl = 5 * 60,
-          --   indent = 3,
-          -- },
-          -- { section = "startup" },
         },
 
         -- Formatting Customization
@@ -478,6 +426,32 @@ return {
       }
     }
   },
+
+  -- {
+  --   "folke/snacks.nvim",
+  --   lazy = false, -- Ensure it loads on startup for the dashboard
+  --   ---@type snacks.Config
+  --   opts = {
+  --     dashboard = {
+  --       enabled = true,
+  --       width = vim.o.columns,
+  --       row = nil,
+  --       col = nil,
+  --       pane_gap = 0,
+  --       autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  --       sections = {
+  --         {
+  --           section = "terminal",
+  --           cmd = "asciiquarium -u 6",
+  --           width = vim.o.columns,
+  --           height = math.max(20, vim.o.lines - 6),
+  --           padding = 0,
+  --           indent = 0,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
 -- -------------------------------------------------
 -- filename
