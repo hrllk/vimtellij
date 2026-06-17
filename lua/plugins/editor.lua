@@ -37,6 +37,9 @@ return {
   -- -------------------------------------------------
   {
     "folke/snacks.nvim",
+    init = function()
+      vim.g.snacks_animate = false
+    end,
     opts = {
       image = {}, -- required magick (install with homebrew)
       explorer = {},
@@ -89,11 +92,23 @@ return {
                   vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file2))
                 end,
               },
+              explorer_toggle_width = {
+                action = function(picker)
+                  local width = picker.resolved_layout.layout.width == 0.5 and 40 or 0.5
+
+                  picker:set_layout(Snacks.picker.config.layout({
+                    source = "explorer",
+                    layout = { preset = "sidebar", preview = false, layout = { width = width, min_width = 40 } },
+                  }))
+                  picker.list.win:focus()
+                end,
+              },
             },
             win = {
               list = {
                 keys = {
                   ["D"] = "diff_files",
+                  ["="] = "explorer_toggle_width",
                 },
               },
             },
