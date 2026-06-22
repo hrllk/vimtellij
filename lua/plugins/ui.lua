@@ -329,103 +329,133 @@ return {
 -- -------------------------------------------------
 -- animate
 -- -------------------------------------------------
-  {
-    "echasnovski/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      opts.scroll = {
-        enable = false,
-      }
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.animate",
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     opts.scroll = {
+  --       enable = false,
+  --     }
+  --   end,
+  -- },
 
 -- -------------------------------------------------
 -- Dashboard
 -- -------------------------------------------------
   {
     "folke/snacks.nvim",
-    lazy = false, -- Ensure it loads on startup for the dashboard
-    ---@type snacks.Config
-    opts = {
-      -- picker = {
-      --
-      -- },
-      dashboard = {
-        enabled = true, -- Enable the dashboard
-        width = 80,     -- Set the width of the dashboard
-        row = nil,      -- Center the dashboard vertically
-        col = nil,      -- Center the dashboard horizontally
-        pane_gap = 4,   -- Space between sections
-       autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-
-        preset = {
-          -- Custom ASCII Header
-          header = [[
-        ██╗ ██╗██╗███╗ ███╗████╗████╗██╗  ██╗  ██╗   ██╗
-        ██║ ██║██║████████║╚██╔╝██╔═╝██║  ██║  ██║   ██║
-        ██║ ██║██║██╔██╔██║ ██║ ███╗ ██║  ██║  ██║   ██║
-        █████╔╝██║██║╚╔╝██║ ██║ ██╔╝ ██║  ██║  ██║██ ██║
-         ███╔╝ ██║██║   ██║ ██║ ████╗████╗████╗██║╚███╔╝
-         ╚══╝  ╚═╝╚═╝   ╚═╝ ╚═╝ ╚═══╝╚═══╝╚═══╝╚═╝ ╚══╝
-          ]],
-
-          -- Key mappings on the dashboard
-          keys = {
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = "󰒲 ", key = "L", desc = "Lazy Plugins", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-
-          }
+    priority = 1000,
+    lazy = false,
+    dependencies = { "amansingh-afk/milli.nvim" },
+    opts = function()
+      local splash = require("milli").load({ splash = "vibecattwo" })
+      return {
+        dashboard = {
+          enabled = true,
+          preset = {
+            header = table.concat(splash.frames[1], "\n"),
+          },
+          sections = {
+            { section = "header", padding = 1 },
+            { section = "keys",   gap = 1, padding = 1 },
+            { section = "startup" },
+          },
         },
-
-
-        -- Sections Layout
-        sections = {
-          { section = "header" },
-          { section = "keys",  gap = 1, padding = 1 },
-
-          -- {
-          --   section = "terminal",
-          --   -- cmd = "printf '\\033[48;2;0;0;0m\\033[2J\\033[H'; asciiquarium -u 6",
-          --   cmd = "asciiquarium -u 6",
-          --   random = 10,
-          --   pane = 2,
-          --   indent = 4,
-          --   height = 30,
-          -- },
-
-        },
-
-        -- Formatting Customization
-        formats = {
-          icon = function(item)
-            return { item.icon, width = 2, hl = "icon" }
-          end,
-          footer = { "%s", align = "center" },
-          header = { "%s", align = "center" },
-          file = function(item, ctx)
-            local fname = vim.fn.fnamemodify(item.file, ":~")
-            fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
-            return { { fname, hl = "file" } }
-          end,
-        },
-      },
-    },
-    keys = {
-      {
-        "<leader>th",
-        function()
-          require("snacks").picker.colorschemes({ layout = "ivy" })
-        end,
-        desc = "Pick Color Schemes",
       }
-    }
+    end,
+    config = function(_, opts)
+      require("snacks").setup(opts)
+      require("milli").snacks({ splash = "vibecattwo", loop = true })
+    end,
   },
+  -- {
+  --   "folke/snacks.nvim",
+  --   lazy = false, -- Ensure it loads on startup for the dashboard
+  --   ---@type snacks.Config
+  --   opts = {
+  --     -- picker = {
+  --     --
+  --     -- },
+  --     dashboard = {
+  --       enabled = true, -- Enable the dashboard
+  --       width = 80,     -- Set the width of the dashboard
+  --       row = nil,      -- Center the dashboard vertically
+  --       col = nil,      -- Center the dashboard horizontally
+  --       pane_gap = 4,   -- Space between sections
+  --      autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  --
+  --       preset = {
+  --         -- Custom ASCII Header
+  --         header = [[
+  --       ██╗ ██╗██╗███╗ ███╗████╗████╗██╗  ██╗  ██╗   ██╗
+  --       ██║ ██║██║████████║╚██╔╝██╔═╝██║  ██║  ██║   ██║
+  --       ██║ ██║██║██╔██╔██║ ██║ ███╗ ██║  ██║  ██║   ██║
+  --       █████╔╝██║██║╚╔╝██║ ██║ ██╔╝ ██║  ██║  ██║██ ██║
+  --        ███╔╝ ██║██║   ██║ ██║ ████╗████╗████╗██║╚███╔╝
+  --        ╚══╝  ╚═╝╚═╝   ╚═╝ ╚═╝ ╚═══╝╚═══╝╚═══╝╚═╝ ╚══╝
+  --         ]],
+  --
+  --         -- Key mappings on the dashboard
+  --         keys = {
+  --           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+  --           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+  --           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+  --           { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+  --           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+  --           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+  --           { icon = "󰒲 ", key = "L", desc = "Lazy Plugins", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+  --           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+  --
+  --         }
+  --       },
+  --
+  --
+  --       -- Sections Layout
+  --       sections = {
+  --         { section = "header" },
+  --         { section = "keys",  gap = 1, padding = 1 },
+  --
+  --         -- {
+  --         --   section = "terminal",
+  --         --   -- cmd = "printf '\\033[48;2;0;0;0m\\033[2J\\033[H'; asciiquarium -u 6",
+  --         --   cmd = "asciiquarium -u 6",
+  --         --   random = 10,
+  --         --   pane = 2,
+  --         --   indent = 4,
+  --         --   height = 30,
+  --         -- },
+  --
+  --       },
+  --
+  --       -- Formatting Customization
+  --       formats = {
+  --         icon = function(item)
+  --           return { item.icon, width = 2, hl = "icon" }
+  --         end,
+  --         footer = { "%s", align = "center" },
+  --         header = { "%s", align = "center" },
+  --         file = function(item, ctx)
+  --           local fname = vim.fn.fnamemodify(item.file, ":~")
+  --           fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+  --           return { { fname, hl = "file" } }
+  --         end,
+  --       },
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>th",
+  --       function()
+  --         require("snacks").picker.colorschemes({ layout = "ivy" })
+  --       end,
+  --       desc = "Pick Color Schemes",
+  --     }
+  --   }
+  -- },
+  
+  
+  
+  
 
   -- {
   --   "folke/snacks.nvim",
