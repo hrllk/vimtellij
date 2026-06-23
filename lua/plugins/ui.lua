@@ -146,6 +146,7 @@ return {
 
       on_highlights = function(hl, c)
         local none = "NONE"
+        local accent = c.gray
 
         hl.Normal = { bg = none }
         hl.NormalNC = { bg = none }
@@ -157,24 +158,17 @@ return {
         hl.WinSeparator = { fg = "#2DD4BF", bg = none }
 
         -- dashboard 본체
-        hl.SnacksDashboardNormal = { bg = none }
+        hl.SnacksDashboardNormal = { fg = accent, bg = none }
+        hl.SnacksDashboardHeader = { fg = accent, bg = none }
+        hl.SnacksDashboardIcon = { fg = accent, bg = none }
+        hl.SnacksDashboardDesc = { fg = accent, bg = none }
+        hl.SnacksDashboardKey = { fg = accent, bg = none, bold = true }
+        hl.SnacksDashboardFooter = { fg = accent, bg = none }
+        hl.SnacksDashboardTitle = { fg = accent, bg = none }
+        hl.SnacksDashboardSpecial = { fg = accent, bg = none }
 
         -- terminal section 자체는 검정 고정
         hl.SnacksDashboardTerminal = { bg = "#000000" }
-
-        -- snacks picker/explorer
-        hl.SnacksNormal = { bg = none }
-        hl.SnacksNormalNC = { bg = none }
-        hl.SnacksWinSeparator = { fg = "#0F766E", bg = none }
-        hl.SnacksPicker = { bg = none }
-        hl.SnacksPickerInput = { bg = none }
-        hl.SnacksPickerList = { bg = none }
-        hl.SnacksPickerPreview = { bg = none }
-        hl.SnacksPickerBorder = { fg = "#0F766E", bg = none }
-        hl.SnacksPickerInputBorder = { fg = "#0F766E", bg = none }
-        hl.SnacksPickerListBorder = { fg = "#0F766E", bg = none }
-        hl.SnacksPickerPreviewBorder = { fg = "#0F766E", bg = none }
-        hl.SnacksPickerTitle = { bg = none }
 
         -- render-markdown markdown view
         hl.RenderMarkdownH1Bg = { bg = none }
@@ -340,7 +334,7 @@ return {
   -- },
 
 -- -------------------------------------------------
--- Dashboard
+-- dashboard
 -- -------------------------------------------------
   {
     "folke/snacks.nvim",
@@ -354,6 +348,45 @@ return {
           enabled = true,
           preset = {
             header = table.concat(splash.frames[1], "\n"),
+            keys = {
+              {
+                action = ":lua Snacks.dashboard.pick('files')",
+                key = "f",
+                text = {
+                  { " ", hl = "SnacksDashboardIcon" },
+                  { "Find File", hl = "SnacksDashboardDesc", width = 50 },
+                  { "f", hl = "SnacksDashboardKey" },
+                },
+              },
+              {
+                action = ":lua Snacks.dashboard.pick('oldfiles')",
+                key = "r",
+                text = {
+                  { " ", hl = "SnacksDashboardIcon" },
+                  { "Recent Files", hl = "SnacksDashboardDesc", width = 50 },
+                  { "r", hl = "SnacksDashboardKey" },
+                },
+              },
+              {
+                action = ":Lazy",
+                key = "L",
+                enabled = package.loaded.lazy ~= nil,
+                text = {
+                  { "󰒲 ", hl = "SnacksDashboardIcon" },
+                  { "Lazy", hl = "SnacksDashboardDesc", width = 50 },
+                  { "L", hl = "SnacksDashboardKey" },
+                },
+              },
+              {
+                action = ":qa",
+                key = "q",
+                text = {
+                  { " ", hl = "SnacksDashboardIcon" },
+                  { "Quit", hl = "SnacksDashboardDesc", width = 50 },
+                  { "q", hl = "SnacksDashboardKey" },
+                },
+              },
+            },
           },
           sections = {
             { section = "header", padding = 1 },
@@ -366,6 +399,38 @@ return {
     config = function(_, opts)
       require("snacks").setup(opts)
       require("milli").snacks({ splash = "ididnot", loop = true })
+
+      local function apply_dashboard_highlights()
+        local accent = "#A1A1AA"
+        local none = "NONE"
+
+        vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = accent, bg = none, bold = true })
+        vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = accent, bg = none })
+        vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = accent, bg = none })
+      end
+
+      apply_dashboard_highlights()
+
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        callback = function()
+          apply_dashboard_highlights()
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = {
+          "SnacksDashboardOpened",
+          "SnacksDashboardUpdatePost",
+        },
+        callback = function()
+          vim.schedule(apply_dashboard_highlights)
+        end,
+      })
     end,
   },
   -- {

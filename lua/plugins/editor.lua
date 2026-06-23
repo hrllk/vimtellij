@@ -39,6 +39,31 @@ return {
     "folke/snacks.nvim",
     init = function()
       vim.g.snacks_animate = false
+
+      local function apply_picker_highlights()
+        local none = "NONE"
+
+        vim.api.nvim_set_hl(0, "SnacksNormal", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = "#0F766E", bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPicker", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerInput", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerList", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#0F766E", bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#0F766E", bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { fg = "#0F766E", bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { fg = "#0F766E", bg = none })
+        vim.api.nvim_set_hl(0, "SnacksPickerTitle", { bg = none })
+      end
+
+      apply_picker_highlights()
+
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        callback = function()
+          apply_picker_highlights()
+        end,
+      })
     end,
     opts = {
       image = {}, -- required magick (install with homebrew)
