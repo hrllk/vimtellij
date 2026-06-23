@@ -348,7 +348,7 @@ return {
     lazy = false,
     dependencies = { "amansingh-afk/milli.nvim" },
     opts = function()
-      local splash = require("milli").load({ splash = "vibecattwo" })
+      local splash = require("milli").load({ splash = "ididnot" })
       return {
         dashboard = {
           enabled = true,
@@ -365,7 +365,7 @@ return {
     end,
     config = function(_, opts)
       require("snacks").setup(opts)
-      require("milli").snacks({ splash = "vibecattwo", loop = true })
+      require("milli").snacks({ splash = "ididnot", loop = true })
     end,
   },
   -- {
