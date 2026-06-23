@@ -126,6 +126,13 @@ return {
                     layout = { preset = "sidebar", preview = false, layout = { width = width, min_width = 40 } },
                   }))
                   picker.list.win:focus()
+
+                  vim.schedule(function()
+                    vim.api.nvim_exec_autocmds("User", {
+                      pattern = "SnacksDashboardUpdatePost",
+                      modeline = false,
+                    })
+                  end)
                 end,
               },
             },
