@@ -127,12 +127,7 @@ return {
                   }))
                   picker.list.win:focus()
 
-                  vim.schedule(function()
-                    vim.api.nvim_exec_autocmds("User", {
-                      pattern = "SnacksDashboardUpdatePost",
-                      modeline = false,
-                    })
-                  end)
+                  require("config.snacks_dashboard").refresh()
                 end,
               },
             },
