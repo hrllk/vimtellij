@@ -6,7 +6,7 @@ return {
     config = function()
       -- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls" },        -- mason registry needs
+        ensure_installed = { "lua_ls", "ts_ls", "gopls" },        -- mason registry needs
       })
     end
   },
@@ -29,6 +29,23 @@ return {
       -- setup the typescript language server
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
+      })
+
+      -- setup the Go language server
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        settings = {
+          gopls = {
+            staticcheck = true,
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+              unusedparams = true,
+              nilness = true,
+              shadow = true,
+            },
+          },
+        },
       })
 
       vim.keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>")
