@@ -51,7 +51,17 @@ return {
       vim.keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
       vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-      vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+      vim.keymap.set("n", "K", function()
+        local ok, ufo = pcall(require, "ufo")
+        if ok then
+          local winid = ufo.peekFoldedLinesUnderCursor()
+          if winid then
+            return
+          end
+        end
+
+        vim.lsp.buf.hover()
+      end, { desc = "Hover / fold preview" })
       vim.keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
       -- vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
       vim.keymap.set("n", "gr", function()

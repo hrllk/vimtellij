@@ -514,12 +514,17 @@ return {
       vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
       vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
 
-      vim.keymap.set("n", "K", function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      end, { desc = "Peek fold / hover" })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = vim.api.nvim_create_augroup("UfoAutoPreview", { clear = true }),
+        callback = function()
+          local ok, ufo = pcall(require, "ufo")
+          if not ok then
+            return
+          end
+
+          ufo.peekFoldedLinesUnderCursor()
+        end,
+      })
     end,
   }
 }
