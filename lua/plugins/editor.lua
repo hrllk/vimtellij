@@ -522,6 +522,10 @@ return {
             return
           end
 
+          if vim.fn.foldclosed(vim.fn.line(".")) == -1 then
+            return
+          end
+
           ufo.peekFoldedLinesUnderCursor()
         end,
       })

@@ -43,29 +43,4 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   end,
 })
 
-------------------------------
--- save/restore folds and cursor view
-------------------------------
-vim.opt.viewoptions:append("folds")
 
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  group = vim.api.nvim_create_augroup("PersistView", { clear = true }),
-  callback = function()
-    if vim.bo.buftype ~= "" or vim.api.nvim_buf_get_name(0) == "" then
-      return
-    end
-
-    pcall(vim.cmd, "mkview")
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = vim.api.nvim_create_augroup("PersistView", { clear = false }),
-  callback = function()
-    if vim.bo.buftype ~= "" or vim.api.nvim_buf_get_name(0) == "" then
-      return
-    end
-
-    pcall(vim.cmd, "silent! loadview")
-  end,
-})
