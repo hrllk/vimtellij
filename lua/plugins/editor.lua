@@ -513,11 +513,58 @@ return {
       vim.opt.viewdir = vim.fn.stdpath("state") .. "/manual-fold-views//"
     end,
     config = function()
+      local function fold_virt_text_handler(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
+        local suffixWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - suffixWidth
+        local curWidth = 0
+
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+
+          if targetWidth > curWidth + chunkWidth then
+            newVirtText[#newVirtText + 1] = chunk
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            newVirtText[#newVirtText + 1] = { chunkText, chunk[2] }
+
+            local truncatedWidth = vim.fn.strdisplaywidth(chunkText)
+            if curWidth + truncatedWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - truncatedWidth)
+            end
+            break
+          end
+
+          curWidth = curWidth + chunkWidth
+        end
+
+        newVirtText[#newVirtText + 1] = { suffix, "MoreMsg" }
+        return newVirtText
+      end
+
+      local function apply_fold_highlights()
+        local none = "NONE"
+
+        vim.api.nvim_set_hl(0, "Folded", { bg = none })
+        vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = none })
+        vim.api.nvim_set_hl(0, "UfoPreviewWinBar", { bg = none })
+        vim.api.nvim_set_hl(0, "UfoPreviewCursorLine", { bg = none })
+        vim.api.nvim_set_hl(0, "UfoCursorFoldedLine", { bg = none })
+      end
+
       local ufo = require("ufo")
       ufo.setup({
         provider_selector = function()
           return ""
         end,
+        fold_virt_text_handler = fold_virt_text_handler,
+      })
+
+      apply_fold_highlights()
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        callback = apply_fold_highlights,
       })
 
       vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
