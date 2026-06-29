@@ -504,29 +504,75 @@ return {
     event = "VeryLazy",
     init = function()
       vim.o.foldcolumn = "1"
+      vim.o.foldmethod = "manual"
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
+      vim.opt.viewoptions:append("folds")
+      vim.opt.sessionoptions:append("folds")
+      vim.opt.viewdir = vim.fn.stdpath("state") .. "/manual-fold-views//"
     end,
     config = function()
-      require("ufo").setup()
+      local ufo = require("ufo")
+      ufo.setup({
+        provider_selector = function()
+          return ""
+        end,
+      })
 
-      vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-      vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
+      vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
+      vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
+
+      local fold_group = vim.api.nvim_create_augroup("UfoFoldPersistence", { clear = true })
+
+      local function should_persist(bufnr)
+        return vim.bo[bufnr].buftype == "" and vim.api.nvim_buf_get_name(bufnr) ~= ""
+      end
+
+      vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+        group = fold_group,
+        callback = function(event)
+          if not should_persist(event.buf) then
+            return
+          end
+
+          pcall(vim.cmd, "silent! mkview")
+        end,
+      })
+
+      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+        group = fold_group,
+        callback = function(event)
+          if not should_persist(event.buf) then
+            return
+          end
+
+          pcall(vim.cmd, "silent! loadview")
+        end,
+      })
+
+      for _, winid in ipairs(vim.api.nvim_list_wins()) do
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        if should_persist(bufnr) then
+          vim.api.nvim_win_call(winid, function()
+            pcall(vim.cmd, "silent! loadview")
+          end)
+        end
+      end
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         group = vim.api.nvim_create_augroup("UfoAutoPreview", { clear = true }),
         callback = function()
-          local ok, ufo = pcall(require, "ufo")
-          if not ok then
-            return
-          end
-
           if vim.fn.foldclosed(vim.fn.line(".")) == -1 then
             return
           end
 
-          ufo.peekFoldedLinesUnderCursor()
+          local ok, ufo_mod = pcall(require, "ufo")
+          if not ok then
+            return
+          end
+
+          ufo_mod.peekFoldedLinesUnderCursor()
         end,
       })
     end,
