@@ -3,10 +3,16 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
     config = function()
-      -- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
+      -- Auto-install only the servers that are available in this environment.
+      local ensure_installed = { "lua_ls", "gopls" }
+      if vim.fn.executable("node") == 1 and vim.fn.executable("npm") == 1 then
+        table.insert(ensure_installed, "ts_ls")
+      end
+
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "gopls" },        -- mason registry needs
+        ensure_installed = ensure_installed,
       })
     end
   },
@@ -16,23 +22,15 @@ return {
     "neovim/nvim-lspconfig",
     -- dependencies = { "mfussenegger/nvim-jdtls" },
     config = function()
-
-      local lspconfig = require("lspconfig")
-
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- setup the lua language server
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-
-      -- setup the typescript language server
-      lspconfig.ts_ls.setup({
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
       })
 
       -- setup the Go language server
-      lspconfig.gopls.setup({
+      vim.lsp.config("gopls", {
         capabilities = capabilities,
         settings = {
           gopls = {
@@ -47,6 +45,16 @@ return {
           },
         },
       })
+
+      local servers = { "lua_ls", "gopls" }
+      if vim.fn.executable("typescript-language-server") == 1 then
+        vim.lsp.config("ts_ls", {
+          capabilities = capabilities,
+        })
+        table.insert(servers, "ts_ls")
+      end
+
+      vim.lsp.enable(servers)
 
       vim.keymap.set("n", "<leader>O", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
