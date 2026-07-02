@@ -554,6 +554,15 @@ return {
         vim.api.nvim_set_hl(0, "UfoCursorFoldedLine", { bg = none })
       end
 
+      local function sync_cursorline_for_fold()
+        if vim.bo.buftype ~= "" then
+          return
+        end
+
+        local folded = vim.fn.foldclosed(vim.fn.line(".")) ~= -1
+        vim.wo.cursorline = not folded
+      end
+
       local ufo = require("ufo")
       ufo.setup({
         provider_selector = function()
@@ -564,7 +573,15 @@ return {
 
       apply_fold_highlights()
       vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-        callback = apply_fold_highlights,
+        callback = function()
+          apply_fold_highlights()
+          sync_cursorline_for_fold()
+        end,
+      })
+
+      vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorMoved", "CursorMovedI", "WinEnter", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("UfoCursorLineSync", { clear = true }),
+        callback = sync_cursorline_for_fold,
       })
 
       vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
