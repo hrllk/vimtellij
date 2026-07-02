@@ -51,6 +51,25 @@ keymap.set("n", "x", '"_x')
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
 
+local function resize_current_window(direction, amount)
+  local win = vim.api.nvim_get_current_win()
+
+  if direction == "up" then
+    vim.api.nvim_win_set_height(win, vim.api.nvim_win_get_height(win) + amount)
+  elseif direction == "down" then
+    vim.api.nvim_win_set_height(win, math.max(1, vim.api.nvim_win_get_height(win) - amount))
+  elseif direction == "right" then
+    vim.api.nvim_win_set_width(win, vim.api.nvim_win_get_width(win) + amount)
+  elseif direction == "left" then
+    vim.api.nvim_win_set_width(win, math.max(1, vim.api.nvim_win_get_width(win) - amount))
+  end
+end
+
+keymap.set("n", "sk", function() resize_current_window("up", 5) end, opts)
+keymap.set("n", "sj", function() resize_current_window("down", 5) end, opts)
+keymap.set("n", "sl", function() resize_current_window("right", 5) end, opts)
+keymap.set("n", "sh", function() resize_current_window("left", 5) end, opts)
+
 -- tab
 keymap.set("n", "te", ":tabedit <Return>", opts)
 keymap.set("n", "to", ":tabonly <Return>", opts)
@@ -76,8 +95,6 @@ keymap.set("n", "rr", "<Cmd>Rest run<CR>", opts)
 -- jdtls
 keymap.set("n", "<C-A-r>", function() require("springboot-nvim").boot_run() end, opts)
 keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
-keymap.set("n", "+", ":resize +5<CR>", opts)
-keymap.set("n", "_", ":resize -5<CR>", opts)
 
 -- lsp
 keymap.set("n", "<C-A-o>", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts)
