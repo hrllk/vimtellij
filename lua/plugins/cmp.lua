@@ -1,6 +1,7 @@
 return {
   {
     "L3MON4D3/LuaSnip",
+    event = "InsertEnter",
     dependencies = {
       -- feed luasnip suggestions to cmp
       "saadparwaiz1/cmp_luasnip",
@@ -30,7 +31,9 @@ return {
       local lsp_kind = cmp.lsp.CompletionItemKind
 
       -- Lazily load the vscode like snippets
-      require("luasnip.loaders.from_vscode").lazy_load()
+      pcall(function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end)
 
       -- All the cmp setup function to configure our completion experience
       cmp.setup({
