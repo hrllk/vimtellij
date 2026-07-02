@@ -189,6 +189,7 @@ return {
       require("nvim-treesitter").setup(opts)
     end,
     opts = {
+      install_dir = vim.fn.stdpath("data") .. "/site",
       ensure_installed = {
         "vim",
         "vimdoc",
@@ -355,23 +356,31 @@ return {
   -- -------------------------------------------------
   -- show keys
   -- -------------------------------------------------
-  {
-    "nvzone/showkeys",
-    cmd = "ShowkeysToggle",
-    opts = {
-      maxkeys = 3,
-      show_count = true,
-      winopts = {
-        focusable = false,
-        relative = "editor",
-        style = "minimal",
-        border = "single",
-        height = 1,
-        row = 1,
-        col = 0,
-      },
-    },
-  },
+  -- {
+  --   dir = "/Users/hrk/task/sources/opensources/showkeys",
+  --   name = "showkeys.nvim",
+  --   lazy = false,
+  --   cmd = { "ShowkeysStart", "ShowkeysStop", "ShowkeysToggle" },
+  --   config = function(_, opts)
+  --     require("showkeys").setup(opts)
+  --   end,
+  --   opts = {
+  --     maxkeys = 3,
+  --     show_count = false,
+  --     separator = " → ",
+  --     timeout_ms = 1200,
+  --     winopts = {
+  --       focusable = false,
+  --       relative = "editor",
+  --       style = "minimal",
+  --       border = "none",
+  --       height = 1,
+  --       row = 1,
+  --       col = 0,
+  --       zindex = 200,
+  --     },
+  --   },
+  -- },
 
   {
     'nvim-lualine/lualine.nvim',

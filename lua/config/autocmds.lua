@@ -9,17 +9,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 ------------------------------
--- calling automatically neovim starts
-------------------------------
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_command("ShowkeysToggle") -- show key toggle
-    vim.api.nvim_exec_autocmds("User", { pattern = "ToggleMyPrompt" }) -- Trigger ToggleMyPrompt on VimEnter
-  end,
-})
-
-------------------------------
 -- visual mode style
 ------------------------------
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -42,5 +31,4 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     end
   end,
 })
-
 
