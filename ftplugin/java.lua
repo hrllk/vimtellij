@@ -3,6 +3,7 @@
 
 local home = vim.fn.expand("$HOME")
 local mason = home .. "/.local/share/nvim/mason/packages/jdtls"
+local lombok_jar = home .. "/.local/share/nvim/mason/packages/lombok-nightly/lombok.jar"
 
 local root_markers = {
   ".git",
@@ -43,6 +44,10 @@ local function find_config_dir()
   return mason .. "/config_mac"
 end
 
+local function has_lombok_jar()
+  return vim.loop.fs_stat(lombok_jar) ~= nil
+end
+
 -- 3) workspace 디렉토리(프로젝트별) 구성
 -- root path 해시를 사용해 동명 디렉토리 충돌과 불필요 재인덱싱을 줄인다.
 local workspace_id = vim.fn.sha256(root_dir):sub(1, 16)
@@ -55,15 +60,15 @@ local cmd = {
   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
   "-Dosgi.bundles.defaultStartLevel=4",
   "-Declipse.product=org.eclipse.jdt.ls.core.product",
-  "-Dlog.protocol=true",
+  "-Dlog.protocol=false",
   "-Dlog.level=ERROR",
+  "-Dlogback.statusListenerClass=ch.qos.logback.core.status.NopStatusListener",
   -- JVM heap/GC tuning for large Java workspaces
   "-Xms512m",
   "-Xmx4g",
   "-XX:+UseG1GC",
   "-XX:MaxGCPauseMillis=200",
   "-XX:+UseStringDeduplication",
-  "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/lombok-nightly/lombok.jar",
   "--add-modules=ALL-SYSTEM",
   "--add-opens", "java.base/java.util=ALL-UNNAMED",
   "--add-opens", "java.base/java.lang=ALL-UNNAMED",
@@ -71,6 +76,12 @@ local cmd = {
   "-configuration", find_config_dir(),-- ★ config_mac_arm / config_mac 자동 선택
   "-data", workspace_dir,
 }
+
+if has_lombok_jar() then
+  table.insert(cmd, 12, "-javaagent:" .. lombok_jar)
+else
+  vim.notify("lombok-nightly lombok.jar not found: " .. lombok_jar, vim.log.levels.WARN)
+end
 
 local config = {
   cmd = cmd,
