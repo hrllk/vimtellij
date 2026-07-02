@@ -185,32 +185,49 @@ return {
     },
     -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
     build = ':TSUpdate',
-    config = function()
-      -- gain access to the treesitter config functions
-      local ts_config = require("nvim-treesitter.configs")
+    config = function(_, opts)
+      require("nvim-treesitter").setup(opts)
+    end,
+    opts = {
+      ensure_installed = {
+        "vim",
+        "vimdoc",
+        "lua",
+        "java",
+        "go",
+        "gomod",
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "json",
+        "tsx",
+        "markdown",
+        "markdown_inline",
+        "gitignore",
+        "sql",
+        "http",
+        "nginx",
+        "xml",
+      },
+      highlight = { enable = true },
+    },
+  },
 
-      -- call the treesitter setup function with properties to configure our experience
-      ts_config.setup({
-        -- make sure we have vim, vimdoc, lua, java, javascript, typescript, html, css, json, tsx, markdown, markdown, inline markdown and gitignore highlighting servers
-        ensure_installed = { "vim", "vimdoc", "lua", "java", "go", "gomod", "javascript", "typescript", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "sql", "http", "nginx", "xml" },
-        -- make sure highlighting it anabled
-        highlight = { enable = true },
-        -- enable tsx auto closing tag creation
-        autotag = {
-          enable = true
-        },
-
-        -- Folding 설정 추가
-        -- fold = {
-        --   enable = true,
-        --   method = "expr",  -- expr 방식으로 folding을 설정
-        --   expr = "nvim_treesitter#foldexpr()"  -- treesitter 기반 folding expr 사용
-        -- },
-      })
-      -- 추가적으로 foldmethod와 foldexpr 설정을 명시적으로 지정합니다.
-      -- vim.o.foldmethod = 'expr'
-      -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-    end
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function(_, opts)
+      require("nvim-ts-autotag").setup(opts)
+    end,
+    opts = {
+      opts = {
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = false,
+      },
+    },
   },
 
   -- -------------------------------------------------
@@ -254,29 +271,23 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
     opts = {
-      {
-        signs = true,      -- show icons in the signs column
-        sign_priority = 8, -- sign priority
-        -- keywords recognized as todo comments
-        keywords = {
-          FIX = {
-            icon = " ", -- icon used for the sign, and in search results
-            color = "error", -- can be a hex color, or a named color (see below)
-            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
-            -- signs = false, -- configure signs for some keywords individually
-          },
-          TODO = { icon = " ", color = "info" },
-          HACK = { icon = " ", color = "warning" },
-          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-          TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      signs = true,
+      sign_priority = 8,
+      keywords = {
+        FIX = {
+          icon = " ",
+          color = "error",
+          alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
         },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
       },
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
     },
   },
 
@@ -364,7 +375,7 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
-    lazy = false,
+    event = "UIEnter",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
@@ -488,6 +499,7 @@ return {
   -- -------------------------------------------------
   {
     "supermaven-inc/supermaven-nvim",
+    event = "InsertEnter",
     config = function()
       require("supermaven-nvim").setup({})
     end,
