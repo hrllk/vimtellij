@@ -357,7 +357,7 @@ return {
   -- show keys
   -- -------------------------------------------------
   {
-    dir = "/Users/hrk/task/sources/opensources/showkeys",
+    "hrllk/showkeys",
     name = "showkeys.nvim",
     lazy = false,
     cmd = { "ShowkeysStart", "ShowkeysStop", "ShowkeysToggle" },
