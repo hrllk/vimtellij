@@ -65,97 +65,6 @@ return {
         end,
       })
     end,
-    opts = {
-      image = {}, -- required magick (install with homebrew)
-      explorer = {},
-      picker = {
-        -- show hidden + gitignored files by default
-        hidden = true,
-        ignored = true,
-        sources = {
-          -- exclude build artifacts from picker results
-          files = {
-            hidden = true,
-            ignored = true,
-            exclude = {
-              "*.class",
-              "*.jar",
-              "*.war",
-              "*.log",
-              "*.min.js",
-              "*.map",
-            },
-          },
-          explorer = { 
-            hidden = true, 
-            ignored = true,           
-            exclude = {
-              ".DS_Store",
-            }, 
-
-            actions = {
-              diff_files = {
-                action = function(picker)
-                  local sel = picker:selected()
-
-                  if #sel ~= 2 then
-                    Snacks.notify.warn("Diff할 파일 2개를 <Tab>으로 선택하세요")
-                    return
-                  end
-
-                  local file1 = sel[1].file
-                  local file2 = sel[2].file
-
-                  if not file1 or not file2 then
-                    Snacks.notify.warn("파일 항목만 diff할 수 있습니다")
-                    return
-                  end
-
-                  picker:close()
-
-                  vim.cmd("tabnew " .. vim.fn.fnameescape(file1))
-                  vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file2))
-                end,
-              },
-              explorer_toggle_width = {
-                action = function(picker)
-                  local width = picker.resolved_layout.layout.width == 0.5 and 40 or 0.5
-
-                  picker:set_layout(Snacks.picker.config.layout({
-                    source = "explorer",
-                    layout = { preset = "sidebar", preview = false, layout = { width = width, min_width = 40 } },
-                  }))
-                  picker.list.win:focus()
-
-                  require("config.snacks_dashboard").refresh()
-                end,
-              },
-            },
-            win = {
-              list = {
-                keys = {
-                  ["D"] = "diff_files",
-                  ["="] = "explorer_toggle_width",
-                },
-              },
-            },
-          },
-
-          grep = {
-            hidden = true,
-            ignored = true,
-            exclude = {
-              "*.class",
-              "*.jar",
-              "*.war",
-              "*.log",
-              "*.min.js",
-              "*.map",
-            },
-          },
-        },
-      },
-    },
     keys = {
       { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
       { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -179,6 +88,7 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     dependencies = {
       -- ts-autotag utilizes treesitter to understand the code structure to automatically close tsx tags
       "windwp/nvim-ts-autotag"
@@ -186,15 +96,13 @@ return {
     -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
     build = ':TSUpdate',
     config = function(_, opts)
-      require("nvim-treesitter").setup(opts)
-    end,
-    opts = {
-      install_dir = vim.fn.stdpath("data") .. "/site",
-      ensure_installed = {
+      local treesitter = require("nvim-treesitter")
+      local languages = {
         "vim",
         "vimdoc",
         "lua",
         "java",
+        "kotlin",
         "go",
         "gomod",
         "javascript",
@@ -210,8 +118,21 @@ return {
         "http",
         "nginx",
         "xml",
-      },
-      highlight = { enable = true },
+      }
+
+      treesitter.setup(opts)
+      treesitter.install(languages)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true }),
+        pattern = languages,
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+    end,
+    opts = {
+      install_dir = vim.fn.stdpath("data") .. "/site",
     },
   },
 
