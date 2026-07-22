@@ -356,6 +356,8 @@ return {
               hidden = true,
               ignored = true,
               exclude = {
+                "*.class",
+                "*.class.uniqueId*",
                 "*.jar",
                 "*.war",
                 "*.log",
@@ -428,6 +430,7 @@ return {
               ignored = true,
               exclude = {
                 "*.class",
+                "*.class.uniqueId*",
                 "*.jar",
                 "*.war",
                 "*.log",
