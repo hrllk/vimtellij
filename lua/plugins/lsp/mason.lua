@@ -1,3 +1,7 @@
+------------------------------
+-- Mason registry
+-- configure registries for external development tools
+------------------------------
 return {
   "williamboman/mason.nvim",
   opts = {

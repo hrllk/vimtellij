@@ -1,3 +1,7 @@
+------------------------------
+-- language servers
+-- configure and enable language servers and LSP keymaps
+------------------------------
 return {
   {
     "neovim/nvim-lspconfig",

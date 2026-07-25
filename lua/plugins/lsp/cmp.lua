@@ -1,3 +1,7 @@
+------------------------------
+-- completion
+-- provide LSP, buffer, path, and snippet completion
+------------------------------
 return {
   {
     "L3MON4D3/LuaSnip",

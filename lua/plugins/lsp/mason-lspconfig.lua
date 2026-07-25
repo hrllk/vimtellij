@@ -1,3 +1,7 @@
+------------------------------
+-- LSP package bridge
+-- install and connect Mason packages to LSP configuration
+------------------------------
 return {
   {
     "williamboman/mason-lspconfig.nvim",
