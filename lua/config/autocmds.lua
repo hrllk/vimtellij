@@ -1,14 +1,4 @@
 ------------------------------
--- auto format turn off
-------------------------------
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.b.autoformat = false
-  end,
-})
-
-------------------------------
 -- visual mode style
 ------------------------------
 vim.api.nvim_create_autocmd("ColorScheme", {
