@@ -1,33 +1,5 @@
 return {
   -- -------------------------------------------------
-  -- JSON tools
-  -- -------------------------------------------------
-  {
-    "VPavliashvili/json-nvim",
-    ft = "json",
-  },
-
--- -------------------------------------------------
--- inc-rename (for rename (refactor))
--- -------------------------------------------------
-  {
-    "smjonas/inc-rename.nvim",
-    cmd = "IncRename",
-    keys = {
-      {
-        "<leader>rn",
-        function()
-          return ":IncRename " .. vim.fn.expand("<cword>")
-        end,
-        desc = "Incremental rename",
-        mode = "n",
-        noremap = true,
-        expr = true,
-      },
-    },
-    config = true,
-  },
-  -- -------------------------------------------------
   -- tab
   -- -------------------------------------------------
   {
@@ -193,65 +165,6 @@ return {
   -- },
 
   -- -------------------------------------------------
-  -- todo comment
-  -- for todo commenting as below
-  -- TODO :,
-  -- WARN :...
-  -- -------------------------------------------------
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = "VeryLazy",
-    opts = {
-      signs = true,
-      sign_priority = 8,
-      keywords = {
-        FIX = {
-          icon = " ",
-          color = "error",
-          alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
-        },
-        TODO = { icon = " ", color = "info" },
-        HACK = { icon = " ", color = "warning" },
-        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
-      },
-    },
-  },
-
-  -- -------------------------------------------------
-  -- undo tree
-  -- undo list, move it
-  -- -------------------------------------------------
-  {
-    "mbbill/undotree",
-    config = function()
-      vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-    end,
-  },
-  -- -------------------------------------------------
-  -- harpoon
-  -- navigating
-  -- -------------------------------------------------
-  {
-    "ThePrimeagen/harpoon",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
-    config = function()
-      -- Set a vim motion to <Shift>m to mark a file with harpoon
-      vim.keymap.set("n", "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Harpoon Mark File" })
-      -- Set a vim motion to the tab key to open the harpoon menu to easily navigate frequented files
-      vim.keymap.set("n", "<C-e>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
-        { desc = "Harpoon Toggle Menu" })
-    end
-  },
-
-
-  -- -------------------------------------------------
   -- Mini File
   -- -------------------------------------------------
   -- { "echasnovski/mini.nvim", version = false },
@@ -274,44 +187,6 @@ return {
   --     end, { desc = "Toggle into currently opened file" })
   --   end,
   -- },
-
-  -- -------------------------------------------------
-  -- Tmux navigator
-  -- -------------------------------------------------
-  {
-    "christoomey/vim-tmux-navigator",
-  },
-
-  -- -------------------------------------------------
-  -- show keys
-  -- -------------------------------------------------
-  {
-    "hrllk/showkeys",
-    name = "showkeys.nvim",
-    lazy = false,
-    cmd = { "ShowkeysStart", "ShowkeysStop", "ShowkeysToggle" },
-    config = function(_, opts)
-      require("showkeys").setup(opts)
-    end,
-    opts = {
-      auto_start = true,
-      startup_user_events = { "ToggleMyPrompt" },
-      maxkeys = 3,
-      show_count = false,
-      separator = " → ",
-      timeout_ms = 1200,
-      winopts = {
-        focusable = false,
-        relative = "editor",
-        style = "minimal",
-        border = "none",
-        height = 1,
-        row = 1,
-        col = 0,
-        zindex = 200,
-      },
-    },
-  },
 
   {
     'nvim-lualine/lualine.nvim',
@@ -382,6 +257,7 @@ return {
   {
     "nvimtools/none-ls.nvim",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "nvimtools/none-ls-extras.nvim",
     },
     config = function()
