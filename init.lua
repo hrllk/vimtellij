@@ -46,6 +46,7 @@ require("config.autocmds")
 -- Import root specs and each feature directory explicitly.
 require("lazy").setup({
   { import = "plugins" },
+  { import = "plugins.ai" },
   { import = "plugins.editor" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
