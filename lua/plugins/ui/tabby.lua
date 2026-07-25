@@ -7,7 +7,8 @@ return {
     "nanozuki/tabby.nvim",
     ---@type TabbyConfig
     opts = {
-      -- configs...
+      -- Keep tab labels on the left and hide active window/file labels.
+      preset = "tab_only",
     },
   },
 }
