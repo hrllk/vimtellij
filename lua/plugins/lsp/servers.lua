@@ -37,7 +37,6 @@ return {
       end
 
       vim.lsp.enable(servers)
-      require("config.lsp.keymaps").setup()
     end,
   },
 }
