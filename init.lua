@@ -42,7 +42,12 @@ require("config.autocmds")
 
 
 -- require("ftplugin")
--- Setup lazy, this should always be last
--- Tell lazy that all plugin specs are found in the plugins directory
--- Pass it the options we specified above
-require("lazy").setup("plugins", opts)
+-- Setup lazy, this should always be last.
+-- Import root specs and each feature directory explicitly.
+require("lazy").setup({
+  { import = "plugins" },
+  { import = "plugins.editor" },
+  { import = "plugins.git" },
+  { import = "plugins.lsp" },
+  { import = "plugins.ui" },
+}, opts)
