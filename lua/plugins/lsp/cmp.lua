@@ -1,31 +1,45 @@
 ------------------------------
 -- completion
--- provide LSP, buffer, path, and snippet completion
+-- User input → nvim-cmp → Neovim LSP client → LSP server
+-- nvim-cmp also combines buffer, path, and snippet sources
 ------------------------------
 return {
+  ------------------------------
+  -- LuaSnip
+  -- snippet engine that expands templates with editable placeholders
+  ------------------------------
   {
     "L3MON4D3/LuaSnip",
     event = "InsertEnter",
     dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
+      "saadparwaiz1/cmp_luasnip", -- connect LuaSnip to nvim-cmp
+      "rafamadriz/friendly-snippets", -- provide reusable snippet templates
     },
   },
+  ------------------------------
+  -- LSP completion adapter
+  -- provide nvim-cmp capabilities to language servers
+  ------------------------------
   {
     "hrsh7th/cmp-nvim-lsp",
   },
+  ------------------------------
+  -- nvim-cmp
+  -- completion engine and popup UI
+  ------------------------------
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer", -- provide words from the current buffer
+      "hrsh7th/cmp-path", -- provide file paths as candidates
     },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       local lsp_kind = cmp.lsp.CompletionItemKind
 
+      -- Load snippet templates from friendly-snippets.
       pcall(function()
         require("luasnip.loaders.from_vscode").lazy_load()
       end)
@@ -43,6 +57,7 @@ return {
           max_view_entries = 40,
         },
         snippet = {
+          -- nvim-cmp delegates snippet expansion to LuaSnip.
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
@@ -64,6 +79,7 @@ return {
         }),
       })
 
+      -- Java: reduce completion noise and limit LSP results.
       cmp.setup.filetype("java", {
         completion = {
           keyword_length = 3,
