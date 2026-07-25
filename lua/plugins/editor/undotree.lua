@@ -1,3 +1,7 @@
+------------------------------
+-- undo tree
+-- browse and restore the buffer's undo history
+------------------------------
 return {
   {
     "mbbill/undotree",

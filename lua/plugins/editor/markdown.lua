@@ -1,3 +1,7 @@
+------------------------------
+-- markdown rendering
+-- render Markdown syntax and code blocks in the editor
+------------------------------
 return {
   {
     "MeanderingProgrammer/render-markdown.nvim",

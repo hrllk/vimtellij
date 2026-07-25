@@ -1,3 +1,7 @@
+------------------------------
+-- todo comments
+-- highlight and search TODO, FIXME, and related comments
+------------------------------
 return {
   {
     "folke/todo-comments.nvim",

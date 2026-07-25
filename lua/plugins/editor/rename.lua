@@ -1,3 +1,7 @@
+------------------------------
+-- incremental rename
+-- interactively rename symbols through the LSP
+------------------------------
 return {
   {
     "smjonas/inc-rename.nvim",

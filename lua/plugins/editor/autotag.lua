@@ -1,3 +1,7 @@
+------------------------------
+-- auto tag
+-- automatically close and rename HTML-like tags
+------------------------------
 return {
   {
     "windwp/nvim-ts-autotag",

@@ -1,3 +1,7 @@
+------------------------------
+-- show keys
+-- display recently pressed keys on screen
+------------------------------
 return {
   {
     "hrllk/showkeys",

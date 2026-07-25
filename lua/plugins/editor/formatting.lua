@@ -1,3 +1,7 @@
+------------------------------
+-- formatting
+-- format and lint code through none-ls
+------------------------------
 return {
   {
     "nvimtools/none-ls.nvim",

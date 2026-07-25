@@ -1,3 +1,7 @@
+------------------------------
+-- syntax parsing
+-- provide structural syntax highlighting with Treesitter
+------------------------------
 return {
   {
     "nvim-treesitter/nvim-treesitter",

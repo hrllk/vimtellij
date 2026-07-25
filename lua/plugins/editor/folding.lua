@@ -1,3 +1,7 @@
+------------------------------
+-- folding
+-- preview and persist folded code sections
+------------------------------
 return {
   {
     "kevinhwang91/nvim-ufo",

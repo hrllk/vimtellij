@@ -1,3 +1,7 @@
+------------------------------
+-- harpoon
+-- quickly mark and switch between frequently used files
+------------------------------
 return {
   {
     "ThePrimeagen/harpoon",
