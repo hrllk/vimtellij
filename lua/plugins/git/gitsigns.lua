@@ -1,3 +1,7 @@
+------------------------------
+-- git signs
+-- show Git changes and navigate or stage hunks
+------------------------------
 return {
   {
     "lewis6991/gitsigns.nvim",

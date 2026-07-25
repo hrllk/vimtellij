@@ -1,3 +1,7 @@
+------------------------------
+-- line history
+-- inspect Git history for a selected line range
+------------------------------
 return {
   {
     "hrllk/file-line-range-history",
