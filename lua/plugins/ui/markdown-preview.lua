@@ -1,3 +1,7 @@
+------------------------------
+-- Markdown preview
+-- preview Markdown documents in a browser
+------------------------------
 local function refresh_markdown_preview_mermaid(plugin_dir)
   local target = plugin_dir .. "/app/_static/mermaid.min.js"
   local mermaid_url = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"

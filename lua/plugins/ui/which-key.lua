@@ -1,3 +1,7 @@
+------------------------------
+-- keymap hints
+-- show available keymaps and their descriptions
+------------------------------
 return {
   {
     "folke/which-key.nvim",

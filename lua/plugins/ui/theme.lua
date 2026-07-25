@@ -1,3 +1,7 @@
+------------------------------
+-- color theme
+-- configure TokyoNight colors and custom highlights
+------------------------------
 return {
   {
     "folke/tokyonight.nvim",

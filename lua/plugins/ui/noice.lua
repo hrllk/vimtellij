@@ -1,3 +1,7 @@
+------------------------------
+-- message UI
+-- improve command-line messages, notifications, and LSP popups
+------------------------------
 return {
   {
     "folke/noice.nvim",

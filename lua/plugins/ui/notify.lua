@@ -1,3 +1,7 @@
+------------------------------
+-- notifications
+-- display styled notification popups
+------------------------------
 return {
   {
     "rcarriga/nvim-notify",

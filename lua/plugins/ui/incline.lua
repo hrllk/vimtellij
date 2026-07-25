@@ -1,3 +1,7 @@
+------------------------------
+-- filename labels
+-- display the current filename in the window incline
+------------------------------
 return {
   {
     "b0o/incline.nvim",

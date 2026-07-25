@@ -1,3 +1,7 @@
+------------------------------
+-- statusline
+-- display editor status and context information
+------------------------------
 return {
   {
     "nvim-lualine/lualine.nvim",
