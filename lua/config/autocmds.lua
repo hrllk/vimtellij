@@ -1,15 +1,4 @@
 ------------------------------
--- visual mode style
-------------------------------
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "Visual", { bg = "#264F78" })
-    vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#264F78" })
-  end,
-})
-
-------------------------------
 -- auto save
 ------------------------------
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
