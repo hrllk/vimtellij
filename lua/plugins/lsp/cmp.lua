@@ -13,15 +13,8 @@ return {
     event = "InsertEnter",
     dependencies = {
       "saadparwaiz1/cmp_luasnip", -- connect LuaSnip to nvim-cmp
-      "rafamadriz/friendly-snippets", -- provide reusable snippet templates
+      "rafamadriz/friendly-snippets", -- provide reusable snippet templates (template repository)
     },
-  },
-  ------------------------------
-  -- LSP completion adapter
-  -- provide nvim-cmp capabilities to language servers
-  ------------------------------
-  {
-    "hrsh7th/cmp-nvim-lsp",
   },
   ------------------------------
   -- nvim-cmp
@@ -100,5 +93,12 @@ return {
         }),
       })
     end,
+  },
+  ------------------------------
+  -- LSP completion adapter
+  -- provide nvim-cmp capabilities to language servers
+  ------------------------------
+  {
+    "hrsh7th/cmp-nvim-lsp",
   },
 }
