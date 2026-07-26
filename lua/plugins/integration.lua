@@ -1,3 +1,7 @@
+------------------------------
+-- http request
+-- can send a request like postman
+------------------------------
 return {
   {
     "rest-nvim/rest.nvim",

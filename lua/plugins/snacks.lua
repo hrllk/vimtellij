@@ -1,3 +1,7 @@
+------------------------------
+-- qol (quality of life) collection plugins
+-- explorer, picker, lazygit, git, etc ...
+------------------------------
 return {
   {
     "folke/snacks.nvim",
