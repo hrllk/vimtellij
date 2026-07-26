@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
+
+export XDG_STATE_HOME="$TMP/state"
+export XDG_CACHE_HOME="$TMP/cache"
+
+echo "Checking Lua syntax..."
+while IFS= read -r file; do
+  nvim --headless -n -u NONE \
+    "+lua assert(loadfile('$ROOT/$file'))" \
+    +qa!
+done < <(cd "$ROOT" && rg --files lua ftplugin -g '*.lua' | sort)
+
+echo "Loading Neovim configuration..."
+LOG="$TMP/nvim.log"
+if ! nvim --headless -n -u "$ROOT/init.lua" +qa! >"$LOG" 2>&1; then
+  cat "$LOG"
+  exit 1
+fi
+
+if rg -n "Error|Failed to run|E[0-9]{3}:" "$LOG"; then
+  echo "Configuration check failed"
+  exit 1
+fi
+
+echo "All checks passed"
