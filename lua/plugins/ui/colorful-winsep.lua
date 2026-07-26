@@ -1,11 +1,13 @@
 ------------------------------
--- window separators
+-- window separator highlight
 -- highlight the boundaries between Neovim windows
 ------------------------------
 return {
   {
     "nvim-zh/colorful-winsep.nvim",
-    config = true,
+    opts = {
+      highlight = "#2DD4BF",
+    },
     event = { "WinLeave" },
   },
 }
