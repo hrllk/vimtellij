@@ -3,10 +3,6 @@
 -- Add any additional options here
 -- override
 
-local opt = vim.opt
-opt.wrap = true
-
-
 -- Left column and similar settings
 vim.opt.number = true -- display line numbers
 vim.opt.relativenumber = true -- display relative line numbers

@@ -1,3 +1,5 @@
+local colors = require("config.colors")
+
 ------------------------------
 -- qol (quality of life) collection plugins
 -- explorer, picker, lazygit, git, etc ...
@@ -12,19 +14,18 @@ return {
       vim.g.snacks_animate = false
 
       local function apply_picker_highlights()
-        local none = "NONE"
-        vim.api.nvim_set_hl(0, "SnacksNormal", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = "#0F766E", bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPicker", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerInput", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerList", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#0F766E", bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#0F766E", bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { fg = "#0F766E", bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { fg = "#0F766E", bg = none })
-        vim.api.nvim_set_hl(0, "SnacksPickerTitle", { bg = none })
+        vim.api.nvim_set_hl(0, "SnacksNormal", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPicker", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerInput", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerList", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "SnacksPickerTitle", { bg = colors.none })
       end
 
       apply_picker_highlights()

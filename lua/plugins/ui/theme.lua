@@ -1,3 +1,5 @@
+local colors = require("config.colors")
+
 ------------------------------
 -- color theme
 -- configure TokyoNight colors and custom highlights
@@ -18,17 +20,16 @@ return {
         keywords = { italic = false },
       },
       on_highlights = function(hl, c)
-        local none = "NONE"
         local accent = c.gray
 
-        hl.Normal = { bg = none }
-        hl.NormalNC = { bg = none }
-        hl.NormalFloat = { bg = none }
-        hl.FloatBorder = { fg = "#0F766E", bg = none }
-        hl.FloatTitle = { bg = none }
-        hl.SignColumn = { bg = none }
-        hl.EndOfBuffer = { bg = none }
-        hl.WinSeparator = { fg = "#2DD4BF", bg = none }
+        hl.Normal = { bg = colors.none }
+        hl.NormalNC = { bg = colors.none }
+        hl.NormalFloat = { bg = colors.none }
+        hl.FloatBorder = { fg = colors.border, bg = colors.none }
+        hl.FloatTitle = { bg = colors.none }
+        hl.SignColumn = { bg = colors.none }
+        hl.EndOfBuffer = { bg = colors.none }
+        hl.WinSeparator = { fg = colors.accent, bg = colors.none }
 
         hl.SnacksDashboardNormal = { fg = accent, bg = none }
         hl.SnacksDashboardHeader = { fg = accent, bg = none }
@@ -38,18 +39,18 @@ return {
         hl.SnacksDashboardFooter = { fg = accent, bg = none }
         hl.SnacksDashboardTitle = { fg = accent, bg = none }
         hl.SnacksDashboardSpecial = { fg = accent, bg = none }
-        hl.SnacksDashboardTerminal = { bg = "#000000" }
+        hl.SnacksDashboardTerminal = { bg = colors.terminal }
 
-        hl.RenderMarkdownH1Bg = { bg = none }
-        hl.RenderMarkdownH2Bg = { bg = none }
-        hl.RenderMarkdownH3Bg = { bg = none }
-        hl.RenderMarkdownH4Bg = { bg = none }
-        hl.RenderMarkdownH5Bg = { bg = none }
-        hl.RenderMarkdownH6Bg = { bg = none }
-        hl.RenderMarkdownCode = { bg = none }
-        hl.RenderMarkdownCodeBorder = { fg = "#0F766E", bg = none }
-        hl.RenderMarkdownCodeInfo = { bg = none }
-        hl.RenderMarkdownCodeInline = { fg = "#2DD4BF", bg = "#0B1220", bold = true }
+        hl.RenderMarkdownH1Bg = { bg = colors.none }
+        hl.RenderMarkdownH2Bg = { bg = colors.none }
+        hl.RenderMarkdownH3Bg = { bg = colors.none }
+        hl.RenderMarkdownH4Bg = { bg = colors.none }
+        hl.RenderMarkdownH5Bg = { bg = colors.none }
+        hl.RenderMarkdownH6Bg = { bg = colors.none }
+        hl.RenderMarkdownCode = { bg = colors.none }
+        hl.RenderMarkdownCodeBorder = { fg = colors.border, bg = colors.none }
+        hl.RenderMarkdownCodeInfo = { bg = colors.none }
+        hl.RenderMarkdownCodeInline = { fg = colors.accent, bg = colors.terminal_inline, bold = true }
       end,
     },
     config = function(_, opts)
@@ -57,23 +58,23 @@ return {
       vim.cmd.colorscheme("tokyonight-night")
 
       local function clear_markdown_backgrounds()
-        vim.api.nvim_set_hl(0, "@markup.raw", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = "#2DD4BF", bg = "NONE", bold = true })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = "#2DD4BF", bg = "#0B1220", bold = true })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = "#0F766E", bg = "NONE" })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@markup.raw", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = colors.accent, bg = colors.none, bold = true })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = colors.accent, bg = colors.terminal_inline, bold = true })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = colors.border, bg = colors.none })
+        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = colors.none })
         for level = 1, 6 do
-          vim.api.nvim_set_hl(0, "RenderMarkdownH" .. level .. "Bg", { bg = "NONE" })
+          vim.api.nvim_set_hl(0, "RenderMarkdownH" .. level .. "Bg", { bg = colors.none })
         end
       end
 
       local function force_black_terminal()
-        vim.g.terminal_color_0 = "#000000"
-        vim.g.terminal_color_8 = "#000000"
-        vim.api.nvim_set_hl(0, "SnacksDashboardTerminal", { bg = "#000000" })
+        vim.g.terminal_color_0 = colors.terminal
+        vim.g.terminal_color_8 = colors.terminal
+        vim.api.nvim_set_hl(0, "SnacksDashboardTerminal", { bg = colors.terminal })
 
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local ok_cfg, cfg = pcall(vim.api.nvim_win_get_config, win)

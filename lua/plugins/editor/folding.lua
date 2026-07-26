@@ -1,3 +1,5 @@
+local colors = require("config.colors")
+
 ------------------------------
 -- folding
 -- preview and persist folded code sections
@@ -52,13 +54,11 @@ return {
       end
 
       local function apply_fold_highlights()
-        local none = "NONE"
-
-        vim.api.nvim_set_hl(0, "Folded", { bg = none })
-        vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = none })
-        vim.api.nvim_set_hl(0, "UfoPreviewWinBar", { bg = none })
-        vim.api.nvim_set_hl(0, "UfoPreviewCursorLine", { bg = none })
-        vim.api.nvim_set_hl(0, "UfoCursorFoldedLine", { bg = none })
+        vim.api.nvim_set_hl(0, "Folded", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "UfoPreviewWinBar", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "UfoPreviewCursorLine", { bg = colors.none })
+        vim.api.nvim_set_hl(0, "UfoCursorFoldedLine", { bg = colors.none })
       end
 
       local function sync_cursorline_for_fold()

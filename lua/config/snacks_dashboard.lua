@@ -1,3 +1,5 @@
+local colors = require("config.colors")
+
 local M = {}
 
 local milli_runtime = require("milli.runtime")
@@ -27,16 +29,14 @@ end
 
 local function apply_highlights()
   local accent = "#A1A1AA"
-  local none = "NONE"
-
-  vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = accent, bg = none, bold = true })
-  vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = accent, bg = none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = accent, bg = none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = accent, bg = colors.none, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = accent, bg = colors.none })
 end
 
 local function rtrim(s)
