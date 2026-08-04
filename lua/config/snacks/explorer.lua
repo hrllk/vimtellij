@@ -2,6 +2,10 @@
 -- explorer options
 -- configure the Snacks file explorer and its explorer source
 ------------------------------
+
+local explorer_width_states = setmetatable({}, { __mode = "k" })
+local explorer_widths = { 0.3, 0.4, 0.5 }
+
 return {
   explorer = {},
   picker = {
@@ -32,7 +36,23 @@ return {
           },
           explorer_toggle_width = {
             action = function(picker)
-              local width = picker.resolved_layout.layout.width == 0.5 and 40 or 0.5
+              local state = explorer_width_states[picker]
+              if not state then
+                state = {
+                  default_width = picker.resolved_layout.layout.width,
+                  step = 0,
+                }
+                explorer_width_states[picker] = state
+              end
+
+              state.step = state.step + 1
+
+              local width = explorer_widths[state.step]
+              if not width then
+                width = state.default_width
+                explorer_width_states[picker] = nil
+              end
+
               picker:set_layout(Snacks.picker.config.layout({
                 source = "explorer",
                 layout = { preset = "sidebar", preview = false, layout = { width = width, min_width = 40 } },
