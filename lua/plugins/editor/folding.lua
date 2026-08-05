@@ -12,11 +12,11 @@ return {
     },
     event = "VeryLazy",
     init = function()
-      vim.o.foldcolumn = "1"
-      vim.o.foldmethod = "manual"
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
+      vim.opt.foldcolumn = "1"
+      vim.opt.foldmethod = "manual"
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
+      vim.opt.foldenable = true
       vim.opt.viewoptions:append("folds")
       vim.opt.sessionoptions:append("folds")
       vim.opt.viewdir = vim.fn.stdpath("state") .. "/manual-fold-views//"
@@ -54,11 +54,15 @@ return {
       end
 
       local function apply_fold_highlights()
-        vim.api.nvim_set_hl(0, "Folded", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "UfoPreviewWinBar", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "UfoPreviewCursorLine", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "UfoCursorFoldedLine", { bg = colors.none })
+        for _, group in ipairs({
+          "Folded",
+          "UfoFoldedBg",
+          "UfoPreviewWinBar",
+          "UfoPreviewCursorLine",
+          "UfoCursorFoldedLine",
+        }) do
+          vim.api.nvim_set_hl(0, group, { bg = colors.none })
+        end
       end
 
       local function sync_cursorline_for_fold()
@@ -79,7 +83,10 @@ return {
       })
 
       apply_fold_highlights()
+      local group = vim.api.nvim_create_augroup("UfoFolding", { clear = true })
+
       vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        group = group,
         callback = function()
           apply_fold_highlights()
           sync_cursorline_for_fold()
@@ -87,65 +94,58 @@ return {
       })
 
       vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorMoved", "CursorMovedI", "WinEnter", "InsertLeave" }, {
-        group = vim.api.nvim_create_augroup("UfoCursorLineSync", { clear = true }),
+        group = group,
         callback = sync_cursorline_for_fold,
       })
 
       vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
       vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
 
-      local fold_group = vim.api.nvim_create_augroup("UfoFoldPersistence", { clear = true })
-
       local function should_persist(bufnr)
         return vim.bo[bufnr].buftype == "" and vim.api.nvim_buf_get_name(bufnr) ~= ""
       end
 
-      vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-        group = fold_group,
-        callback = function(event)
-          if not should_persist(event.buf) then
-            return
-          end
-
+      local function save_view(event)
+        if should_persist(event.buf) then
           pcall(vim.cmd, "silent! mkview")
-        end,
-      })
-
-      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-        group = fold_group,
-        callback = function(event)
-          if not should_persist(event.buf) then
-            return
-          end
-
-          pcall(vim.cmd, "silent! loadview")
-        end,
-      })
-
-      for _, winid in ipairs(vim.api.nvim_list_wins()) do
-        local bufnr = vim.api.nvim_win_get_buf(winid)
-        if should_persist(bufnr) then
-          vim.api.nvim_win_call(winid, function()
-            pcall(vim.cmd, "silent! loadview")
-          end)
         end
       end
 
+      local function load_view(event)
+        if should_persist(event.buf) then
+          pcall(vim.cmd, "silent! loadview")
+        end
+      end
+
+      vim.api.nvim_create_autocmd("BufWinLeave", {
+        group = group,
+        callback = save_view,
+      })
+
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        group = group,
+        callback = load_view,
+      })
+
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        group = vim.api.nvim_create_augroup("UfoAutoPreview", { clear = true }),
+        group = group,
         callback = function()
           if vim.fn.foldclosed(vim.fn.line(".")) == -1 then
             return
           end
 
           local ok, ufo_mod = pcall(require, "ufo")
-          if not ok then
-            return
+          if ok then
+            ufo_mod.peekFoldedLinesUnderCursor()
           end
-
-          ufo_mod.peekFoldedLinesUnderCursor()
         end,
       })
+
+      for _, winid in ipairs(vim.api.nvim_list_wins()) do
+        vim.api.nvim_win_call(winid, function()
+          load_view({ buf = vim.api.nvim_win_get_buf(winid) })
+        end)
+      end
     end,
   },
 }
