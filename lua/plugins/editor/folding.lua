@@ -22,6 +22,8 @@ return {
       vim.opt.viewdir = vim.fn.stdpath("state") .. "/manual-fold-views//"
     end,
     config = function()
+      local sidecar = require("config.folding_sidecar")
+
       local function fold_virt_text_handler(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (" 󰁂 %d "):format(endLnum - lnum)
@@ -102,7 +104,9 @@ return {
       vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
 
       local function should_persist(bufnr)
-        return vim.bo[bufnr].buftype == "" and vim.api.nvim_buf_get_name(bufnr) ~= ""
+        return vim.bo[bufnr].buftype == ""
+          and vim.api.nvim_buf_get_name(bufnr) ~= ""
+          and not sidecar.is_markdown(bufnr)
       end
 
       local function save_view(event)
@@ -126,6 +130,117 @@ return {
         group = group,
         callback = load_view,
       })
+
+      local function restore_sidecar(event)
+        if not sidecar.is_markdown(event.buf) then
+          return
+        end
+        local path = sidecar.path(event.buf)
+        if not path or vim.fn.filereadable(path) ~= 1 then
+          return
+        end
+
+        vim.schedule(function()
+          if not vim.api.nvim_buf_is_valid(event.buf) then
+            return
+          end
+
+          vim.b[event.buf].fold_sidecar_restoring = true
+          sidecar.restore(event.buf)
+          vim.b[event.buf].fold_sidecar_restoring = false
+        end)
+      end
+
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        group = group,
+        callback = restore_sidecar,
+      })
+
+      local key_state
+      local key_namespace = vim.api.nvim_create_namespace("fold_sidecar")
+
+      local function warn_write_failure(ok)
+        if ok == false then
+          vim.notify("Failed to save the Markdown fold sidecar.", vim.log.levels.WARN)
+        end
+      end
+
+      local function persist_open(state)
+        if not vim.api.nvim_buf_is_valid(state.buf)
+          or not sidecar.is_markdown(state.buf)
+          or vim.b[state.buf].fold_sidecar_restoring then
+          return
+        end
+
+        vim.api.nvim_win_call(state.win, function()
+          if state.fold_start ~= -1 then
+            warn_write_failure(sidecar.remove_for_range(state.buf, state.fold_start, state.fold_end))
+          end
+        end)
+      end
+
+      vim.on_key(function(char)
+        local mode = vim.fn.mode():sub(1, 1)
+        if mode ~= "n" then
+          key_state = nil
+          return
+        end
+
+        if char == "z" then
+          local line = vim.fn.line(".")
+          local fold_start = vim.fn.foldclosed(line)
+          key_state = {
+            buf = vim.api.nvim_get_current_buf(),
+            line = fold_start ~= -1 and fold_start or line,
+            fold_start = fold_start,
+            fold_end = fold_start ~= -1 and vim.fn.foldclosedend(line) or nil,
+            win = vim.api.nvim_get_current_win(),
+          }
+          return
+        end
+
+        if not key_state then
+          return
+        end
+
+        local state = key_state
+        key_state = nil
+        if char == "o" then
+          vim.schedule(function()
+            persist_open(state)
+          end)
+        end
+      end, key_namespace)
+
+      local function install_markdown_visual_fold(bufnr)
+        if not sidecar.is_markdown(bufnr) then
+          return
+        end
+
+        vim.keymap.set("x", "zf", function()
+          local current_line = vim.fn.line(".")
+          local visual_line = vim.fn.line("v")
+          local start_line = math.min(current_line, visual_line)
+          local end_line = math.max(current_line, visual_line)
+          vim.cmd(("%d,%dfold"):format(start_line, end_line))
+
+          if vim.fn.foldclosed(start_line) == start_line then
+            warn_write_failure(sidecar.upsert(bufnr, start_line, end_line))
+          end
+        end, { buffer = bufnr, desc = "Create persistent Markdown fold" })
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        pattern = "markdown",
+        callback = function(event)
+          install_markdown_visual_fold(event.buf)
+        end,
+      })
+
+      for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        install_markdown_visual_fold(bufnr)
+      end
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         group = group,
