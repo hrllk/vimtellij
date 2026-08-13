@@ -43,6 +43,9 @@ keymap.set("n", "<esc>", ":noh<CR>", opts)
 -- delete character under cursor without yanking it
 keymap.set("n", "x", '"_x')
 
+-- paste over a visual selection without replacing the yank/clipboard register
+keymap.set("x", "p", '"_dP', opts)
+
 -- -------------------------------------------------
 -- ui
 -- -------------------------------------------------
