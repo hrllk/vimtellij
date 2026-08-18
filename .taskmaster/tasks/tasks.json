@@ -1,0 +1,83 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Neovim 설정 리팩토링",
+        "description": "현재 Neovim 설정의 복잡도, 중복, 환경 의존성, 테스트 공백을 줄이고 기능별 유지보수성을 높인다.",
+        "details": "범위: Markdown fold sidecar, theme highlights, DBUI autocmd, Java ftplugin, Snacks rg 탐색, headless 동작 검증. 애플리케이션 설정 변경은 하위 task별 검토 후 진행한다.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "[refactor] Markdown fold sidecar 분리 및 테스트",
+            "description": "folding.lua와 folding_sidecar.lua에 집중된 Markdown fold persistence 책임을 테스트 가능한 모듈로 분리한다.",
+            "details": "anchor 정규화·occurrence·resolve, JSON schema 검증, upsert/remove/restore, 파일 I/O를 분리한다. 일반 ufo 설정과 Markdown persistence 이벤트 연결을 구분하고 headless 단위/통합 테스트 기반을 마련한다. 기존 문서의 후속 범위와 zf/zo 동작을 기준으로 회귀 없이 진행한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 2,
+            "title": "[refactor] Theme highlight 중복 및 잠재 오류 정리",
+            "description": "theme, Snacks dashboard/picker, folding에 흩어진 highlight 정의를 정리하고 undefined global 사용 가능성을 제거한다.",
+            "details": "theme.lua의 bg = none 사용을 검토하고 colors.none으로 통일한다. 공통 highlight 재적용(ColorScheme/VimEnter) 책임을 정리하되 테마 변경 후 실제 화면 동작을 유지한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 3,
+            "title": "[refactor] DBUI 전역 BufEnter autocmd 축소",
+            "description": "vim-dadbod-ui와 무관한 모든 버퍼에서 실행되는 BufEnter 콜백을 DBUI 관련 이벤트 중심으로 축소한다.",
+            "details": "DBUIOpened/FileType 이벤트와 BufEnter의 중복 적용을 분석한다. buffer-local 설치 guard를 추가하고 dbui, dbout, DBUI SQL 버퍼의 resize/keymap 동작을 유지한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 4,
+            "title": "[refactor] Java ftplugin 환경 의존성 분리",
+            "description": "Java JDTLS 초기화에 섞인 경로 탐색, workspace 생성, JVM command 조립, 서버 시작 책임을 분리한다.",
+            "details": "Mason/JDTLS/Lombok 경로 탐색과 macOS config 선택을 별도 모듈로 추출한다. JVM 옵션의 숫자 인덱스 삽입을 제거하고 누락된 도구의 진단을 명확히 한다. Java 프로젝트 root, workspace 격리, cmp capabilities, JDTLS start_or_attach 동작을 유지한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 5,
+            "title": "[refactor] Snacks ripgrep 탐색 로직 추상화",
+            "description": "GUI 환경의 PATH 문제 해결을 특정 macOS Homebrew Codex 경로에 직접 결합하지 않도록 정리한다.",
+            "details": "rg 탐색 후보와 환경변수 우선순위를 별도 helper로 분리한다. macOS ARM, Intel, 일반 PATH, rg 미설치 상황을 구분하고 Snacks picker 초기화 전에 실행 파일이 발견되는 현재 동작을 유지한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 6,
+            "title": "[test] Headless 동작 테스트 harness 추가",
+            "description": "syntax 및 전체 configuration load를 넘어 fold sidecar, DBUI, Snacks explorer의 핵심 동작을 headless 환경에서 검증한다.",
+            "details": "외부 테스트 프레임워크 도입 전 최소 harness를 구성한다. sidecar schema/anchor/upsert/restore, zf/zo 상태 동기화, DBUI buffer-local keymap, explorer width toggle의 핵심 회귀 시나리오를 검증하고 scripts/check에 연결한다.",
+            "status": "pending",
+            "dependencies": [
+              "1.1",
+              "1.2",
+              "1.3",
+              "1.4",
+              "1.5"
+            ],
+            "parentTaskId": 1
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2026-08-18T13:04:40.176Z",
+      "updated": "2026-08-18T13:04:40.179Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
