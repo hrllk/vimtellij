@@ -31,14 +31,6 @@ return {
         hl.EndOfBuffer = { bg = colors.none }
         hl.WinSeparator = { fg = colors.accent, bg = colors.none }
 
-        hl.SnacksDashboardNormal = { fg = accent, bg = none }
-        hl.SnacksDashboardHeader = { fg = accent, bg = none }
-        hl.SnacksDashboardIcon = { fg = accent, bg = none }
-        hl.SnacksDashboardDesc = { fg = accent, bg = none }
-        hl.SnacksDashboardKey = { fg = accent, bg = none, bold = true }
-        hl.SnacksDashboardFooter = { fg = accent, bg = none }
-        hl.SnacksDashboardTitle = { fg = accent, bg = none }
-        hl.SnacksDashboardSpecial = { fg = accent, bg = none }
         hl.SnacksDashboardTerminal = { bg = colors.terminal }
 
         hl.RenderMarkdownH1Bg = { bg = colors.none }

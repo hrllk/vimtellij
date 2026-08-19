@@ -29,6 +29,7 @@ fi
 
 echo "Running headless fold tests..."
 for test_file in \
+  "$ROOT/tests/theme_highlight_spec.lua" \
   "$ROOT/tests/folding_anchor_spec.lua" \
   "$ROOT/tests/folding_sidecar_spec.lua" \
   "$ROOT/tests/folding_adapter_smoke.lua"; do

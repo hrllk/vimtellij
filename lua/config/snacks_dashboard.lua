@@ -28,7 +28,7 @@ local function get_hl(fg_hex, bg_hex)
 end
 
 local function apply_highlights()
-  local accent = "#A1A1AA"
+  local accent = colors.dashboard_accent
   vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = accent, bg = colors.none })
   vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = accent, bg = colors.none })
   vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = accent, bg = colors.none })
@@ -245,6 +245,7 @@ function M.setup(opts)
       "SnacksDashboardUpdatePost",
     },
     callback = function()
+      apply_highlights()
       vim.schedule(M.refresh)
     end,
   })
