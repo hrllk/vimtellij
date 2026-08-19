@@ -27,4 +27,12 @@ if rg -n "Error|Failed to run|E[0-9]{3}:" "$LOG"; then
   exit 1
 fi
 
+echo "Running headless fold tests..."
+for test_file in \
+  "$ROOT/tests/folding_anchor_spec.lua" \
+  "$ROOT/tests/folding_sidecar_spec.lua" \
+  "$ROOT/tests/folding_adapter_smoke.lua"; do
+  nvim --headless -n -u NONE -l "$test_file"
+done
+
 echo "All checks passed"
