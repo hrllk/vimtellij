@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Neovim 설정 리팩토링",
         "description": "현재 Neovim 설정의 복잡도, 중복, 환경 의존성, 테스트 공백을 줄이고 기능별 유지보수성을 높인다.",
         "details": "범위: Markdown fold sidecar, theme highlights, DBUI autocmd, Java ftplugin, Snacks rg 탐색, headless 동작 검증. 애플리케이션 설정 변경은 하위 task별 검토 후 진행한다.",
@@ -18,7 +18,8 @@
             "details": "anchor 정규화·occurrence·resolve, JSON schema 검증, upsert/remove/restore, 파일 I/O를 분리한다. 일반 ufo 설정과 Markdown persistence 이벤트 연결을 구분하고 headless 단위/통합 테스트 기반을 마련한다. 기존 문서의 후속 범위와 zf/zo 동작을 기준으로 회귀 없이 진행한다.",
             "status": "done",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -27,7 +28,8 @@
             "details": "theme.lua의 bg = none 사용을 검토하고 colors.none으로 통일한다. 공통 highlight 재적용(ColorScheme/VimEnter) 책임을 정리하되 테마 변경 후 실제 화면 동작을 유지한다.",
             "status": "done",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -36,7 +38,8 @@
             "details": "DBUIOpened/FileType 이벤트와 BufEnter의 중복 적용을 분석한다. buffer-local 설치 guard를 추가하고 dbui, dbout, DBUI SQL 버퍼의 resize/keymap 동작을 유지한다.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -45,7 +48,8 @@
             "details": "Mason/JDTLS/Lombok 경로 탐색과 macOS config 선택을 별도 모듈로 추출한다. JVM 옵션의 숫자 인덱스 삽입을 제거하고 누락된 도구의 진단을 명확히 한다. Java 프로젝트 root, workspace 격리, cmp capabilities, JDTLS start_or_attach 동작을 유지한다.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -54,7 +58,8 @@
             "details": "rg 탐색 후보와 환경변수 우선순위를 별도 helper로 분리한다. macOS ARM, Intel, 일반 PATH, rg 미설치 상황을 구분하고 Snacks picker 초기화 전에 실행 파일이 발견되는 현재 동작을 유지한다.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 6,
@@ -69,15 +74,53 @@
               "1.4",
               "1.5"
             ],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
+          },
+          {
+            "id": 7,
+            "title": "[refactor] folding sidecar invalid window guard",
+            "description": "scheduled Markdown fold persistence callback이 닫힌 window에 접근해 Invalid window id를 발생시키지 않도록 안전 guard를 추가한다.",
+            "details": "persist_open의 captured window 유효성을 확인하고, 유효한 z/zo 동작은 유지한다. invalid window 시 no-op을 보장하고 결정적 headless regression test를 추가한다. sidecar format, anchor algorithm, normal-file folding, cross-window key state 문제는 이 task 범위에서 제외한다. 계획문서: ~/gstack/plans/2026-08-21-fold-sidecar-invalid-window-guard.md 취소 사유(2026-08-27): ebd5c13 refactor 로 persist_open 이 제거되어 captured window 자체가 존재하지 않는다. 현재 zo 는 folding_adapter.open_markdown_fold 를 호출하는 buffer-local keymap 이라 scheduled callback 도, invalid window 경로도 없다.",
+            "status": "cancelled",
+            "dependencies": [],
+            "parentTaskId": 1,
+            "updatedAt": "2026-08-27T09:22:02.741Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 8,
+            "title": "[refactor] folding sidecar stale key state guard",
+            "description": "vim.on_key의 전역 pending fold 상태가 window/buffer 전환 후 잘못된 sidecar를 수정하지 않도록 stale state를 차단한다.",
+            "details": "z prefix와 o completion 사이의 window/buffer identity를 검증하고 다른 window 또는 buffer에서 완료된 입력은 no-op으로 폐기한다. same-window/same-buffer 동작과 sidecar removal을 유지하며 cross-window/cross-buffer headless regression test를 추가한다. invalid window callback guard는 별도 task로 분리한다. 계획문서: ~/gstack/plans/2026-08-21-fold-sidecar-window-state.md 취소 사유(2026-08-27): ebd5c13 refactor 로 vim.on_key 기반 전역 pending fold 상태가 제거되었다(리포지토리 내 on_key 사용 0건). zo 가 buffer-local keymap 이므로 window/buffer 전환에 따른 stale state 가 발생할 수 없다.",
+            "status": "cancelled",
+            "dependencies": [],
+            "parentTaskId": 1,
+            "parentId": "undefined",
+            "updatedAt": "2026-08-27T09:22:02.743Z"
+          },
+          {
+            "id": 9,
+            "title": "[refactor] Markdown gd 링크 이동을 Markdown 전용 모듈로 분리",
+            "description": "전역 lua/config/keymaps.lua의 gd를 원복한 상태에서 Java/Go 등 기존 LSP definition을 보존하고, Markdown 버퍼에서만 링크 이동을 제공한다.",
+            "details": "ftplugin/markdown.lua 또는 별도 lua/config/markdown_links.lua를 비교 검토한다. 내부 Markdown 링크와 외부 파일 링크, Marksman 미연결·definition 미응답·잘못된 링크의 동작을 명시한다. plan-ceo-review 통과 후 spec 작성, plan-eng-review 통과까지 계획을 반복한다. 구현 전 keymap 영향 범위와 회귀 검증을 확정한다.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1,
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2026-08-27T09:22:02.743Z"
       }
     ],
     "metadata": {
-      "created": "2026-08-18T13:04:40.176Z",
-      "updated": "2026-08-18T13:04:40.179Z",
-      "description": "Tasks for master context"
+      "version": "1.0.0",
+      "lastModified": "2026-08-27T09:22:02.743Z",
+      "taskCount": 1,
+      "completedCount": 0,
+      "tags": [
+        "master"
+      ]
     }
   }
 }
