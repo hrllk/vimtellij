@@ -9,6 +9,8 @@ return {
     ---@module "render-markdown"
     ---@type render.md.UserConfig
     opts = {
+      -- Extend the '[~]' highlight, icons included, over the item's sub-items.
+      custom_handlers = require("config.markdown_task_scope").handlers(),
       html = {
         comment = {
           conceal = false,
@@ -23,12 +25,7 @@ return {
           progress = { raw = "[/]", rendered = "󰦕 ", highlight = "DiagnosticInfo" },
           blocked = { raw = "[!]", rendered = "󰗖 ", highlight = "DiagnosticError" },
           question = { raw = "[?]", rendered = "󰘥 ", highlight = "DiagnosticHint" },
-          cancelled = {
-            raw = "[~]",
-            rendered = "󰅘 ",
-            highlight = "Comment",
-            scope_highlight = "Comment",
-          },
+          cancelled = { raw = "[~]", rendered = "󰅘 ", highlight = "Comment" },
         },
       },
     },
