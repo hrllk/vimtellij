@@ -5,6 +5,13 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    -- mason.nvim prepends its bin directory to PATH on setup. Without this
+    -- dependency the load order is undefined, so the executable() probe below
+    -- can run before PATH is patched and silently skip the server.
+    dependencies = {
+      "williamboman/mason.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
