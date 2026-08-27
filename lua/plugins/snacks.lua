@@ -13,6 +13,19 @@ return {
     init = function()
       vim.g.snacks_animate = false
 
+      -- GUI-launched Neovim may not inherit the PATH that provides rg to the
+      -- shell. Snacks spawns rg directly through libuv, so make the bundled
+      -- ripgrep discoverable before the picker is initialized.
+      if vim.fn.exepath("rg") == "" then
+        local bundled = vim.fn.glob("/opt/homebrew/Caskroom/codex/*/codex-path/rg", false, true)
+        for _, path in ipairs(bundled) do
+          if vim.fn.executable(path) == 1 then
+            vim.env.PATH = vim.fn.fnamemodify(path, ":h") .. ":" .. (vim.env.PATH or "")
+            break
+          end
+        end
+      end
+
       local function apply_picker_highlights()
         vim.api.nvim_set_hl(0, "SnacksNormal", { bg = colors.none })
         vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = colors.none })

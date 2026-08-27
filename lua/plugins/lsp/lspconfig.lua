@@ -35,7 +35,11 @@ return {
         },
       })
 
-      local servers = { "lua_ls", "gopls" }
+      vim.lsp.config("marksman", {
+        capabilities = capabilities,
+      })
+
+      local servers = { "lua_ls", "gopls", "marksman" }
       if vim.fn.executable("typescript-language-server") == 1 then
         vim.lsp.config("ts_ls", {
           capabilities = capabilities,
