@@ -96,6 +96,10 @@ keymap.set("v", "<", "<gv", opts)
 keymap.set("n", "rr", "<Cmd>Rest run<CR>", opts)
 
 -- jdtls
+-- Both of these error on press. No spec under lua/plugins/ installs
+-- springboot-nvim, and :JavaRunnerToggleLogs comes from nvim-java, which
+-- appears in this config only as a Mason registry URL in plugins/lsp/mason.lua,
+-- not as a plugin.
 keymap.set("n", "<C-A-r>", function() require("springboot-nvim").boot_run() end, opts)
 keymap.set("n", "<C-A-l>", ":JavaRunnerToggleLogs<CR>", opts)
 

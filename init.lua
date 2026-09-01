@@ -34,7 +34,12 @@ local opts = {
 require("config.options")
 -- Load user-defined theme overrides
 require("config.theme")
--- Load the keymaps from the config/keymaps.lua file
+-- Load the keymaps from the config/keymaps.lua file.
+-- This has to run before lazy.setup() below. keymaps.lua sets vim.g.mapleader,
+-- and lazy.nvim registers every spec's `keys` entries as lazy-load triggers
+-- during setup, resolving "<leader>" against whatever mapleader is at that
+-- moment. Move this after setup and the five specs that declare <leader>
+-- mappings bind against the default backslash instead, with no error.
 require("config.keymaps")
 -- Load the auto commands from the config/autocmds.lua file
 require("config.autocmds")

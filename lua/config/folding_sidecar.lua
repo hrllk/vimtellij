@@ -169,6 +169,10 @@ function M.restore(bufnr)
     end
   end
 
+  -- Restore bottom-up. Folding an outer range first hides the lines an inner
+  -- range still needs to address, so this descending sort by start_line is what
+  -- lets nested folds survive a restore. Ascending order silently drops the
+  -- inner folds.
   table.sort(resolved, function(left, right)
     return left.start_line > right.start_line
   end)

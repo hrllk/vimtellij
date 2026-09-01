@@ -11,6 +11,11 @@ return {
       "kevinhwang91/promise-async",
     },
     event = "VeryLazy",
+    -- These live in `init`, not `config`, on purpose. init runs during
+    -- lazy.setup() for every spec including lazy ones; config only runs when
+    -- nvim-ufo actually loads on VeryLazy. Buffers open before VeryLazy fires,
+    -- so moving these to `config` makes the first file of the session open with
+    -- the wrong fold state, and nothing errors.
     init = function()
       vim.opt.foldcolumn = "1"
       vim.opt.foldmethod = "manual"
@@ -146,6 +151,9 @@ return {
             return
           end
 
+          -- Keeps folding_adapter.open_markdown_fold from erasing the entries
+          -- restore() is in the middle of applying. See the guard in
+          -- config/folding_adapter.lua.
           vim.b[event.buf].fold_sidecar_restoring = true
           sidecar.restore(event.buf)
           vim.b[event.buf].fold_sidecar_restoring = false

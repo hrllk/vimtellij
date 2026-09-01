@@ -56,6 +56,8 @@ return {
         map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
         map("n", "<leader>ghd", gs.diffthis, "Diff This")
         map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+        -- Shadows the global <leader>gd from plugins/snacks.lua (git_diff
+        -- picker), and duplicates <leader>ghd two lines up.
         map("n", "<leader>gd", gs.diffthis, "Diff this")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
         -- stylua: ignore end

@@ -67,6 +67,9 @@ return {
       { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
       { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
       { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
+      -- plugins/git/gitsigns.lua also maps <leader>gd, buffer-locally, so that
+      -- one wins wherever Gitsigns attaches and this picker is only reachable
+      -- outside a tracked buffer.
       { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
       { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
     },

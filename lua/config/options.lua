@@ -13,6 +13,9 @@ vim.opt.scrolloff = 10 -- number of lines to keep above/below cursor
 vim.opt.sidescrolloff = 8 -- number of columns to keep to the left/right of cursor
 
 -- Tab spacing/behavior
+-- These apply to the files you edit. This repo's own Lua is formatted by
+-- stylua.toml at indent_width = 2, so editing the configuration itself gets
+-- 4-space indents that stylua reverts.
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.shiftwidth = 4 -- number of spaces inserted for each indentation level
 vim.opt.tabstop = 4 -- number of spaces inserted for tab character
