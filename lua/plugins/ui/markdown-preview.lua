@@ -34,6 +34,36 @@ return {
     end,
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      -- The plugin only sets its defaults when this variable is unset, so a
+      -- partial table would drop the rest; keep the stock values and turn off
+      -- only the browser following the nvim cursor.
+      vim.g.mkdp_preview_options = {
+        mkit = {},
+        katex = {},
+        uml = {},
+        maid = {},
+        disable_sync_scroll = 1,
+        sync_scroll_type = "middle",
+        hide_yaml_meta = 1,
+        sequence_diagrams = {},
+        flowchart_diagrams = {},
+        content_editable = false,
+        disable_filename = 0,
+        toc = {},
+      }
+
+      -- The preview re-reads g:mkdp_preview_options on every refresh, so
+      -- flipping it here takes effect in an already open browser tab. vim.g
+      -- returns a copy, so the whole table has to be assigned back.
+      vim.api.nvim_create_user_command("MarkdownPreviewSyncScrollToggle", function()
+        local opts = vim.g.mkdp_preview_options
+        opts.disable_sync_scroll = opts.disable_sync_scroll == 1 and 0 or 1
+        vim.g.mkdp_preview_options = opts
+        vim.notify("Markdown preview sync scroll: " .. (opts.disable_sync_scroll == 1 and "off" or "on"))
+      end, { desc = "Toggle browser following the cursor in markdown preview" })
+      vim.keymap.set("n", "<leader>ms", "<cmd>MarkdownPreviewSyncScrollToggle<cr>", {
+        desc = "Toggle markdown preview sync scroll",
+      })
     end,
     ft = { "markdown" },
   },
