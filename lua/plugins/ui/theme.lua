@@ -2,24 +2,20 @@ local colors = require("config.colors")
 
 ------------------------------
 -- color theme
--- configure OneDarkPro colors and custom highlights
+-- configure Sonokai colors and custom highlights
 ------------------------------
 return {
   {
-    "olimorris/onedarkpro.nvim",
+    "sainnhe/sonokai",
     lazy = false,
     priority = 1000, -- Ensure it loads first
     opts = {
-      options = {
-        transparency = true,
-        terminal_colors = true,
-        cursorline = false,
-        highlight_inactive_windows = false,
-      },
-      styles = {
-        comments = "NONE",
-        keywords = "NONE",
-      },
+      style = "andromeda",
+      -- 2 also makes floats, the sign column and the status line transparent
+      transparent_background = 2,
+      terminal_colors = true,
+      italic = true,
+      dim_inactive_windows = false,
       highlights = {
         Normal = { bg = colors.none },
         NormalNC = { bg = colors.none },
@@ -45,8 +41,20 @@ return {
       },
     },
     config = function(_, opts)
-      require("onedarkpro").setup(opts)
-      vim.cmd.colorscheme("onedark")
+      -- Sonokai is a Vimscript colorscheme, so it is configured through
+      -- globals that have to be set before :colorscheme runs.
+      vim.g.sonokai_style = opts.style
+      vim.g.sonokai_transparent_background = opts.transparent_background
+      vim.g.sonokai_disable_terminal_colors = opts.terminal_colors and 0 or 1
+      vim.g.sonokai_enable_italic = opts.italic and 1 or 0
+      vim.g.sonokai_disable_italic_comment = opts.italic and 0 or 1
+      vim.g.sonokai_dim_inactive_windows = opts.dim_inactive_windows and 1 or 0
+
+      local function apply_highlights()
+        for group, spec in pairs(opts.highlights) do
+          vim.api.nvim_set_hl(0, group, spec)
+        end
+      end
 
       local function clear_markdown_backgrounds()
         vim.api.nvim_set_hl(0, "@markup.raw", { bg = colors.none })
@@ -81,11 +89,15 @@ return {
         end
       end
 
+      vim.cmd.colorscheme("sonokai")
+
+      apply_highlights()
       clear_markdown_backgrounds()
       force_black_terminal()
 
       vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
         callback = function()
+          apply_highlights()
           clear_markdown_backgrounds()
           vim.schedule(force_black_terminal)
         end,
@@ -99,6 +111,102 @@ return {
       })
     end,
   },
+
+  -- Previous OneDarkPro setup, kept for reference
+  -- {
+  --   "olimorris/onedarkpro.nvim",
+  --   lazy = false,
+  --   priority = 1000, -- Ensure it loads first
+  --   opts = {
+  --     options = {
+  --       transparency = true,
+  --       terminal_colors = true,
+  --       cursorline = false,
+  --       highlight_inactive_windows = false,
+  --     },
+  --     styles = {
+  --       comments = "NONE",
+  --       keywords = "NONE",
+  --     },
+  --     highlights = {
+  --       Normal = { bg = colors.none },
+  --       NormalNC = { bg = colors.none },
+  --       NormalFloat = { bg = colors.none },
+  --       FloatBorder = { fg = colors.border, bg = colors.none },
+  --       FloatTitle = { bg = colors.none },
+  --       SignColumn = { bg = colors.none },
+  --       EndOfBuffer = { bg = colors.none },
+  --       WinSeparator = { fg = colors.accent, bg = colors.none },
+  --
+  --       SnacksDashboardTerminal = { bg = colors.terminal },
+  --
+  --       RenderMarkdownH1Bg = { bg = colors.none },
+  --       RenderMarkdownH2Bg = { bg = colors.none },
+  --       RenderMarkdownH3Bg = { bg = colors.none },
+  --       RenderMarkdownH4Bg = { bg = colors.none },
+  --       RenderMarkdownH5Bg = { bg = colors.none },
+  --       RenderMarkdownH6Bg = { bg = colors.none },
+  --       RenderMarkdownCode = { bg = colors.none },
+  --       RenderMarkdownCodeBorder = { fg = colors.border, bg = colors.none },
+  --       RenderMarkdownCodeInfo = { bg = colors.none },
+  --       RenderMarkdownCodeInline = { fg = colors.accent, bg = colors.terminal_inline, bold = true },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("onedarkpro").setup(opts)
+  --     vim.cmd.colorscheme("onedark")
+  --
+  --     local function clear_markdown_backgrounds()
+  --       vim.api.nvim_set_hl(0, "@markup.raw", { bg = colors.none })
+  --       vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = colors.none })
+  --       vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = colors.none })
+  --       vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = colors.accent, bg = colors.none, bold = true })
+  --       vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = colors.accent, bg = colors.terminal_inline, bold = true })
+  --       vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = colors.none })
+  --       vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = colors.border, bg = colors.none })
+  --       vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = colors.none })
+  --       for level = 1, 6 do
+  --         vim.api.nvim_set_hl(0, "RenderMarkdownH" .. level .. "Bg", { bg = colors.none })
+  --       end
+  --     end
+  --
+  --     local function force_black_terminal()
+  --       vim.g.terminal_color_0 = colors.terminal
+  --       vim.g.terminal_color_8 = colors.terminal
+  --       vim.api.nvim_set_hl(0, "SnacksDashboardTerminal", { bg = colors.terminal })
+  --
+  --       for _, win in ipairs(vim.api.nvim_list_wins()) do
+  --         local ok_cfg, cfg = pcall(vim.api.nvim_win_get_config, win)
+  --         local ok_buf, buf = pcall(vim.api.nvim_win_get_buf, win)
+  --         if ok_cfg and ok_buf and cfg.relative ~= "" and vim.bo[buf].filetype == "snacks_dashboard" then
+  --           vim.api.nvim_set_option_value("winhighlight", table.concat({
+  --             "Normal:SnacksDashboardTerminal",
+  --             "NormalFloat:SnacksDashboardTerminal",
+  --             "TermCursorNC:SnacksDashboardTerminal",
+  --           }, ","), { win = win })
+  --           vim.api.nvim_set_option_value("winblend", 0, { win = win })
+  --         end
+  --       end
+  --     end
+  --
+  --     clear_markdown_backgrounds()
+  --     force_black_terminal()
+  --
+  --     vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+  --       callback = function()
+  --         clear_markdown_backgrounds()
+  --         vim.schedule(force_black_terminal)
+  --       end,
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = { "SnacksDashboardOpened", "SnacksDashboardUpdatePost" },
+  --       callback = function()
+  --         vim.defer_fn(force_black_terminal, 20)
+  --       end,
+  --     })
+  --   end,
+  -- },
 
   -- Previous TokyoNight setup, kept for reference
   -- {
