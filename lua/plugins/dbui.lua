@@ -61,13 +61,9 @@ return {
         })
       end
 
-      vim.api.nvim_create_autocmd("User", {
-        group = group,
-        pattern = "DBUIOpened",
-        callback = function()
-          setup_window_keymaps(vim.api.nvim_get_current_buf())
-        end,
-      })
+      -- The drawer buffer is filetype dbui, so the FileType autocmd below
+      -- already covers DBUIOpened. BufEnter stays: a query buffer only gets
+      -- b:dbui_db_key_name after its FileType has fired.
       vim.api.nvim_create_autocmd("FileType", {
         group = group,
         pattern = { "dbui", "dbout", "sql" },

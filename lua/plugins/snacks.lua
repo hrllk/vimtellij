@@ -26,25 +26,20 @@ return {
         end
       end
 
-      local function apply_picker_highlights()
-        vim.api.nvim_set_hl(0, "SnacksNormal", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPicker", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerInput", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerList", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "SnacksPickerTitle", { bg = colors.none })
-      end
-
-      apply_picker_highlights()
-      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-        callback = apply_picker_highlights,
-      })
+      require("config.theme").keep({
+        SnacksNormal = { bg = colors.none },
+        SnacksNormalNC = { bg = colors.none },
+        SnacksWinSeparator = { fg = colors.border, bg = colors.none },
+        SnacksPicker = { bg = colors.none },
+        SnacksPickerInput = { bg = colors.none },
+        SnacksPickerList = { bg = colors.none },
+        SnacksPickerPreview = { bg = colors.none },
+        SnacksPickerBorder = { fg = colors.border, bg = colors.none },
+        SnacksPickerInputBorder = { fg = colors.border, bg = colors.none },
+        SnacksPickerListBorder = { fg = colors.border, bg = colors.none },
+        SnacksPickerPreviewBorder = { fg = colors.border, bg = colors.none },
+        SnacksPickerTitle = { bg = colors.none },
+      }, "UserSnacksPickerHighlight")
     end,
     keys = {
       { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
