@@ -35,11 +35,12 @@ local function rgb(hex)
   return tonumber(hex:sub(2), 16)
 end
 
+-- Body text stays neutral against the greyscale splash; the keys and their
+-- icons are the only part that takes the palette accent.
 local function assert_dashboard_highlights()
   for _, group in ipairs({
     "SnacksDashboardNormal",
     "SnacksDashboardHeader",
-    "SnacksDashboardIcon",
     "SnacksDashboardDesc",
     "SnacksDashboardFooter",
     "SnacksDashboardTitle",
@@ -50,8 +51,12 @@ local function assert_dashboard_highlights()
     assert_nil(hl.bg, group .. " transparent background")
   end
 
+  local icon = vim.api.nvim_get_hl(0, { name = "SnacksDashboardIcon", link = false })
+  assert_equal(icon.fg, rgb(colors.accent), "dashboard icon takes the accent")
+  assert_nil(icon.bg, "dashboard icon transparent background")
+
   local key = vim.api.nvim_get_hl(0, { name = "SnacksDashboardKey", link = false })
-  assert_equal(key.fg, rgb(colors.dashboard_accent), "dashboard key foreground")
+  assert_equal(key.fg, rgb(colors.accent), "dashboard key takes the accent")
   assert_nil(key.bg, "dashboard key transparent background")
   assert_equal(key.bold, true, "dashboard key remains bold")
 end
@@ -66,6 +71,7 @@ end
 
 for _, event in ipairs({ "SnacksDashboardOpened", "SnacksDashboardUpdatePost" }) do
   vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = "#FF0000", bg = "#000000" })
+  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = "#FF0000", bg = "#000000" })
   vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = "#FF0000", bg = "#000000", bold = false })
   vim.api.nvim_exec_autocmds("User", { pattern = event })
   vim.wait(20)
@@ -73,8 +79,7 @@ for _, event in ipairs({ "SnacksDashboardOpened", "SnacksDashboardUpdatePost" })
 end
 
 local theme_spec = require("plugins.ui.theme")[1]
-local hl = {}
-theme_spec.opts.on_highlights(hl, { gray = "#A1A1AA" })
+local hl = theme_spec.opts.highlights
 for _, group in ipairs({
   "SnacksDashboardNormal",
   "SnacksDashboardHeader",

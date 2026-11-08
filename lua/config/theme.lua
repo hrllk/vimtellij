@@ -1,22 +1,41 @@
+local colors = require("config.colors")
+
 ------------------------------
--- theme override (background)
+-- palette-backed highlight groups
+-- Named groups that stand in for the config/colors.lua palette. Plugins that
+-- can only be pointed at a highlight group by name -- lazygit, which snacks
+-- themes by reading groups out of Neovim -- link to these, so the palette
+-- stays the one place a colour is changed.
 ------------------------------
 
-local visual_group = vim.api.nvim_create_augroup("UserVisualHighlight", { clear = true })
+local M = {}
 
-local function apply_visual_highlights()
-  -- VS Code Dark+ selection color. This is the one highlight override in the
-  -- config not driven by config/colors.lua; folding it into the palette would
-  -- be a reasonable cleanup.
-  local visual_background = "#264F78"
+M.groups = {
+  UserAccent = { fg = colors.accent },
+  UserAccentBold = { fg = colors.accent, bold = true },
+  UserBorder = { fg = colors.border },
+  UserInactive = { fg = colors.inactive },
+  UserDashboardAccent = { fg = colors.dashboard_accent },
+  UserSelection = { bg = colors.selection },
 
-  vim.api.nvim_set_hl(0, "Visual", { bg = visual_background })
-  vim.api.nvim_set_hl(0, "VisualNOS", { bg = visual_background })
+  -- theme override (background)
+  Visual = { bg = colors.selection },
+  VisualNOS = { bg = colors.selection },
+}
+
+local palette_group = vim.api.nvim_create_augroup("UserPaletteHighlight", { clear = true })
+
+function M.apply()
+  for group, spec in pairs(M.groups) do
+    vim.api.nvim_set_hl(0, group, spec)
+  end
 end
 
-apply_visual_highlights()
+M.apply()
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = visual_group,
-  callback = apply_visual_highlights,
+  group = palette_group,
+  callback = M.apply,
 })
+
+return M
