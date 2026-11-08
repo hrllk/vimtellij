@@ -73,8 +73,7 @@ for _, event in ipairs({ "SnacksDashboardOpened", "SnacksDashboardUpdatePost" })
 end
 
 local theme_spec = require("plugins.ui.theme")[1]
-local hl = {}
-theme_spec.opts.on_highlights(hl, { gray = "#A1A1AA" })
+local hl = theme_spec.opts.highlights
 for _, group in ipairs({
   "SnacksDashboardNormal",
   "SnacksDashboardHeader",
