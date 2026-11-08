@@ -27,16 +27,20 @@ local function get_hl(fg_hex, bg_hex)
   return name
 end
 
+-- The splash animation is a greyscale ramp baked into the milli data, so the
+-- body text stays neutral to sit with it. Only the parts you actually press,
+-- the keys and their icons, take the palette accent, which is how the accent
+-- is used everywhere else: to mark an edge, not to fill a surface.
 local function apply_highlights()
-  local accent = colors.dashboard_accent
-  vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = accent, bg = colors.none, bold = true })
-  vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = accent, bg = colors.none })
-  vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = accent, bg = colors.none })
+  local neutral = colors.dashboard_accent
+  vim.api.nvim_set_hl(0, "SnacksDashboardNormal", { fg = neutral, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = neutral, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = colors.accent, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = neutral, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = colors.accent, bg = colors.none, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = neutral, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = neutral, bg = colors.none })
+  vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = neutral, bg = colors.none })
 end
 
 local function rtrim(s)
