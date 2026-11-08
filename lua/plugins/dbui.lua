@@ -101,8 +101,8 @@ return {
       })
     end,
     keys = {
-      { "<leader>db", "<Cmd>DBUIToggle<CR>", desc = "Database UI" },
-      { "<leader>dB", "<Cmd>DBUI<CR>", desc = "Open Database UI" },
+      { "<leader>db", function() require("config.dbui").toggle_tab() end, desc = "Database UI (own tab)" },
+      { "<leader>dB", "<Cmd>DBUIToggle<CR>", desc = "Database UI (drawer here)" },
     },
   },
 }
