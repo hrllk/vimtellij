@@ -14,7 +14,10 @@ return {
       -- 2 also makes floats, the sign column and the status line transparent
       transparent_background = 2,
       terminal_colors = true,
-      italic = true,
+      -- tokyonight and onedarkpro both ran with italics off; sonokai turns
+      -- them on by default, which reads as a different typeface in comments
+      -- and keywords.
+      italic = false,
       dim_inactive_windows = false,
       highlights = {
         Normal = { bg = colors.none },

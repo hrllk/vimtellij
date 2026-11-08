@@ -1,3 +1,5 @@
+local colors = require("config.colors")
+
 ------------------------------
 -- filename labels
 -- display the current filename in the window incline
@@ -20,7 +22,7 @@ return {
             " ",
             { filename, gui = modified and "bold,italic" or "bold" },
             " ",
-            guibg = "#363944",
+            guibg = colors.incline_bg,
           }
         end,
       })
