@@ -10,6 +10,12 @@ local hl_cache = {}
 local splash_opts = { splash = "ididnot", loop = true }
 local setup_done = false
 
+-- get_hl, rtrim, anchor_in_frame0 and the paint/attach pair below are a fork of
+-- milli.nvim's lua/milli/runtime.lua (its M.play pipeline). They are copied
+-- rather than called because milli keeps those helpers local, and M.play has no
+-- way to cancel a running loop -- snacks re-renders the dashboard, so a stale
+-- animation has to be stopped, which is what the `token` guard does. Re-check
+-- against upstream after a milli upgrade; nothing here fails loudly if it drifts.
 local function get_hl(fg_hex, bg_hex)
   local key = fg_hex .. "_" .. bg_hex
   if hl_cache[key] then
@@ -237,11 +243,7 @@ function M.setup(opts)
   end
   splash_opts.loop = true
 
-  apply_highlights()
-
-  vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-    callback = apply_highlights,
-  })
+  require("config.theme").keep(apply_highlights, "UserSnacksDashboardHighlight")
 
   vim.api.nvim_create_autocmd("User", {
     pattern = {

@@ -41,6 +41,13 @@ return {
         RenderMarkdownCodeBorder = { fg = colors.border, bg = colors.none },
         RenderMarkdownCodeInfo = { bg = colors.none },
         RenderMarkdownCodeInline = { fg = colors.accent, bg = colors.terminal_inline, bold = true },
+
+        -- Treesitter paints fenced code behind render-markdown, so these have
+        -- to be cleared too or the block keeps the colorscheme's background.
+        ["@markup.raw"] = { bg = colors.none },
+        ["@markup.raw.block"] = { bg = colors.none },
+        ["@markup.raw.block.markdown"] = { bg = colors.none },
+        ["@markup.raw.markdown_inline"] = { fg = colors.accent, bg = colors.none, bold = true },
       },
     },
     config = function(_, opts)
@@ -52,26 +59,6 @@ return {
       vim.g.sonokai_enable_italic = opts.italic and 1 or 0
       vim.g.sonokai_disable_italic_comment = opts.italic and 0 or 1
       vim.g.sonokai_dim_inactive_windows = opts.dim_inactive_windows and 1 or 0
-
-      local function apply_highlights()
-        for group, spec in pairs(opts.highlights) do
-          vim.api.nvim_set_hl(0, group, spec)
-        end
-      end
-
-      local function clear_markdown_backgrounds()
-        vim.api.nvim_set_hl(0, "@markup.raw", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "@markup.raw.block", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = colors.accent, bg = colors.none, bold = true })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = colors.accent, bg = colors.terminal_inline, bold = true })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = colors.none })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeBorder", { fg = colors.border, bg = colors.none })
-        vim.api.nvim_set_hl(0, "RenderMarkdownCodeInfo", { bg = colors.none })
-        for level = 1, 6 do
-          vim.api.nvim_set_hl(0, "RenderMarkdownH" .. level .. "Bg", { bg = colors.none })
-        end
-      end
 
       local function force_black_terminal()
         vim.g.terminal_color_0 = colors.terminal
@@ -94,17 +81,12 @@ return {
 
       vim.cmd.colorscheme("sonokai")
 
-      apply_highlights()
-      clear_markdown_backgrounds()
-      force_black_terminal()
-
-      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-        callback = function()
-          apply_highlights()
-          clear_markdown_backgrounds()
-          vim.schedule(force_black_terminal)
-        end,
-      })
+      require("config.theme").keep(function()
+        for group, spec in pairs(opts.highlights) do
+          vim.api.nvim_set_hl(0, group, spec)
+        end
+        vim.schedule(force_black_terminal)
+      end, "UserColorschemeHighlight")
 
       vim.api.nvim_create_autocmd("User", {
         pattern = { "SnacksDashboardOpened", "SnacksDashboardUpdatePost" },
